@@ -8,12 +8,18 @@ public class Golem : MonoBehaviour
 
     void Start()
     {
+        AttackManager attackManager = GetComponent<AttackManager>();
+        AttackManager.AttackData instance = attackManager.intstance;
+
+        
+
+        // UŒ‚‚Ì’Ç‰Á
         
     }
 
     void Update()
     {
-        
+
     }
 
 

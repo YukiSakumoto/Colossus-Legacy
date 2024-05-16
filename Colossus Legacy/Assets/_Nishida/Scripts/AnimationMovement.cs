@@ -6,25 +6,27 @@ public class AnimationMovement : MonoBehaviour
 {
     public Animator animator;
 
-    private CharacterMovement flagProvider;
+    private CharacterMovement characterMovement;
+    private const float m_deathAnimationMax = 1.66f;
+    private float m_deathAnimation = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        // FlagProviderを持つGameObjectを検索
-        GameObject flagProviderObject = GameObject.Find("HumanMale_Character Variant");
+        // CharacterMovementを持つGameObjectを検索
+        GameObject characterObject = GameObject.Find("HumanMale_Character");
 
-        // FlagProviderがアタッチされているGameObjectからFlagProviderコンポーネントを取得
-        flagProvider = flagProviderObject.GetComponent<CharacterMovement>();
+        // CharacterMovementがアタッチされているGameObjectからCharacterMovementコンポーネントを取得
+        characterMovement = characterObject.GetComponent<CharacterMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (flagProvider.Getm_attackFlg)
+        if (characterMovement.Getm_attackFlg)
         {
-            if (!flagProvider.Getm_weaponFlg)
+            if (!characterMovement.Getm_weaponFlg)
             {
                 animator.SetTrigger("p_Sword");
             }
@@ -34,28 +36,35 @@ public class AnimationMovement : MonoBehaviour
             }
         }
 
-        if (flagProvider.Getm_subAttackFlg)
+        if (characterMovement.Getm_subAttackFlg)
         {
             animator.SetTrigger("p_Bomb");
         }
 
-        if (flagProvider.Getm_rollFlg)
+        if (characterMovement.Getm_rollFlg)
         {
             animator.SetTrigger("p_Roll");
         }
 
-        if (Input.GetKey(KeyCode.Backspace))
+        if (characterMovement.Getm_damageFlg)
         {
             animator.SetTrigger("p_Damage");
         }
 
-        if (Input.GetKey(KeyCode.Return))
+        if (characterMovement.Getm_deathFlg)
         {
-            animator.SetTrigger("p_Damage");
-            animator.SetBool("b_Death", true);
+            if (m_deathAnimation <= m_deathAnimationMax)
+            {
+                m_deathAnimation += Time.deltaTime;
+                animator.Play("Death", -1, (m_deathAnimation / m_deathAnimationMax));
+            }
+        }
+        else
+        {
+            animator.SetBool("b_Death", false);
         }
 
-        if (flagProvider.Getm_walkFlg)
+        if (characterMovement.Getm_walkFlg)
         {
             animator.SetBool("b_Run", true);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,21 +6,62 @@ using UnityEngine.UIElements;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float m_leftRightSpeed = 4f;  // キャラクターの移動速度
-    public float m_rotationSpeed = 200f; // キャラクターの回転速度
-
     private Rigidbody m_rb; // リジッドボディ。
+
+    private string m_targetParentTag = "Enemy";
+
+    enum Damage
+    {
+        small = 20,
+        medium = 50,
+        big = 70,
+        death = 100
+    }
+    enum Recovery
+    {
+        small = 20,
+        medium = 50,
+        big = 70,
+        full = 100
+    }
+
+    private const int m_playerMaxLife = 100;
+    private const int m_rollTiredCountMax = 5;
+
+    public int m_playerLife = m_playerMaxLife; // 主人公の体力
+    private int m_rollTiredCount = 0;           // 主人公の回避行動を連続して使うと段々緩慢になっていくカウント
+
+    private const float m_leftRightSpeed = 4f;           // キャラクターの移動速度
+    private const float m_rollCoolSetTime = 0.8f;        // 回避行動の実行時間固定値
+    private const float m_rollStiffnessSetTime = 0.5f;   // 回避行動終了時の硬直時間固定値
+    private const float m_rollAcceleration = 2.4f;       // 回避行動の加速量固定値
+    private const float m_rollTiredDecreaseBase = 0.25f;  // 回避行動の減速量設定
+    private const float m_rollTiredDecreaseTimeBase = 3f;// 回避行動の減速量回復時間固定値
+    private const float m_swordAttackCoolSetTime = 0.9f; // 剣で攻撃したときの硬直時間固定値
+    private const float m_bowAttackCoolSetTime = 1.7f;   // 弓で攻撃したときの硬直時間固定値
+    private const float m_subAttackCoolSetTime = 1.2f;   // サブ攻撃したときの硬直時間固定値
+    private const float m_weaponChangeCoolSetTime = 2f;  // 武器チェンジ時のクールタイム固定値
+    private const float m_damageCoolSetTime = 0.6f;      // ダメージを受けた後の硬直時間固定値
+    private const float m_invincibilitySetTime = 2f;     // ダメージを受けた後の無敵時間固定値
 
     private float m_rollCoolTime = 0f;         // 回避行動の実行時間
     private float m_rollStiffnessTime = 0f;    // 回避行動終了時の硬直時間
+    private float m_rollTiredDecrease = 0f;    // 回避行動の減速量設定
+    private float m_rollTiredDecreaseTime = 0f;// 回避行動の減速量回復時間
     private float m_weaponAttackCoolTime = 0f; // 攻撃モーションから移動に移れるまでの時間
     private float m_weaponChangeCoolTime = 0f; // 武器の種類を変える時のクールタイム
+    private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
+    private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
     private bool m_attackFlg = false;                    // 攻撃の管理(AnimationMovementへの移送用)
     private bool m_subAttackFlg = false;                 // サブ攻撃の管理(AnimationMovementへの移送用)
     private bool m_rollFlg = false;                      // 回避行動の管理(AnimationMovementへの移送用)
+    private bool m_damageFlg = false;                    // プレイヤー被ダメージ時の管理(AnimationMovementへの移送用)
+    private bool m_deathFlg = false;                     // 死亡時の管理(AnimationMovementへの移送用)
+    private bool m_damageMotionFlg = false;              // ダメージモーション中の管理
+    private bool m_invincibleFlg = false;                // 無敵時間中の管理
     private bool m_rollCoolTimeCheckFlg = false;         // 回避行動の実行時間中かの管理
     private bool m_rollStiffnessTimeCheckFlg = false;    // 回避行動の硬直時間中かの管理
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
@@ -38,8 +80,10 @@ public class CharacterMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
         float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
 
-        // 移動の処理。回避行動、武器チェンジ中、攻撃中は移動不可
-        if (!m_rollFinishCheckFlg && !m_weaponChangeCoolTimeCheckFlg && !m_weaponAttackCoolTimeCheckFlg)
+        // 移動の処理。回避行動、武器チェンジ中、攻撃中、ダメージモーション中、死亡時は移動不可
+        if (!m_rollFinishCheckFlg && !m_weaponChangeCoolTimeCheckFlg &&
+            !m_weaponAttackCoolTimeCheckFlg && !m_damageMotionFlg &&
+            !m_deathFlg)
         {
             if (horizontalInput != 0f || varticalInput != 0f)
             {
@@ -68,7 +112,7 @@ public class CharacterMovement : MonoBehaviour
         {
             // Y軸の回転に合わせて移動方向を計算する
             Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-            Vector3 movement = rotationDirection * (m_leftRightSpeed * 2.3f);
+            Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
 
             // Rigidbodyを使ってオブジェクトを移動
             m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
@@ -89,13 +133,13 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_weaponFlg = true;
                     m_weaponAttackCoolTimeCheckFlg = true;
-                    m_weaponChangeCoolTime = 2f;
+                    m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
                 else // 剣に変更
                 {
                     m_weaponFlg = false;
                     m_weaponAttackCoolTimeCheckFlg = true;
-                    m_weaponChangeCoolTime = 2f;
+                    m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
             }
         }
@@ -118,6 +162,11 @@ public class CharacterMovement : MonoBehaviour
             m_subAttackFlg = false;
         }
 
+        if (m_damageFlg)
+        {
+            m_damageFlg = false;
+        }
+
         // 装備している武器で攻撃。使った武器によって硬直時間が異なる。
         if (Input.GetMouseButtonDown(0))
         {
@@ -126,12 +175,12 @@ public class CharacterMovement : MonoBehaviour
                 m_attackFlg = true;
                 if (!m_weaponFlg) // 剣で攻撃
                 {
-                    m_weaponAttackCoolTime = 0.9f;
+                    m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
                 }
                 else // 弓で攻撃
                 {
-                    m_weaponAttackCoolTime = 2.0f;
+                    m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
                 }
             }
@@ -143,7 +192,7 @@ public class CharacterMovement : MonoBehaviour
             if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg)
             {
                 m_subAttackFlg = true;
-                m_weaponAttackCoolTime = 1.2f;
+                m_weaponAttackCoolTime = m_subAttackCoolSetTime;
                 m_weaponAttackCoolTimeCheckFlg = true;
             }
         }
@@ -153,11 +202,22 @@ public class CharacterMovement : MonoBehaviour
         {
             if (!m_rollFinishCheckFlg)
             {
-                m_rollCoolTime = 0.9f;
-                m_rollStiffnessTime = 0.5f;
+                m_rollCoolTime = m_rollCoolSetTime;
+                m_rollStiffnessTime = m_rollStiffnessSetTime;
                 m_rollCoolTimeCheckFlg = true;
                 m_rollFinishCheckFlg = true;
                 m_rollFlg = true;
+                // 回避行動をするたびに段々スピードが下がる
+                if (m_rollTiredCount < m_rollTiredCountMax)
+                {
+                    m_rollTiredCount++;
+                }
+                else
+                {
+                    m_rollTiredCount = m_rollTiredCountMax;
+                }
+                m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase;
+                m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount;
             }
         }
 
@@ -202,6 +262,88 @@ public class CharacterMovement : MonoBehaviour
                 m_weaponAttackCoolTimeCheckFlg = false;
             }
         }
+
+        // ダメージモーション中の処理
+        if(m_damageMotionFlg)
+        {
+            m_damageCoolTime -= Time.deltaTime;
+            if(m_damageCoolTime <= 0)
+            {
+                m_damageMotionFlg = false;
+                m_invincibleFlg = true;
+            }
+        }
+
+        // 無敵時間中の処理
+        if(m_invincibleFlg)
+        {
+            m_invincibilityTime -= Time.deltaTime;
+            if(m_invincibilityTime <= 0)
+            {
+                m_invincibleFlg = false;
+            }
+        }
+
+        // 回避行動移動量減少時間の回復の処理
+        if(m_rollTiredCount > 0)
+        {
+            m_rollTiredDecreaseTime -= Time.deltaTime;
+            if(m_rollTiredDecreaseTime <= 0)
+            {
+                m_rollTiredCount--;
+                if(m_rollTiredCount > 0)
+                {
+                    m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase;
+                }
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider _other)
+    {
+        // ダメージモーション中や無敵中はダメージを受けない
+        if (!m_damageMotionFlg && !m_invincibleFlg)
+        {
+            // 触れたオブジェクトの親オブジェクトを取得
+            Transform parentTransform = _other.transform.parent?.parent;
+
+            // 親オブジェクトが存在するかを確認
+            if (parentTransform != null)
+            {
+                if (parentTransform.gameObject.CompareTag(m_targetParentTag))
+                {
+                    Debug.Log("hit at " + parentTransform.name);
+                    int damage = (int)Damage.medium;
+                    hit(damage);
+                }
+                else
+                {
+                    // 当たったオブジェクトの親オブジェクトの親オブジェクトにタグが設定されていない場合にコンソールに表示
+                    Debug.Log(parentTransform.name + " is does not have the " + m_targetParentTag);
+                }
+            }
+            else
+            {
+                // 親オブジェクトの親オブジェクトに当たるオブジェクトが無い
+                Debug.Log("No parent object found");
+            }
+        }
+    }
+
+    void hit(int _damage)
+    {
+        m_playerLife -= _damage;
+        if (m_playerLife > 0)
+        {
+            m_damageFlg = true;
+            m_damageMotionFlg = true;
+            m_damageCoolTime = m_damageCoolSetTime;
+            m_invincibilityTime = m_invincibilitySetTime;
+        }
+        else
+        {
+            m_deathFlg = true;
+        }
     }
 
     public bool Getm_walkFlg
@@ -222,9 +364,16 @@ public class CharacterMovement : MonoBehaviour
     {
         get { return m_attackFlg; }
     }
-
     public bool Getm_subAttackFlg
     {
         get { return m_subAttackFlg; }
+    }
+    public bool Getm_damageFlg
+    {
+        get { return m_damageFlg; }
+    }
+    public bool Getm_deathFlg
+    {
+        get { return m_deathFlg; }
     }
 }

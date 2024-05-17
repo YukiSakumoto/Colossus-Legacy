@@ -56,6 +56,7 @@ public class AnimationMovement : MonoBehaviour
             if (m_deathAnimation <= m_deathAnimationMax)
             {
                 m_deathAnimation += Time.deltaTime;
+                // 死亡時にアニメーションの停止位置固定(倒れたところでモーションを固定する)
                 animator.Play("Death", -1, (m_deathAnimation / m_deathAnimationMax));
             }
         }

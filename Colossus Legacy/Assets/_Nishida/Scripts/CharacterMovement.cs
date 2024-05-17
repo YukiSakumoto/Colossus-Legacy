@@ -38,9 +38,9 @@ public class CharacterMovement : MonoBehaviour
     private const float m_rollTiredDecreaseBase = 0.25f;  // 回避行動の減速量設定
     private const float m_rollTiredDecreaseTimeBase = 3f;// 回避行動の減速量回復時間固定値
     private const float m_swordAttackCoolSetTime = 0.9f; // 剣で攻撃したときの硬直時間固定値
-    private const float m_bowAttackCoolSetTime = 1.7f;   // 弓で攻撃したときの硬直時間固定値
+    private const float m_bowAttackCoolSetTime = 1.4f;   // 弓で攻撃したときの硬直時間固定値
     private const float m_subAttackCoolSetTime = 1.2f;   // サブ攻撃したときの硬直時間固定値
-    private const float m_weaponChangeCoolSetTime = 2f;  // 武器チェンジ時のクールタイム固定値
+    private const float m_weaponChangeCoolSetTime = 1f;  // 武器チェンジ時のクールタイム固定値
     private const float m_damageCoolSetTime = 0.6f;      // ダメージを受けた後の硬直時間固定値
     private const float m_invincibilitySetTime = 2f;     // ダメージを受けた後の無敵時間固定値
 
@@ -54,7 +54,7 @@ public class CharacterMovement : MonoBehaviour
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
-    private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
+    public bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
     private bool m_attackFlg = false;                    // 攻撃の管理(AnimationMovementへの移送用)
     private bool m_subAttackFlg = false;                 // サブ攻撃の管理(AnimationMovementへの移送用)
     private bool m_rollFlg = false;                      // 回避行動の管理(AnimationMovementへの移送用)
@@ -80,10 +80,9 @@ public class CharacterMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
         float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
 
-        // 移動の処理。回避行動、武器チェンジ中、攻撃中、ダメージモーション中、死亡時は移動不可
-        if (!m_rollFinishCheckFlg && !m_weaponChangeCoolTimeCheckFlg &&
-            !m_weaponAttackCoolTimeCheckFlg && !m_damageMotionFlg &&
-            !m_deathFlg)
+        // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
+        if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
+            !m_damageMotionFlg && !m_deathFlg)
         {
             if (horizontalInput != 0f || varticalInput != 0f)
             {
@@ -132,13 +131,13 @@ public class CharacterMovement : MonoBehaviour
                 if (!m_weaponFlg) // 弓に変更
                 {
                     m_weaponFlg = true;
-                    m_weaponAttackCoolTimeCheckFlg = true;
+                    m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
                 else // 剣に変更
                 {
                     m_weaponFlg = false;
-                    m_weaponAttackCoolTimeCheckFlg = true;
+                    m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
             }

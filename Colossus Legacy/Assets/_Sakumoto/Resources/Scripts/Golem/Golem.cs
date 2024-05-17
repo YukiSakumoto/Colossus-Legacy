@@ -35,16 +35,15 @@ public class Golem : MonoBehaviour
 
         if (m_golemLeft.AttackWait())
         {
-            m_golemRight.AttackSet(2);
+            m_golemRight.SetNextAttackId(2);
         }
         m_golemRight.AttackWait();
         {
-            m_golemLeft.AttackSet(2);
+            m_golemLeft.SetNextAttackId(2);
         }
 
         if (m_golemLeft.GetStop() && m_golemRight.GetStop())
         {
-            Debug.Log("OK!");
             m_golemLeft.AttackStart();
             m_golemRight.AttackStart();
         }

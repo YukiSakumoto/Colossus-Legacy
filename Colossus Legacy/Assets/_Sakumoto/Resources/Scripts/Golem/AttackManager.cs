@@ -79,7 +79,7 @@ public class AttackManager : MonoBehaviour
     public int Action(float _dist)
     {
         // 待機状態なら現在の攻撃IDを返してリターン
-        if (m_attackLists[SearchAttackId(m_nowId)].m_waitFlg) { return m_nowId; }
+        if (m_attackLists[SearchAttackId(m_nowId)].m_waitFlg && m_nowId != -1) { return m_nowId; }
 
         if (!m_canAttack) { return -1; }      // クールダウンがまだなら早期リターン
 
@@ -93,6 +93,7 @@ public class AttackManager : MonoBehaviour
             }
         }
         if (attacks.Count == 0) { Debug.Log("攻撃不可"); return -1; }  // 距離内に攻撃対象がいなかったら早期リターン
+
 
         // 取得した一覧からランダムで攻撃
         int randIndex = Random.Range(0, attacks.Count);
@@ -113,6 +114,7 @@ public class AttackManager : MonoBehaviour
 
     public int Action(float _dist, int _id)
     {
+
         // 待機状態なら現在の攻撃IDを返してリターン
         if (m_attackLists[SearchAttackId(m_nowId)].m_waitFlg) { return m_nowId; }
 

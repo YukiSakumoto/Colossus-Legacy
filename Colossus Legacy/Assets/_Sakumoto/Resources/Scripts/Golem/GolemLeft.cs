@@ -1,51 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GolemLeft : Golem
 {
-    private AttackManager attackManager;
     public List<Collider> attackColliders;
+
+    public int m_nowAttackId = -1;
 
 
     void Start()
     {
         attackManager = GetComponent<AttackManager>();
 
-        AttackData attackData = new AttackData();
-        {
-            attackData.m_id = 0;
-            attackData.m_name = "SwingDown";
-            attackData.m_dist = 10.0f;
-            attackData.m_coolDown = 10.0f;
-            attackManager.AddAttack(attackData);
-        }
-
-        {
-            attackData.m_id = 1;
-            attackData.m_name = "SwingDown";
-            attackData.m_dist = 10.0f;
-            attackData.m_coolDown = 10.0f;
-            attackManager.AddAttack(attackData);
-        }
-
-        {
-            attackData.m_id = 2;
-            attackData.m_name = "SwingDown";
-            attackData.m_dist = 10.0f;
-            attackData.m_coolDown = 5.0f;
-            attackManager.AddAttack(attackData);
-        }
+        //attackManager.AddAttack(0, "SwingDown", 10.0f, 3.0f);
+        //attackManager.AddAttack(1, "SwingDown", 10.0f, 5.0f);
+        attackManager.AddAttack(2, "Palms", 10.0f, 3.0f, true);
     }
 
 
     void Update()
     {
-        attackManager.Action(10.0f);
+        if (m_stop) { return; }
+
+        m_nowAttackId = AttackSet();
     }
 
 
+    public int AttackSet(int _id = -1)
+    {
+        int resultId = -1;
 
+        if (_id == -1) resultId = attackManager.Action(10.0f);
+        else resultId = attackManager.Action(10.0f, _id);
+
+        return resultId;
+    }
+
+
+    public bool AttackWait()
+    {
+        if (m_nowAttackId == 2)
+        {
+            Debug.Log("PalmsL!");
+            m_stop = true;
+        }
+
+        return m_stop;
+    }
+
+
+    public void AttackStart()
+    {
+        m_stop = false;
+        attackManager.AttackStart();
+    }
+
+
+    public bool GetStop() { return m_stop; }
+
+
+    // çUåÇîªíËê∂ê¨
     private void AttackOn()
     {
         for (int i = 0; i < attackColliders.Count; i++)
@@ -55,6 +71,7 @@ public class GolemLeft : Golem
     }
 
 
+    // çUåÇîªíËè¡ãé
     private void AttackOff()
     {
         for (int i = 0; i < attackColliders.Count; i++)
@@ -63,5 +80,4 @@ public class GolemLeft : Golem
             attackManager.AnimationFin();
         }
     }
-
 }

@@ -151,7 +151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2812514057793519505, guid: 9a0711a67c744bd43bead3f598b3afb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 170.2879
+      value: 168.9
       objectReference: {fileID: 0}
     - target: {fileID: 2812514057793519505, guid: 9a0711a67c744bd43bead3f598b3afb5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7861677514554439760, guid: 9697070ca41d2fa4e862b63f68e501ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 181.5879
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 7861677514554439760, guid: 9697070ca41d2fa4e862b63f68e501ca, type: 3}
       propertyPath: m_LocalPosition.z
@@ -405,7 +405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2411913786322752687, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 286.3879
+      value: 284.7
       objectReference: {fileID: 0}
     - target: {fileID: 2411913786322752687, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_LocalPosition.z
@@ -444,7 +444,8 @@ PrefabInstance:
       value: Ruins Map_Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1172913980013410904, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
@@ -605,7 +606,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fae8553e3c288e44a77568f0c45e0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_stop: 0
   hp: 100
+  m_golemLeft: {fileID: 1504014787}
   attackColliders:
   - {fileID: 8894306748364425970}
   - {fileID: 8894306748364425971}
@@ -708,7 +711,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b293a86845482854b896ee3fcc1cbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_stop: 0
   hp: 100
+  m_golemRight: {fileID: 1184383028}
   attackColliders:
   - {fileID: 2091065169}
   - {fileID: 1762877244}
@@ -752,6 +757,25 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 8375403625918964927, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
   m_PrefabInstance: {fileID: 8894306748364425969}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1669452949 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
+  m_PrefabInstance: {fileID: 8894306748364425969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1669452952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669452949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b681f24d1bf159548b84d6887f1d6e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_stop: 0
+  hp: 100
 --- !u!136 &1762877244 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 1436501933923767360, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
@@ -1076,6 +1100,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 83.454796
       objectReference: {fileID: 0}
+    - target: {fileID: 5990921274579788242, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ec5cdaa15794f8e48a5b7c67ae5d626d, type: 2}
     - target: {fileID: 6003524140075003714, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1248,6 +1276,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1669452952}
     - targetCorrespondingSourceObject: {fileID: 2522373297785260636, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1504014787}

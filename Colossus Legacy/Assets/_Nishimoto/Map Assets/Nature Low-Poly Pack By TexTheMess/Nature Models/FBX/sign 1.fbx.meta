@@ -1,4 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 67c736bc22120b8428f780903fa71de6
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+=======
 guid: d7468c1b70eaa614a9bb65b9463ae5cb
 ModelImporter:
   serializedVersion: 21300
@@ -14,6 +21,7 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Material.016
     second: {fileID: 7575478303150874890, guid: 80501645366583d4d9c32df6efd3c900, type: 3}
+>>>>>>> origin/main
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +32,11 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+<<<<<<< HEAD
+    removeConstantScaleCurves: 0
+=======
     removeConstantScaleCurves: 1
+>>>>>>> origin/main
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -50,6 +62,10 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+<<<<<<< HEAD
+    importPhysicalCameras: 1
+=======
+>>>>>>> origin/main
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -77,6 +93,10 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+<<<<<<< HEAD
+    strictVertexDataChecks: 0
+=======
+>>>>>>> origin/main
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -109,6 +129,10 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+<<<<<<< HEAD
+  importBlendShapeDeformPercent: 1
+=======
+>>>>>>> origin/main
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

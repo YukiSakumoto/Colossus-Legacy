@@ -10,25 +10,27 @@ public class CharacterMovement : MonoBehaviour
 
     private string m_targetParentTag = "Enemy";
 
+    // ダメージ量
     enum Damage
     {
-        small = 20,
-        medium = 50,
-        big = 70,
-        death = 100
+        small = 20,  // 小ダメージ
+        medium = 50, // 中ダメージ
+        big = 70,    // 大ダメージ
+        death = 100  // 即死攻撃
     }
+    // 回復量
     enum Recovery
     {
-        small = 20,
-        medium = 50,
-        big = 70,
-        full = 100
+        small = 20,  // 小回復
+        medium = 50, // 中回復
+        big = 70,    // 大回復
+        full = 100   // 完全回復
     }
 
-    private const int m_playerMaxLife = 100;
-    private const int m_rollTiredCountMax = 5;
+    private const int m_playerMaxLife = 100;   // 主人公の体力の上限値
+    private const int m_rollTiredCountMax = 5; // 回避行動の移動減少量カウントの上限
 
-    public int m_playerLife = m_playerMaxLife; // 主人公の体力
+    private int m_playerLife = m_playerMaxLife; // 主人公の体力
     private int m_rollTiredCount = 0;           // 主人公の回避行動を連続して使うと段々緩慢になっていくカウント
 
     private const float m_leftRightSpeed = 4f;           // キャラクターの移動速度
@@ -38,9 +40,9 @@ public class CharacterMovement : MonoBehaviour
     private const float m_rollTiredDecreaseBase = 0.25f;  // 回避行動の減速量設定
     private const float m_rollTiredDecreaseTimeBase = 3f;// 回避行動の減速量回復時間固定値
     private const float m_swordAttackCoolSetTime = 0.9f; // 剣で攻撃したときの硬直時間固定値
-    private const float m_bowAttackCoolSetTime = 1.7f;   // 弓で攻撃したときの硬直時間固定値
+    private const float m_bowAttackCoolSetTime = 1.4f;   // 弓で攻撃したときの硬直時間固定値
     private const float m_subAttackCoolSetTime = 1.2f;   // サブ攻撃したときの硬直時間固定値
-    private const float m_weaponChangeCoolSetTime = 2f;  // 武器チェンジ時のクールタイム固定値
+    private const float m_weaponChangeCoolSetTime = 1f;  // 武器チェンジ時のクールタイム固定値
     private const float m_damageCoolSetTime = 0.6f;      // ダメージを受けた後の硬直時間固定値
     private const float m_invincibilitySetTime = 2f;     // ダメージを受けた後の無敵時間固定値
 
@@ -80,10 +82,9 @@ public class CharacterMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
         float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
 
-        // 移動の処理。回避行動、武器チェンジ中、攻撃中、ダメージモーション中、死亡時は移動不可
-        if (!m_rollFinishCheckFlg && !m_weaponChangeCoolTimeCheckFlg &&
-            !m_weaponAttackCoolTimeCheckFlg && !m_damageMotionFlg &&
-            !m_deathFlg)
+        // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
+        if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
+            !m_damageMotionFlg && !m_deathFlg)
         {
             if (horizontalInput != 0f || varticalInput != 0f)
             {
@@ -132,13 +133,13 @@ public class CharacterMovement : MonoBehaviour
                 if (!m_weaponFlg) // 弓に変更
                 {
                     m_weaponFlg = true;
-                    m_weaponAttackCoolTimeCheckFlg = true;
+                    m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
                 else // 剣に変更
                 {
                     m_weaponFlg = false;
-                    m_weaponAttackCoolTimeCheckFlg = true;
+                    m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
             }
@@ -299,6 +300,7 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    // Is Triggerが付いているColliderに接触したときの処理
     void OnTriggerEnter(Collider _other)
     {
         // ダメージモーション中や無敵中はダメージを受けない
@@ -312,6 +314,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (parentTransform.gameObject.CompareTag(m_targetParentTag))
                 {
+                    // 当たった相手の親オブジェクトの名前をコンソールに表示する
                     Debug.Log("hit at " + parentTransform.name);
                     int damage = (int)Damage.medium;
                     hit(damage);
@@ -330,17 +333,18 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    // ダメージを受けたときの汎用処理
     void hit(int _damage)
     {
         m_playerLife -= _damage;
-        if (m_playerLife > 0)
+        if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション+無敵時間発生
         {
             m_damageFlg = true;
             m_damageMotionFlg = true;
             m_damageCoolTime = m_damageCoolSetTime;
             m_invincibilityTime = m_invincibilitySetTime;
         }
-        else
+        else // 体力が0以下になった場合に死亡して動きも止める
         {
             m_deathFlg = true;
         }

@@ -10,27 +10,25 @@ public class CharacterMovement : MonoBehaviour
 
     private string m_targetParentTag = "Enemy";
 
-    // ダメージ量
     enum Damage
     {
-        small = 20,  // 小ダメージ
-        medium = 50, // 中ダメージ
-        big = 70,    // 大ダメージ
-        death = 100  // 即死攻撃
+        small = 20,
+        medium = 50,
+        big = 70,
+        death = 100
     }
-    // 回復量
     enum Recovery
     {
-        small = 20,  // 小回復
-        medium = 50, // 中回復
-        big = 70,    // 大回復
-        full = 100   // 完全回復
+        small = 20,
+        medium = 50,
+        big = 70,
+        full = 100
     }
 
-    private const int m_playerMaxLife = 100;   // 主人公の体力の上限値
-    private const int m_rollTiredCountMax = 5; // 回避行動の移動減少量カウントの上限
+    private const int m_playerMaxLife = 100;
+    private const int m_rollTiredCountMax = 5;
 
-    private int m_playerLife = m_playerMaxLife; // 主人公の体力
+    public int m_playerLife = m_playerMaxLife; // 主人公の体力
     private int m_rollTiredCount = 0;           // 主人公の回避行動を連続して使うと段々緩慢になっていくカウント
 
     private const float m_leftRightSpeed = 4f;           // キャラクターの移動速度
@@ -56,7 +54,7 @@ public class CharacterMovement : MonoBehaviour
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
-    private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
+    public bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
     private bool m_attackFlg = false;                    // 攻撃の管理(AnimationMovementへの移送用)
     private bool m_subAttackFlg = false;                 // サブ攻撃の管理(AnimationMovementへの移送用)
     private bool m_rollFlg = false;                      // 回避行動の管理(AnimationMovementへの移送用)
@@ -300,7 +298,6 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    // Is Triggerが付いているColliderに接触したときの処理
     void OnTriggerEnter(Collider _other)
     {
         // ダメージモーション中や無敵中はダメージを受けない
@@ -314,7 +311,6 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (parentTransform.gameObject.CompareTag(m_targetParentTag))
                 {
-                    // 当たった相手の親オブジェクトの名前をコンソールに表示する
                     Debug.Log("hit at " + parentTransform.name);
                     int damage = (int)Damage.medium;
                     hit(damage);
@@ -333,18 +329,17 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    // ダメージを受けたときの汎用処理
     void hit(int _damage)
     {
         m_playerLife -= _damage;
-        if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション+無敵時間発生
+        if (m_playerLife > 0)
         {
             m_damageFlg = true;
             m_damageMotionFlg = true;
             m_damageCoolTime = m_damageCoolSetTime;
             m_invincibilityTime = m_invincibilitySetTime;
         }
-        else // 体力が0以下になった場合に死亡して動きも止める
+        else
         {
             m_deathFlg = true;
         }

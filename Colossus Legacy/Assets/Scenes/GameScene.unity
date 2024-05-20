@@ -662,19 +662,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fae8553e3c288e44a77568f0c45e0e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_golemLeft: {fileID: 0}
-  m_golemRight: {fileID: 0}
-  m_stop: 0
-=======
-<<<<<<< HEAD
+  m_EditorClassIdentifier:
   m_golemLeft: {fileID: 1504014787}
   m_golemRight: {fileID: 0}
   m_stop: 0
-=======
->>>>>>> origin/main
->>>>>>> origin/main
   hp: 100
   attackColliders:
   - {fileID: 8894306748364425970}
@@ -778,19 +769,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b293a86845482854b896ee3fcc1cbd77, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  m_golemLeft: {fileID: 0}
-  m_golemRight: {fileID: 0}
-  m_stop: 0
-=======
-<<<<<<< HEAD
+  m_EditorClassIdentifier:
   m_golemLeft: {fileID: 0}
   m_golemRight: {fileID: 1184383028}
   m_stop: 0
-=======
->>>>>>> origin/main
->>>>>>> origin/main
   hp: 100
   attackColliders:
   - {fileID: 2091065169}
@@ -836,7 +818,6 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 8375403625918964927, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
   m_PrefabInstance: {fileID: 8894306748364425969}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &1669452949 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
@@ -858,8 +839,6 @@ MonoBehaviour:
   m_golemRight: {fileID: 0}
   m_stop: 0
   hp: 100
-=======
->>>>>>> origin/main
 --- !u!136 &1762877244 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 1436501933923767360, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
@@ -1127,13 +1106,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 83.454796
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 5990921274579788242, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1bddc6c9b3f7fb247bea5f36b615793f, type: 2}
-=======
->>>>>>> origin/main
     - target: {fileID: 6003524140075003714, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_Enabled
       value: 0

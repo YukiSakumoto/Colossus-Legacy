@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class GolemRight : Golem
 {
-    public List<Collider> attackColliders;
-
     public int m_nowAttackId = -1;
     private int m_nextAttackId = -1;
 
@@ -16,9 +14,9 @@ public class GolemRight : Golem
     {
         attackManager = GetComponent<AttackManager>();
 
-        attackManager.AddAttack(0, "SwingDown", 10.0f, 3.0f);
-        attackManager.AddAttack(1, "SwingDown", 10.0f, 5.0f);
-        attackManager.AddAttack(2, "Palms", 10.0f, 3.0f, true);
+        attackManager.AddAttack(0, "SwingDown", 50.0f, 1.0f);
+        attackManager.AddAttack(1, "SwingDown", 50.0f, 5.0f);
+        attackManager.AddAttack(2, "Palms", 10.0f, 5.0f, true);
     }
 
 
@@ -26,23 +24,12 @@ public class GolemRight : Golem
     {
         if (m_stop) { return; }
 
-        m_nowAttackId = AttackSet(m_nextAttackId);
+        m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
 
         if (m_nowAttackId == m_nextAttackId)
         {
             m_nextAttackId = -1;
         }
-    }
-
-
-    public int AttackSet(int _id = -1)
-    {
-        int resultId = -1;
-
-        if (_id == -1) resultId = attackManager.Action(10.0f);
-        else resultId = attackManager.Action(10.0f, _id);
-
-        return resultId;
     }
 
 
@@ -69,25 +56,4 @@ public class GolemRight : Golem
 
 
     public void SetNextAttackId(int _id) { m_nextAttackId = _id; }
-
-
-    // çUåÇîªíËê∂ê¨
-    private void AttackOn()
-    {
-        for (int i = 0; i < attackColliders.Count; i++)
-        {
-            attackColliders[i].enabled = true;
-        }
-    }
-
-
-    // çUåÇîªíËè¡ãé
-    private void AttackOff()
-    {
-        for (int i = 0; i < attackColliders.Count; i++)
-        {
-            attackColliders[i].enabled = false;
-            attackManager.AnimationFin();
-        }
-    }
 }

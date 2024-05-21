@@ -53,6 +53,7 @@ public class CharacterMovement : MonoBehaviour
     private const float m_weaponChangeCoolSetTime = 1f;  // 武器チェンジ時のクールタイム固定値
     private const float m_damageCoolSetTime = 0.6f;      // ダメージを受けた後の硬直時間固定値
     private const float m_invincibilitySetTime = 2f;     // ダメージを受けた後の無敵時間固定値
+    private const float m_blownAwayStiffnessSetTime = 0.8f; // 吹っ飛ぶダメージを受けたときの硬直時間固定値
 
     private float m_rollCoolTime = 0f;         // 回避行動の実行時間
     private float m_rollStiffnessTime = 0f;    // 回避行動終了時の硬直時間
@@ -62,6 +63,7 @@ public class CharacterMovement : MonoBehaviour
     private float m_weaponChangeCoolTime = 0f; // 武器の種類を変える時のクールタイム
     private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
+    [SerializeField] private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
@@ -69,9 +71,12 @@ public class CharacterMovement : MonoBehaviour
     private bool m_subAttackFlg = false;                 // サブ攻撃の管理(AnimationMovementへの移送用)
     private bool m_rollFlg = false;                      // 回避行動の管理(AnimationMovementへの移送用)
     private bool m_damageFlg = false;                    // プレイヤー被ダメージ時の管理(AnimationMovementへの移送用)
+    private bool m_blownAwayFlg = false;                 // 吹っ飛ぶ攻撃を受けたときの管理(AnimationMovementへの移送用)
     private bool m_deathFlg = false;                     // 死亡時の管理(AnimationMovementへの移送用)
     private bool m_damageMotionFlg = false;              // ダメージモーション中の管理
-    private bool m_invincibleFlg = false;                // 無敵時間中の管理
+    [SerializeField] private bool m_damageBlownAwayFlg = false;           // 吹っ飛ぶモーション中の管理
+    [SerializeField] private bool m_damageBlownAwayStiffnessFlg = false;  // 吹っ飛ぶモーションの硬直時間の管理
+    [SerializeField] private bool m_invincibleFlg = false;                // 無敵時間中の管理
     private bool m_rollCoolTimeCheckFlg = false;         // 回避行動の実行時間中かの管理
     private bool m_rollStiffnessTimeCheckFlg = false;    // 回避行動の硬直時間中かの管理
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
@@ -83,7 +88,10 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(!m_rb)
+        {
+            Debug.Log("RigidBody is Null");
+        }
     }
 
     // Update is called once per frame
@@ -94,7 +102,7 @@ public class CharacterMovement : MonoBehaviour
 
         // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
         if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
-            !m_damageMotionFlg && !m_deathFlg)
+            !m_damageMotionFlg && !m_damageBlownAwayStiffnessFlg && !m_deathFlg)
         {
             if (horizontalInput != 0f || varticalInput != 0f) // キー入力がされているときは歩きモーションになる
             {
@@ -132,7 +140,7 @@ public class CharacterMovement : MonoBehaviour
                 transform.forward = movement.normalized;
             }
         }
-        else if(m_damageMotionFlg) // ダメージモーション中のノックバックの動きとか
+        else if(m_damageBlownAwayFlg) // ダメージモーション中のノックバックの動きとか
         {
             // enumに小数点が入れられないので計算用
             float knockbackPower = 10f;
@@ -296,8 +304,25 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
-        // 無敵時間中の処理
-        if(m_invincibleFlg)
+        // 吹っ飛ぶモーション中の処理
+        if (m_damageBlownAwayFlg)
+        {
+            m_damageCoolTime -= Time.deltaTime;
+            if (m_damageCoolTime <= 0)
+            {
+                m_damageBlownAwayFlg = false;
+                m_invincibleFlg = true;
+            }
+        }
+        else if (m_damageBlownAwayStiffnessFlg) // 吹っ飛ぶモーション後の硬直時間
+        {
+            m_blownAwayStiffnessTime -= Time.deltaTime;
+            if (m_blownAwayStiffnessTime < 0) 
+            {
+                m_damageBlownAwayStiffnessFlg = false;
+            }
+        }
+        else if (m_invincibleFlg) // 無敵時間中の処理
         {
             m_invincibilityTime -= Time.deltaTime;
             if(m_invincibilityTime <= 0)
@@ -321,11 +346,20 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        // 吹っ飛ぶモーションの重複防止
+        if (m_blownAwayFlg)
+        {
+            m_blownAwayFlg = false;
+        }
+    }
+
     // Is Triggerが付いているColliderに接触したときの処理
     void OnTriggerEnter(Collider _other)
     {
         // ダメージモーション中や無敵中はダメージを受けない
-        if (!m_damageMotionFlg && !m_invincibleFlg)
+        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg)
         {
             // 触れたオブジェクトの親オブジェクトを取得
             Transform parentTransform = _other.transform.parent?.parent;
@@ -341,7 +375,7 @@ public class CharacterMovement : MonoBehaviour
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                     m_KnockBackVec = transform.position - parentTransform.position;
 
-                    int damage = (int)Damage.medium;
+                    int damage = (int)Damage.small;
                     hit(damage);
                 }
                 else
@@ -364,14 +398,19 @@ public class CharacterMovement : MonoBehaviour
         m_playerLife -= _damage;
         if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション+無敵時間発生
         {
-            m_damageFlg = true;
-            m_damageMotionFlg = true;
+            //m_damageFlg = true;
+            //m_damageMotionFlg = true;
+            m_blownAwayFlg = true;
+            m_damageBlownAwayFlg = true;
+            m_damageBlownAwayStiffnessFlg = true;
             m_damageCoolTime = m_damageCoolSetTime;
             m_invincibilityTime = m_invincibilitySetTime;
+            m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
         }
         else // 体力が0以下になった場合に死亡して動きも止める
         {
             m_deathFlg = true;
+            Debug.Log("Player Life is Empty");
         }
     }
 
@@ -379,12 +418,10 @@ public class CharacterMovement : MonoBehaviour
     {
         get { return m_walkFlg; }
     }
-
     public bool Getm_rollFlg
     {
         get { return m_rollFlg; }
     }
-
     public bool Getm_weaponFlg
     {
         get { return m_weaponFlg; }
@@ -400,6 +437,10 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_damageFlg
     {
         get { return m_damageFlg; }
+    }
+    public bool Getm_blownAwayFlg
+    {
+        get { return m_blownAwayFlg; }
     }
     public bool Getm_deathFlg
     {

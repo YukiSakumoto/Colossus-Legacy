@@ -51,6 +51,11 @@ public class AnimationMovement : MonoBehaviour
             animator.SetTrigger("p_Damage");
         }
 
+        if(characterMovement.Getm_blownAwayFlg)
+        {
+            animator.SetTrigger("p_blownAway");
+        }
+
         if (characterMovement.Getm_deathFlg)
         {
             if (m_deathAnimation <= m_deathAnimationMax)

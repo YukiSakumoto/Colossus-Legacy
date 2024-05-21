@@ -121,9 +121,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
   m_Controller: {fileID: 9100000, guid: 0f2c3ba949192cd4cbed5edfa38049b9, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -313,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
       propertyPath: m_LocalRotation.w
@@ -395,6 +395,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 0f2c3ba949192cd4cbed5edfa38049b9, type: 2}
+    - target: {fileID: 5866666021909216657, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7762357046516705561, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -506,8 +510,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rb: {fileID: 8877033344028416334}
   m_targetParentTag: Enemy
-  m_playerLife: 100
+  m_playerLife: 10000
   m_rollTiredCount: 0
+  m_blownAwayStiffnessTime: 0
+  m_damageBlownAwayFlg: 0
+  m_damageBlownAwayStiffnessFlg: 0
+  m_invincibleFlg: 0
 --- !u!65 &8665666499426443923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -546,7 +554,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.3125704, y: 1.64347, z: 0.15663147}
   m_Center: {x: 0.023866087, y: 1.0382577, z: -0.04593277}

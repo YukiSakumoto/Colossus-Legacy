@@ -1,16 +1,4 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 10cc1a86617b3284c9d0d224c6314143
-ModelImporter:
-  serializedVersion: 22200
-  internalIDToNameTable: []
-  externalObjects: {}
-  materials:
-    materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
-    materialLocation: 1
-=======
 guid: fcdb08289c08bb845b4dd68935096682
 timeCreated: 1548595317
 licenseType: Store
@@ -26,16 +14,11 @@ ModelImporter:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
->>>>>>> origin/main
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-<<<<<<< HEAD
-    removeConstantScaleCurves: 0
-=======
->>>>>>> origin/main
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -43,11 +26,6 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-<<<<<<< HEAD
-    importAnimatedCustomProperties: 0
-    importConstraints: 0
-=======
->>>>>>> origin/main
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -56,64 +34,16 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-<<<<<<< HEAD
-    isReadable: 0
-=======
     isReadable: 1
->>>>>>> origin/main
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-<<<<<<< HEAD
-    useSRGBMaterialColor: 1
-    sortHierarchyByName: 1
-    importPhysicalCameras: 1
-=======
->>>>>>> origin/main
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-<<<<<<< HEAD
-    nodeNameCollisionStrategy: 1
-    fileIdsGeneration: 2
-    swapUVChannels: 0
-    generateSecondaryUV: 0
-    useFileUnits: 1
-    keepQuads: 0
-    weldVertices: 1
-    bakeAxisConversion: 0
-    preserveHierarchy: 0
-    skinWeightsMode: 0
-    maxBonesPerVertex: 4
-    minBoneWeight: 0.001
-    optimizeBones: 1
-    meshOptimizationFlags: -1
-    indexFormat: 0
-    secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
-    secondaryUVHardAngle: 88
-    secondaryUVMarginMethod: 1
-    secondaryUVMinLightmapResolution: 40
-    secondaryUVMinObjectScale: 1
-    secondaryUVPackMargin: 4
-    useFileScale: 1
-    strictVertexDataChecks: 0
-  tangentSpace:
-    normalSmoothAngle: 60
-    normalImportMode: 0
-    tangentImportMode: 3
-    normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
-  referencedClips: []
-  importAnimation: 1
-  humanDescription:
-    serializedVersion: 3
-=======
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -134,7 +64,6 @@ ModelImporter:
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
->>>>>>> origin/main
     human: []
     skeleton: []
     armTwist: 0.5
@@ -144,29 +73,14 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-<<<<<<< HEAD
-    globalScale: 1
-    rootMotionBoneName: 
-=======
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
->>>>>>> origin/main
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-<<<<<<< HEAD
-  autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
-  humanoidOversampling: 1
-  avatarSetup: 0
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 1
-  remapMaterialsIfMaterialImportModeIsNone: 0
-=======
   animationType: 0
   humanoidOversampling: 1
->>>>>>> origin/main
   additionalBone: 0
   userData: 
   assetBundleName: 

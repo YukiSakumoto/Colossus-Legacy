@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 6e4bfbb1529cfea4ebf0baa70145208a
-ModelImporter:
-  serializedVersion: 22200
-=======
 guid: 731f73f70724d9640b5a63b78d2d49ea
 ModelImporter:
   serializedVersion: 21300
->>>>>>> origin/main
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -20,11 +14,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-<<<<<<< HEAD
-    removeConstantScaleCurves: 0
-=======
     removeConstantScaleCurves: 1
->>>>>>> origin/main
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -50,10 +40,6 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-<<<<<<< HEAD
-    importPhysicalCameras: 1
-=======
->>>>>>> origin/main
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -81,10 +67,6 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-<<<<<<< HEAD
-    strictVertexDataChecks: 0
-=======
->>>>>>> origin/main
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -117,10 +99,6 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-<<<<<<< HEAD
-  importBlendShapeDeformPercent: 1
-=======
->>>>>>> origin/main
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

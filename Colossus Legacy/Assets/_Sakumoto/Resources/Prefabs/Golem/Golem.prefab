@@ -75,10 +75,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b681f24d1bf159548b84d6887f1d6e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_golemLeft: {fileID: 0}
-  m_golemRight: {fileID: 0}
+  attackColliders: []
+  m_golemLeft: {fileID: 9166437352457723710}
+  m_golemRight: {fileID: 1592932452490048242}
+  m_myself: {fileID: 0}
+  m_target: {fileID: 0}
+  m_text: {fileID: 0}
   m_stop: 0
-  hp: 100
+  m_hp: 100
 --- !u!1 &814643526751234552
 GameObject:
   m_ObjectHideFlags: 0
@@ -4078,7 +4082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 766052551387276811, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 766052551387276811, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_IsTrigger
@@ -4210,7 +4214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2857893335394008850, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2857893335394008850, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_IsTrigger
@@ -4222,7 +4226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2976434674129645437, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2976434674129645437, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_IsTrigger
@@ -4262,7 +4266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3487580731088849616, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3487580731088849616, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_IsTrigger
@@ -4286,7 +4290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3827648726784036261, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3827648726784036261, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_IsTrigger
@@ -4362,7 +4366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5536261400113234745, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5536261400113234745, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_IsTrigger
@@ -4664,10 +4668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fae8553e3c288e44a77568f0c45e0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_golemLeft: {fileID: 9166437352457723710}
-  m_golemRight: {fileID: 0}
-  m_stop: 0
-  hp: 100
   attackColliders:
   - {fileID: 4631481686162720213}
   - {fileID: 9042485049235356003}
@@ -4686,6 +4686,13 @@ MonoBehaviour:
   - {fileID: 3935697317628065303}
   - {fileID: 5206400234882894243}
   - {fileID: 7340954945696897147}
+  m_golemLeft: {fileID: 9166437352457723710}
+  m_golemRight: {fileID: 0}
+  m_myself: {fileID: 683931030228963651}
+  m_target: {fileID: 0}
+  m_text: {fileID: 0}
+  m_stop: 0
+  m_hp: 100
   m_nowAttackId: -1
 --- !u!114 &623357088475236962
 MonoBehaviour:
@@ -4700,6 +4707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animator: {fileID: 7218308900521240996}
+  m_coolDown: 0
 --- !u!4 &1553338477039407136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 723562290920733787, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
@@ -4949,7 +4957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2446902956664487428, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2461372807496605908, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_UpdateWhenOffscreen
@@ -4977,7 +4985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3360601590889796567, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3360601590889796567, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -4993,7 +5001,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 1bddc6c9b3f7fb247bea5f36b615793f, type: 2}
     - target: {fileID: 3633722460421025378, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3633722460421025378, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5049,7 +5057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982252084479427632, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4982252084479427632, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5061,7 +5069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5270316837919986366, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418528163737433838, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_UpdateWhenOffscreen
@@ -5069,7 +5077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654932163417036441, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5654932163417036441, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5129,7 +5137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6541314029335065964, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6541314029335065964, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5141,7 +5149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6837369245770237603, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6837369245770237603, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5169,7 +5177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8195357376147969923, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8195357376147969923, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5185,7 +5193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486509737421424224, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8486509737421424224, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5193,7 +5201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8866426212689000757, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8866426212689000757, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       propertyPath: m_IsTrigger
@@ -5320,10 +5328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b293a86845482854b896ee3fcc1cbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_golemLeft: {fileID: 0}
-  m_golemRight: {fileID: 1592932452490048242}
-  m_stop: 0
-  hp: 100
   attackColliders:
   - {fileID: 502533370928868491}
   - {fileID: 1557971817034194830}
@@ -5342,6 +5346,13 @@ MonoBehaviour:
   - {fileID: 1823860144392719036}
   - {fileID: 997674694606444853}
   - {fileID: 638779654762531747}
+  m_golemLeft: {fileID: 0}
+  m_golemRight: {fileID: 1592932452490048242}
+  m_myself: {fileID: 683931030228963651}
+  m_target: {fileID: 0}
+  m_text: {fileID: 0}
+  m_stop: 0
+  m_hp: 100
   m_nowAttackId: -1
 --- !u!114 &2505092768774085899
 MonoBehaviour:
@@ -5356,6 +5367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animator: {fileID: 5990921274579788242}
+  m_coolDown: 0
 --- !u!4 &2852700272001181274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5026697993459803545, guid: d1da23704dedbbf45beefe022a427836, type: 3}

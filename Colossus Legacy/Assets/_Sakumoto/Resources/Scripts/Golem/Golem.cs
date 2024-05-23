@@ -8,7 +8,7 @@ using TMPro;
 public class Golem : MonoBehaviour
 {
     protected AttackManager attackManager;
-    public List<Collider> attackColliders;
+    [SerializeField] private List<Collider> attackColliders;
 
     [SerializeField] private GolemLeft m_golemLeft;     // Unityでアタッチ済み
     [SerializeField] private GolemRight m_golemRight;   // Unityでアタッチ済み
@@ -20,7 +20,7 @@ public class Golem : MonoBehaviour
 
     public bool m_stop = false;     // 両腕を同時に合わせるためのフラグ
 
-    public int hp = 100;
+    public int m_hp = 100;
 
     void Start()
     {
@@ -54,6 +54,7 @@ public class Golem : MonoBehaviour
 
         if (m_golemLeft.GetStop() && m_golemRight.GetStop())
         {
+            Debug.Log("攻撃");
             m_golemLeft.AttackStart();
             m_golemRight.AttackStart();
         }
@@ -104,10 +105,11 @@ public class Golem : MonoBehaviour
     // 攻撃判定消去
     private void AttackOff()
     {
+        attackManager.AnimationFin();
+
         for (int i = 0; i < attackColliders.Count; i++)
         {
             attackColliders[i].enabled = false;
-            attackManager.AnimationFin();
         }
     }
 }

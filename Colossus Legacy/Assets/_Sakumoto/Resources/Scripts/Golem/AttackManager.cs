@@ -5,13 +5,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-// -----------------------------
-// AttackManager : 使い方
-// 1. 使いたいスクリプトでAttackManagerを呼び出す
-// 2. AddAttack() に追加したい攻撃の ID を引数で渡す
-// 3. 
-// -----------------------------
-
 public struct AttackData
 {
     public int m_id { get; set; }               // 攻撃ID
@@ -29,7 +22,7 @@ public class AttackManager : MonoBehaviour
 
     private int m_nowId = -1;
     private bool m_canAttack = false;   // 攻撃可能状態か
-    private float m_coolDown = 0.0f;    // 次の攻撃までのクールダウン時間（秒数）
+    [SerializeField] private float m_coolDown = 0.0f;    // 次の攻撃までのクールダウン時間（秒数）
     private List<AttackData> m_attackLists = new List<AttackData>();
 
 
@@ -128,6 +121,7 @@ public class AttackManager : MonoBehaviour
         m_coolDown = m_attackLists[SearchAttackId(m_nowId)].m_coolDown;
         m_canAttack = false;
 
+        // 待機状態が必要でないならそのままアニメーションを再生
         if (!m_attackLists[SearchAttackId(m_nowId)].m_waitFlg)
         {
             m_isAttackAnimation = true;
@@ -138,16 +132,9 @@ public class AttackManager : MonoBehaviour
     }
 
 
-    // 待機状態を解除し、アニメーションをスタートする
+    // アニメーションをスタートする
     public void AttackStart()
     {
-        // 待機状態を解除
-        {
-            AttackData tmpData = m_attackLists[SearchAttackId(m_nowId)];
-            tmpData.m_waitFlg = true;
-            m_attackLists[SearchAttackId(m_nowId)] = tmpData;
-        }
-
         m_isAttackAnimation = true;
         m_animator.SetBool(m_attackLists[SearchAttackId(m_nowId)].m_name, m_isAttackAnimation);
     }

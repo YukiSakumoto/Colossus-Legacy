@@ -63,7 +63,7 @@ public class CharacterMovement : MonoBehaviour
     private float m_weaponChangeCoolTime = 0f; // 武器の種類を変える時のクールタイム
     private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
-    [SerializeField] private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
+    private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
@@ -74,9 +74,9 @@ public class CharacterMovement : MonoBehaviour
     private bool m_blownAwayFlg = false;                 // 吹っ飛ぶ攻撃を受けたときの管理(AnimationMovementへの移送用)
     private bool m_deathFlg = false;                     // 死亡時の管理(AnimationMovementへの移送用)
     private bool m_damageMotionFlg = false;              // ダメージモーション中の管理
-    [SerializeField] private bool m_damageBlownAwayFlg = false;           // 吹っ飛ぶモーション中の管理
-    [SerializeField] private bool m_damageBlownAwayStiffnessFlg = false;  // 吹っ飛ぶモーションの硬直時間の管理
-    [SerializeField] private bool m_invincibleFlg = false;                // 無敵時間中の管理
+    private bool m_damageBlownAwayFlg = false;           // 吹っ飛ぶモーション中の管理
+    private bool m_damageBlownAwayStiffnessFlg = false;  // 吹っ飛ぶモーションの硬直時間の管理
+    private bool m_invincibleFlg = false;                // 無敵時間中の管理
     private bool m_rollCoolTimeCheckFlg = false;         // 回避行動の実行時間中かの管理
     private bool m_rollStiffnessTimeCheckFlg = false;    // 回避行動の硬直時間中かの管理
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
@@ -146,7 +146,7 @@ public class CharacterMovement : MonoBehaviour
             float knockbackPower = 10f;
 
             // ノックバック量計算
-            Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.big / knockbackPower);
+            Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
 
             // ノックバック方向に力を加えてキャラクターを移動させる
             m_rb.MovePosition(transform.position + movement);
@@ -172,29 +172,8 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
-        // 回避行動モーションの重複防止
-        if (m_rollFlg)
-        {
-            m_rollFlg = false;
-        }
-
-        // 攻撃モーションの重複防止
-        if (m_attackFlg)
-        {
-            m_attackFlg = false;
-        }
-
-        // サブ攻撃モーションの重複防止
-        if (m_subAttackFlg)
-        {
-            m_subAttackFlg = false;
-        }
-
-        // ダメージモーションの重複防止
-        if (m_damageFlg)
-        {
-            m_damageFlg = false;
-        }
+        // モーション重複の管理系処理
+        motionProcessing();
 
         // マウス左クリックで装備している武器で攻撃。使った武器によって硬直時間が異なる。
         if (Input.GetMouseButtonDown(0))
@@ -251,99 +230,8 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
-        // 回避行動時のモーション時間処理
-        if (m_rollCoolTimeCheckFlg)
-        {
-            m_rollCoolTime -= Time.deltaTime;
-            if (m_rollCoolTime <= 0)
-            {
-                m_rollStiffnessTimeCheckFlg = true;
-                m_rollCoolTimeCheckFlg = false;
-            }
-        }
-
-        // 回避行動時の硬直時間処理
-        if (m_rollStiffnessTimeCheckFlg)
-        {
-            m_rollStiffnessTime -= Time.deltaTime;
-            if (m_rollStiffnessTime <= 0)
-            {
-                m_rollStiffnessTimeCheckFlg = false;
-                m_rollFinishCheckFlg = false;
-            }
-        }
-
-        // 武器チェンジ時の硬直時間処理
-        if (m_weaponChangeCoolTimeCheckFlg)
-        {
-            m_weaponChangeCoolTime -= Time.deltaTime;
-            if (m_weaponChangeCoolTime <= 0)
-            {
-                m_weaponChangeCoolTimeCheckFlg = false;
-            }
-        }
-
-        // 攻撃時の硬直時間処理
-        if (m_weaponAttackCoolTimeCheckFlg)
-        {
-            m_weaponAttackCoolTime -= Time.deltaTime;
-            if (m_weaponAttackCoolTime <= 0)
-            {
-                m_weaponAttackCoolTimeCheckFlg = false;
-            }
-        }
-
-        // ダメージモーション中の処理
-        if(m_damageMotionFlg)
-        {
-            m_damageCoolTime -= Time.deltaTime;
-            if(m_damageCoolTime <= 0)
-            {
-                m_damageMotionFlg = false;
-                m_invincibleFlg = true;
-            }
-        }
-
-        // 吹っ飛ぶモーション中の処理
-        if (m_damageBlownAwayFlg)
-        {
-            m_damageCoolTime -= Time.deltaTime;
-            if (m_damageCoolTime <= 0)
-            {
-                m_damageBlownAwayFlg = false;
-                m_invincibleFlg = true;
-            }
-        }
-        else if (m_damageBlownAwayStiffnessFlg) // 吹っ飛ぶモーション後の硬直時間
-        {
-            m_blownAwayStiffnessTime -= Time.deltaTime;
-            if (m_blownAwayStiffnessTime < 0) 
-            {
-                m_damageBlownAwayStiffnessFlg = false;
-            }
-        }
-        else if (m_invincibleFlg) // 無敵時間中の処理
-        {
-            m_invincibilityTime -= Time.deltaTime;
-            if(m_invincibilityTime <= 0)
-            {
-                m_invincibleFlg = false;
-            }
-        }
-
-        // 回避行動移動量減少時間の回復の処理
-        if(m_rollTiredCount > 0)
-        {
-            m_rollTiredDecreaseTime -= Time.deltaTime;
-            if(m_rollTiredDecreaseTime <= 0)
-            {
-                m_rollTiredCount--;
-                if(m_rollTiredCount > 0)
-                {
-                    m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase;
-                }
-            }
-        }
+        // 時間経過で発生したりフラグを変更する処理
+        timeProcessing();
     }
 
     private void LateUpdate()
@@ -396,21 +284,155 @@ public class CharacterMovement : MonoBehaviour
     void hit(int _damage)
     {
         m_playerLife -= _damage;
-        if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション+無敵時間発生
+        if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
         {
-            //m_damageFlg = true;
-            //m_damageMotionFlg = true;
-            m_blownAwayFlg = true;
-            m_damageBlownAwayFlg = true;
-            m_damageBlownAwayStiffnessFlg = true;
+            // 仮　ダメージを受けた時ノックバックしない場合
+            if(!m_weaponFlg)
+            {
+                m_damageFlg = true;
+                m_damageMotionFlg = true;
+            }
+            else // 仮　ダメージを受けた時ノックバックする場合
+            {
+                m_blownAwayFlg = true;
+                m_damageBlownAwayFlg = true;
+                m_damageBlownAwayStiffnessFlg = true;
+                m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
+            }
             m_damageCoolTime = m_damageCoolSetTime;
             m_invincibilityTime = m_invincibilitySetTime;
-            m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
+ 
         }
         else // 体力が0以下になった場合に死亡して動きも止める
         {
             m_deathFlg = true;
             Debug.Log("Player Life is Empty");
+        }
+    }
+
+    // モーション重複防止用のフラグ管理系処理
+    void motionProcessing()
+    {
+        // 回避行動モーションの重複防止
+        if (m_rollFlg)
+        {
+            m_rollFlg = false;
+        }
+
+        // 攻撃モーションの重複防止
+        if (m_attackFlg)
+        {
+            m_attackFlg = false;
+        }
+
+        // サブ攻撃モーションの重複防止
+        if (m_subAttackFlg)
+        {
+            m_subAttackFlg = false;
+        }
+
+        // ダメージモーションの重複防止
+        if (m_damageFlg)
+        {
+            m_damageFlg = false;
+        }
+    }
+
+    // 時間経過で発生したりフラグを変更する処理
+    void timeProcessing()
+    {
+        // 回避行動時のモーション時間処理
+        if (m_rollCoolTimeCheckFlg)
+        {
+            m_rollCoolTime -= Time.deltaTime;
+            if (m_rollCoolTime <= 0)
+            {
+                m_rollStiffnessTimeCheckFlg = true;
+                m_rollCoolTimeCheckFlg = false;
+            }
+        }
+
+        // 回避行動時の硬直時間処理
+        if (m_rollStiffnessTimeCheckFlg)
+        {
+            m_rollStiffnessTime -= Time.deltaTime;
+            if (m_rollStiffnessTime <= 0)
+            {
+                m_rollStiffnessTimeCheckFlg = false;
+                m_rollFinishCheckFlg = false;
+            }
+        }
+
+        // 武器チェンジ時の硬直時間処理
+        if (m_weaponChangeCoolTimeCheckFlg)
+        {
+            m_weaponChangeCoolTime -= Time.deltaTime;
+            if (m_weaponChangeCoolTime <= 0)
+            {
+                m_weaponChangeCoolTimeCheckFlg = false;
+            }
+        }
+
+        // 攻撃時の硬直時間処理
+        if (m_weaponAttackCoolTimeCheckFlg)
+        {
+            m_weaponAttackCoolTime -= Time.deltaTime;
+            if (m_weaponAttackCoolTime <= 0)
+            {
+                m_weaponAttackCoolTimeCheckFlg = false;
+            }
+        }
+
+        // ダメージモーション中の処理
+        if (m_damageMotionFlg)
+        {
+            m_damageCoolTime -= Time.deltaTime;
+            if (m_damageCoolTime <= 0)
+            {
+                m_damageMotionFlg = false;
+                m_invincibleFlg = true;
+            }
+        }
+
+        // 吹っ飛ぶモーション中の処理
+        if (m_damageBlownAwayFlg)
+        {
+            m_damageCoolTime -= Time.deltaTime;
+            if (m_damageCoolTime <= 0)
+            {
+                m_damageBlownAwayFlg = false;
+                m_invincibleFlg = true;
+            }
+        }
+        else if (m_damageBlownAwayStiffnessFlg) // 吹っ飛ぶモーション後の硬直時間
+        {
+            m_blownAwayStiffnessTime -= Time.deltaTime;
+            if (m_blownAwayStiffnessTime < 0)
+            {
+                m_damageBlownAwayStiffnessFlg = false;
+            }
+        }
+        else if (m_invincibleFlg) // 無敵時間中の処理
+        {
+            m_invincibilityTime -= Time.deltaTime;
+            if (m_invincibilityTime <= 0)
+            {
+                m_invincibleFlg = false;
+            }
+        }
+
+        // 回避行動移動量減少時間の回復の処理
+        if (m_rollTiredCount > 0)
+        {
+            m_rollTiredDecreaseTime -= Time.deltaTime;
+            if (m_rollTiredDecreaseTime <= 0)
+            {
+                m_rollTiredCount--;
+                if (m_rollTiredCount > 0)
+                {
+                    m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase;
+                }
+            }
         }
     }
 

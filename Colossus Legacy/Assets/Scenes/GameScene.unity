@@ -136,17 +136,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 162763636314888289, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 927818777992885855, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 48.002983
       objectReference: {fileID: 0}
     - target: {fileID: 927818777992885855, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.043678
+      value: 9.8
       objectReference: {fileID: 0}
     - target: {fileID: 927818777992885855, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -180,29 +176,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1941498338165920280, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
-      propertyPath: m_Name
-      value: Particle Flash
-      objectReference: {fileID: 0}
-    - target: {fileID: 2633555904847872360, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4967905722177872969, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5334051801036398515, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
-      propertyPath: _data._json
-      value: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-      objectReference: {fileID: 0}
     - target: {fileID: 7672803370137493422, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
       propertyPath: m_Name
       value: Teleport room
-      objectReference: {fileID: 0}
-    - target: {fileID: 8113273065195126248, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
-      propertyPath: m_Name
-      value: Particle Voltex
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -222,7 +198,7 @@ GameObject:
   - component: {fileID: 160428239}
   m_Layer: 0
   m_Name: GameController
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,12 +240,15 @@ MonoBehaviour:
       Particle Voltex","value":{"$content":2,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Warp
       Particle Flash","value":{"$content":3,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Golem
+      Expired bool","value":{"$content":4,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 436229348}
     - {fileID: 120201244}
     - {fileID: 1109869760}
     - {fileID: 1938760748}
+    - {fileID: 1669452949}
 --- !u!4 &160428241
 Transform:
   m_ObjectHideFlags: 0

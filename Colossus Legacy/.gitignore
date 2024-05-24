@@ -75,4 +75,4 @@ crashlytics-build.properties
 */_Nishida/Blink/*
 
 # Effekseer plugin Compressing storage
-*/Assets/Effekseer/*
+/[Aa]ssets/[Ee]ffekseer/*

@@ -143,6 +143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1381739730854888189, guid: 0d57b0e500c5d7f4fa4566b75cd6e966, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1758440538888345671, guid: 0d57b0e500c5d7f4fa4566b75cd6e966, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -313,7 +317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
       propertyPath: m_LocalRotation.w
@@ -435,6 +439,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3502970445702163745}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 359785243055748086}
   m_SourcePrefab: {fileID: 100100000, guid: e52a4f66657868241a82fd4255aa2d17, type: 3}
 --- !u!95 &3505771766395678156 stripped
 Animator:
@@ -510,12 +517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rb: {fileID: 8877033344028416334}
   m_targetParentTag: Enemy
-  m_playerLife: 10000
+  m_playerLife: 100
   m_rollTiredCount: 0
-  m_blownAwayStiffnessTime: 0
-  m_damageBlownAwayFlg: 0
-  m_damageBlownAwayStiffnessFlg: 0
-  m_invincibleFlg: 0
 --- !u!65 &8665666499426443923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -558,3 +561,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3125704, y: 1.64347, z: 0.15663147}
   m_Center: {x: 0.023866087, y: 1.0382577, z: -0.04593277}
+--- !u!114 &359785243055748086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7857933217206512908}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d396bcb8480c24eb784eebe6096a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimingOfUpdate: 0
+  EmitterScale: 0
+  TimeScale: 0
+  effectAsset: {fileID: 11400000, guid: e8fb872883c471948a1e513bd66d1b60, type: 2}
+  playOnStart: 0
+  isLooping: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Effekseer;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -92,6 +93,12 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("RigidBody is Null");
         }
+        // エフェクトを取得する。
+        EffekseerEffectAsset effect = Resources.Load<EffekseerEffectAsset>("Simple_Ribbon_Sword");
+        // transformの位置でエフェクトを再生する
+        EffekseerHandle handle = EffekseerSystem.PlayEffect(effect, transform.position);
+        // transformの回転を設定する。
+        handle.SetRotation(transform.rotation);
     }
 
     // Update is called once per frame

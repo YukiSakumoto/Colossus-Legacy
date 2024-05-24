@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Omission of assets imported by Nishida
 */_Nishida/Blink/*
+
+# Effekseer plugin Compressing storage
+*/Assets/Effekseer/*

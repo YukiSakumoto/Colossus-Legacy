@@ -675,6 +675,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ruins Map_Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7722476267008162167, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 88.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722476267008162167, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -103.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7722476267008162167, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 68.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412735792290778369, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 88.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412735792290778369, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -103.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8412735792290778369, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 73.34
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1172913980013410904, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}

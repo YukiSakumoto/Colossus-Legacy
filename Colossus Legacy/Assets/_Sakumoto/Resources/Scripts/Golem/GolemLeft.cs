@@ -16,7 +16,7 @@ public class GolemLeft : Golem
 
         attackManager.AddAttack(0, "SwingDown", 50.0f, 1.0f);
         attackManager.AddAttack(1, "SwingDown", 50.0f, 5.0f);
-        attackManager.AddAttack(2, "Palms", 10.0f, 5.0f, true);
+        attackManager.AddAttack(2, "Palms", 30.0f, 5.0f, true);
     }
 
 
@@ -29,6 +29,13 @@ public class GolemLeft : Golem
         if (m_nowAttackId == m_nextAttackId)
         {
             m_nextAttackId = -1;
+        }
+
+        // デバッグ用
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("ダメージを受けました！");
+            m_damageFlg = true;
         }
     }
 
@@ -50,9 +57,6 @@ public class GolemLeft : Golem
         m_nextAttackId = -1;
         attackManager.AttackStart();
     }
-
-
-    public bool GetStop() { return m_stop; }
 
 
     public void SetNextAttackId(int _id) { m_nextAttackId = _id; }

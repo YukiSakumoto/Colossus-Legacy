@@ -11,8 +11,6 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField] private string m_targetParentTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
 
-    EffekseerEffectAsset effect; // エフェクトを取得する。
-
     // ダメージ量
     enum Damage
     {
@@ -67,7 +65,6 @@ public class CharacterMovement : MonoBehaviour
     private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
     private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
-    [SerializeField] private float m_effectSwordTime = 0f;      // 剣のエフェクトの発生時間設定
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
@@ -86,7 +83,6 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
     private bool m_weaponAttackCoolTimeCheckFlg = false; // 攻撃モーションから移動に移れるまでの時間かの管理
     private bool m_weaponChangeCoolTimeCheckFlg = false; // 武器の種類を変える時のクールタイムかの管理
-    private bool m_effectSwordFlg = false;               // エフェクト系。剣の軌跡の処理
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
 
@@ -97,7 +93,6 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("RigidBody is Null");
         }
-        effect = Resources.Load<EffekseerEffectAsset>("Simple_Ribbon_Sword");
     }
 
     // Update is called once per frame
@@ -191,10 +186,6 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
-
-                    // 剣のエフェクト発生
-                    m_effectSwordFlg = true;
-                    m_effectSwordTime = 0.2f;
                 }
                 else // 弓で攻撃
                 {
@@ -239,9 +230,6 @@ public class CharacterMovement : MonoBehaviour
                 m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
             }
         }
-
-        // エフェクト関連の処理
-        effectProcessing();
 
         // 時間経過で発生したりフラグを変更する処理
         timeProcessing();
@@ -320,29 +308,6 @@ public class CharacterMovement : MonoBehaviour
         {
             m_deathFlg = true;
             Debug.Log("Player Life is Empty");
-        }
-    }
-
-    // エフェクト処理系
-    void effectProcessing()
-    {
-        if (m_effectSwordFlg)
-        {
-            m_effectSwordTime -= Time.deltaTime;
-            if (m_effectSwordTime <= 0)
-            {
-                // transformの位置でエフェクトを再生する
-                Vector3 EffectPosition = transform.position;
-                EffectPosition.y += 1f;
-                EffekseerHandle handle = EffekseerSystem.PlayEffect(effect, EffectPosition);
-
-                // transformの回転を設定する。
-                Quaternion EffectRotate = transform.rotation;
-                EffectRotate *= Quaternion.Euler(-30, -90, 0);
-                handle.SetRotation(EffectRotate);
-
-                m_effectSwordFlg = false;
-            }
         }
     }
 

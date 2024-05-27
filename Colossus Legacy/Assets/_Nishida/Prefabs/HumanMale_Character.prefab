@@ -519,6 +519,7 @@ MonoBehaviour:
   m_targetParentTag: Enemy
   m_playerLife: 100
   m_rollTiredCount: 0
+  m_effectSwordTime: 0
 --- !u!65 &8665666499426443923
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -150,6 +150,36 @@ public class AttackManager : MonoBehaviour
     }
 
 
+    // 現在のアニメーションを中断して別のアニメーションの再生
+    public void ChangeAnimation(string _animationName, bool _flg, int _id = -1)
+    {
+        if (m_nowId != -1)
+        {
+            m_animator.SetBool(m_attackLists[SearchAttackId(m_nowId)].m_name, false);
+        }
+        m_animator.SetBool(_animationName, _flg);
+
+        m_nowId = _id;
+        if (m_nowId == -1)
+        {
+            m_isAttackAnimation = false;
+        }
+    }
+
+
+    // 全アニメーションを停止
+    public void ResetAnimation()
+    {
+        for (int i = 0; i < m_attackLists.Count; i++)
+        {
+            m_animator.SetBool(m_attackLists[i].m_name, false);
+        }
+        m_animator.SetBool("Damage", false);
+        m_nowId = -1;
+        m_isAttackAnimation = false;
+    }
+
+
     // リスト内の対象IDを探して、インデックス番号を返す
     private int SearchAttackId(int _attackId)
     {

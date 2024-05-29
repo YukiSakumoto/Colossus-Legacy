@@ -67,6 +67,10 @@ public class Golem : MonoBehaviour
                 m_golemMain.HitDamage();
 
                 m_time = m_damageTime;
+                if (m_hp <= 0)
+                {
+                    m_time = 3.0f;
+                }
 
                 return;
             }
@@ -79,10 +83,17 @@ public class Golem : MonoBehaviour
 
                 if (m_hp <= 0)
                 {
+                    if (m_time <= 0.0f)
+                    {
+                        m_golemMain.ArmorDestroy();
+                        m_golemMain.WakeUp();
+                        m_golemMain.SpecialAttack();
+                    }
                     return;
                 }
+
                 // ダメージアニメーションを終了する処理
-                if (m_time < 0.0f)
+                if (m_time <= 0.0f)
                 {
                     m_damageFlg = false;
 

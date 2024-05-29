@@ -30,13 +30,6 @@ public class GolemRight : Golem
         {
             m_nextAttackId = -1;
         }
-
-        // デバッグ用
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("ダメージを受けました！");
-            m_damageFlg = true;
-        }
     }
 
 

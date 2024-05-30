@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackColliders: []
+  m_weakCollider: {fileID: 0}
   m_golemLeft: {fileID: 9166437352457723710}
   m_golemRight: {fileID: 1592932452490048242}
   m_golemMain: {fileID: 0}
@@ -4690,6 +4691,7 @@ MonoBehaviour:
   - {fileID: 3935697317628065303}
   - {fileID: 5206400234882894243}
   - {fileID: 7340954945696897147}
+  m_weakCollider: {fileID: 5015811315214492197}
   m_golemLeft: {fileID: 9166437352457723710}
   m_golemRight: {fileID: 0}
   m_golemMain: {fileID: 0}
@@ -4808,6 +4810,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8623833562460542569}
     m_Modifications:
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_weakCollider
+      value: 
+      objectReference: {fileID: 6316923979591653882}
+    - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_laserCollider
       value: 
       objectReference: {fileID: 111759291504350046}
@@ -4917,6 +4923,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &6316923979591653882 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 1823409631069049746, guid: 299c7482de910d145947aee8583916eb, type: 3}
+  m_PrefabInstance: {fileID: 5684727462635801192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7085491494389105603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5384,6 +5395,7 @@ MonoBehaviour:
   - {fileID: 1823860144392719036}
   - {fileID: 997674694606444853}
   - {fileID: 638779654762531747}
+  m_weakCollider: {fileID: 1443598025490698472}
   m_golemLeft: {fileID: 0}
   m_golemRight: {fileID: 1592932452490048242}
   m_golemMain: {fileID: 0}

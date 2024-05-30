@@ -22,6 +22,7 @@ public class GolemRight : Golem
 
     void Update()
     {
+        if (!m_alive) { return; }
         if (m_stop) { return; }
 
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);

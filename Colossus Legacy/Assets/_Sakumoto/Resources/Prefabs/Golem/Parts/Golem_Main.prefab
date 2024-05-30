@@ -295,7 +295,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1152679853101231910, guid: 066ba729d85f1624f8644b8f1a70bd4f, type: 3}
+  - {fileID: 2100000, guid: 0425fb7ade974ca449613aebd01eb9e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -390,8 +390,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7400072, y: -7.483821e-18, z: 7.483824e-18, w: 0.67259896}
   m_LocalPosition: {x: 127.71594, y: 799.4915, z: 175.15398}
-  m_LocalScale: {x: 5000, y: 5000.0005, z: 5000}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9193224143293430172}
   m_Father: {fileID: 7079162284350192483}
@@ -669,8 +669,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7076224, y: 6.945093e-18, z: -7.266767e-18, w: 0.7065908}
   m_LocalPosition: {x: 155.61479, y: 405.03635, z: 146.70177}
-  m_LocalScale: {x: 5000, y: 5000.001, z: 5000.001}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6057104081364157783}
   m_Father: {fileID: 7079162284350192483}
@@ -875,7 +875,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: 066ba729d85f1624f8644b8f1a70bd4f, type: 3}
+  - {fileID: 2100000, guid: 0425fb7ade974ca449613aebd01eb9e7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -937,8 +937,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 131.10466, y: 822.50604, z: 178.276}
-  m_LocalScale: {x: 46442.074, y: 46442.074, z: 46442.074}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10000, y: 10000, z: 10000}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3975084662485958003}
   - {fileID: 4803320824660291856}
@@ -1058,7 +1058,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 50, z: 50}
+  m_LocalScale: {x: 100, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1504400693043909206}
@@ -1095,7 +1095,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0.064, y: 0, z: 0}
-  m_LocalScale: {x: 0.006, y: 0.006, z: 0.006}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3933523344505294493}
@@ -1144,10 +1144,13 @@ MonoBehaviour:
   m_myself: {fileID: 0}
   m_target: {fileID: 0}
   m_text: {fileID: 0}
-  m_stop: 0
   m_hp: 100
   m_damageTime: 0
   m_damagePoint: 0
+  m_effectNum: 5
+  m_shotTime: 10
+  m_coolTime: 10
+  m_laserCollider: {fileID: 0}
 --- !u!114 &8780771920278966103
 MonoBehaviour:
   m_ObjectHideFlags: 0

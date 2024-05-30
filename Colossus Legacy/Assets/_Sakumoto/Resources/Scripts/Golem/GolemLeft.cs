@@ -22,6 +22,7 @@ public class GolemLeft : Golem
 
     void Update()
     {
+        if (!m_alive) { return; }
         if (m_stop) { return; }
 
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
@@ -34,8 +35,10 @@ public class GolemLeft : Golem
         // デバッグ用
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("ダメージを受けました！");
-            m_damageFlg = true;
+            if (m_weakCollider.enabled)
+            {
+                m_damageFlg = true;
+            }
         }
     }
 

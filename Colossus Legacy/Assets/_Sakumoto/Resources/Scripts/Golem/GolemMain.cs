@@ -39,7 +39,15 @@ public class GolemMain : Golem
 
     void Update()
     {
+        if (!m_alive) { return; }
 
+        if (Input.GetKeyUp(KeyCode.M))
+        {
+            if (m_weakCollider.enabled)
+            {
+                m_damageFlg = true;
+            }
+        }
     }
 
 
@@ -81,6 +89,7 @@ public class GolemMain : Golem
         {
             m_effectScale = Vector3.one;
             m_effekseerHandleList.Clear();
+            m_weakCollider.enabled = true;
 
             result = true;
         }
@@ -118,6 +127,8 @@ public class GolemMain : Golem
             // ƒr[ƒ€‚ğ•ú‚ÂI
             else
             {
+                if (m_stop) return;
+
                 BigLaserEffect();
 
                 m_laserTime = m_shotTime;

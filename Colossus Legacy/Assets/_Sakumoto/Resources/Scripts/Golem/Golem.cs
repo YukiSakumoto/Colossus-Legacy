@@ -9,6 +9,7 @@ public class Golem : MonoBehaviour
 {
     protected AttackManager attackManager;
     [SerializeField] private List<Collider> attackColliders;
+    [SerializeField] protected Collider m_weakCollider;
 
     [SerializeField] private GolemLeft m_golemLeft;     // Unityでアタッチ済み
     [SerializeField] private GolemRight m_golemRight;   // Unityでアタッチ済み
@@ -29,6 +30,10 @@ public class Golem : MonoBehaviour
 
     private float m_time = 0.0f;
 
+    private bool m_lastAttack = false;
+    protected bool m_alive = true;
+
+
     void Start()
     {
         attackManager = GetComponent<AttackManager>();
@@ -40,6 +45,8 @@ public class Golem : MonoBehaviour
 
     void Update()
     {
+        if (!m_alive) { return; }
+
         // Null チェック
         if (!m_golemLeft || !m_golemRight || !m_golemMain)
         {
@@ -56,21 +63,7 @@ public class Golem : MonoBehaviour
             // どちらかの部位がダメージを受けた状態なら全ての部位をダメージ状態にする
             if (m_golemLeft.m_damageFlg || m_golemRight.m_damageFlg || m_golemMain.m_damageFlg)
             {
-                // HPを減らすよ
-                m_hp -= m_damagePoint;
-
-                m_damageFlg = true;
-
-                // ダメージアニメーションの再生
-                m_golemLeft.HitDamage();
-                m_golemRight.HitDamage();
-                m_golemMain.HitDamage();
-
-                m_time = m_damageTime;
-                if (m_hp <= 0)
-                {
-                    m_time = 3.0f;
-                }
+                DamageAction();
 
                 return;
             }
@@ -81,13 +74,23 @@ public class Golem : MonoBehaviour
             {
                 m_time -= Time.deltaTime;
 
-                if (m_hp <= 0)
+                if (m_hp <= 1)
                 {
                     if (m_time <= 0.0f)
                     {
-                        m_golemMain.ArmorDestroy();
-                        m_golemMain.WakeUp();
+                        if (!m_lastAttack)
+                        {
+                            m_lastAttack = true;
+
+                            m_golemMain.ArmorDestroy();
+                            m_golemMain.WakeUp();
+                        }                        
+
                         m_golemMain.SpecialAttack();
+                        if (m_golemMain.m_damageFlg)
+                        {
+                            DamageAction();
+                        }
                     }
                     return;
                 }
@@ -120,6 +123,38 @@ public class Golem : MonoBehaviour
         {
             m_golemLeft.AttackStart();
             m_golemRight.AttackStart();
+        }
+    }
+
+
+    public void DamageAction()
+    {
+        // HPを減らすよ
+        m_hp -= m_damagePoint;
+
+        m_damageFlg = true;
+
+        // ダメージアニメーションの再生
+        m_golemLeft.HitDamage();
+        m_golemRight.HitDamage();
+        m_golemMain.HitDamage();
+
+        m_time = m_damageTime;
+
+        if (m_hp <= 1)
+        {
+            if (!m_lastAttack)
+            {
+                m_hp = 1;
+            }
+            else
+            {
+                Debug.Log("ステージクリア！");
+                m_hp = 0;
+                m_alive = false;
+            }
+
+            m_time = 3.0f;
         }
     }
 
@@ -177,6 +212,16 @@ public class Golem : MonoBehaviour
         }
     }
 
+    protected void WeakOn()
+    {
+        m_weakCollider.enabled = true;
+    }
+
+    protected void WeakOff()
+    {
+        m_weakCollider.enabled = false;
+    }
+
 
     // 攻撃を受けた際の処理
     public void HitDamage()
@@ -210,6 +255,7 @@ public class Golem : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
 
 
     public bool GetStop() { return m_stop; }

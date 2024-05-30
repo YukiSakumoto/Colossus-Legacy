@@ -14,14 +14,15 @@ public class GolemLeft : Golem
     {
         attackManager = GetComponent<AttackManager>();
 
-        attackManager.AddAttack(0, "SwingDown", 50.0f, 1.0f);
-        attackManager.AddAttack(1, "SwingDown", 50.0f, 5.0f);
+        //attackManager.AddAttack(0, "SwingDown", 50.0f, 1.0f);
+        //attackManager.AddAttack(1, "SwingDown", 50.0f, 5.0f);
         attackManager.AddAttack(2, "Palms", 30.0f, 5.0f, true);
     }
 
 
     void Update()
     {
+        if (!m_alive) { return; }
         if (m_stop) { return; }
 
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
@@ -34,8 +35,10 @@ public class GolemLeft : Golem
         // デバッグ用
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("ダメージを受けました！");
-            m_damageFlg = true;
+            if (m_weakCollider.enabled)
+            {
+                m_damageFlg = true;
+            }
         }
     }
 

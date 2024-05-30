@@ -10,8 +10,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
 
     [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
-
-    private SoundPlay m_soundPlay;
     // ダメージ量
     enum Damage
     {
@@ -94,7 +92,6 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("RigidBody is Null");
         }
-        m_soundPlay = GetComponentInChildren<SoundPlay>();
     }
 
     // Update is called once per frame
@@ -188,7 +185,6 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
-                    m_soundPlay.SoundSwordSwing();
                 }
                 else // 弓で攻撃
                 {
@@ -199,21 +195,21 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // 剣を振った時に前に進む処理
-        if (!m_weaponFlg && m_weaponAttackCoolTimeCheckFlg)
-        {
-            // Y軸の回転に合わせて移動方向を計算する
-            Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-            Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
+        //if (!m_weaponFlg && m_weaponAttackCoolTimeCheckFlg)
+        //{
+        //    // Y軸の回転に合わせて移動方向を計算する
+        //    Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+        //    Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
 
-            // Rigidbodyを使ってオブジェクトを移動
-            m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+        //    // Rigidbodyを使ってオブジェクトを移動
+        //    m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
 
-            // 移動方向が0でない場合にオブジェクトの向きを変更する
-            if (movement != Vector3.zero)
-            {
-                transform.forward = movement.normalized;
-            }
-        }
+        //    // 移動方向が0でない場合にオブジェクトの向きを変更する
+        //    if (movement != Vector3.zero)
+        //    {
+        //        transform.forward = movement.normalized;
+        //    }
+        //}
 
         // サブ攻撃。マウスの右クリックで爆弾を投げる。
         if (Input.GetMouseButtonDown(1))

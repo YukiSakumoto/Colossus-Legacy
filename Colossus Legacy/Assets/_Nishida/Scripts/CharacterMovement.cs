@@ -9,8 +9,9 @@ public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
 
-    [SerializeField] private string m_targetParentTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
+    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
 
+    private SoundPlay m_soundPlay;
     // ダメージ量
     enum Damage
     {
@@ -93,6 +94,7 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("RigidBody is Null");
         }
+        m_soundPlay = GetComponentInChildren<SoundPlay>();
     }
 
     // Update is called once per frame
@@ -186,12 +188,30 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
+                    m_soundPlay.SoundSwordSwing();
                 }
                 else // 弓で攻撃
                 {
                     m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
                 }
+            }
+        }
+
+        // 剣を振った時に前に進む処理
+        if (!m_weaponFlg && m_weaponAttackCoolTimeCheckFlg)
+        {
+            // Y軸の回転に合わせて移動方向を計算する
+            Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+            Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
+
+            // Rigidbodyを使ってオブジェクトを移動
+            m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+
+            // 移動方向が0でない場合にオブジェクトの向きを変更する
+            if (movement != Vector3.zero)
+            {
+                transform.forward = movement.normalized;
             }
         }
 
@@ -250,33 +270,33 @@ public class CharacterMovement : MonoBehaviour
         // ダメージモーション中や無敵中はダメージを受けない
         if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg)
         {
-            // 触れたオブジェクトの親オブジェクトを取得
-            Transform parentTransform = _other.transform.parent?.parent;
+            // 触れたオブジェクトののTransformを取得
+            Transform targetTransform = _other.transform;
 
-            // 親オブジェクトが存在するかを確認
-            if (parentTransform != null)
+            // オブジェクトが存在するかを確認
+            if (targetTransform != null)
             {
-                if (parentTransform.gameObject.CompareTag(m_targetParentTag)) // 親オブジェクトが指定のタグを持っているか確認
+                if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
                 {
-                    // 当たった相手の親オブジェクトの名前をコンソールに表示する
-                    Debug.Log("hit at " + parentTransform.name + " Tag");
+                    // 当たったオブジェクトの名前をコンソールに表示する
+                    Debug.Log("hit at " + targetTransform.name + " Tag");
 
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                    m_KnockBackVec = transform.position - parentTransform.position;
+                    m_KnockBackVec = transform.position - targetTransform.position;
 
                     int damage = (int)Damage.small;
                     hit(damage);
                 }
                 else
                 {
-                    // 当たったオブジェクトの親オブジェクトの親オブジェクトにタグが設定されていない場合にコンソールに表示
-                    Debug.Log(parentTransform.name + " is does not have the " + m_targetParentTag + " Tag");
+                    // 当たったオブジェクトにタグが設定されていない場合にコンソールに表示
+                    Debug.Log(targetTransform.name + " is does not have the " + m_targetTag + " Tag");
                 }
             }
             else
             {
-                // 親オブジェクトの親オブジェクトに当たるオブジェクトが無い
-                Debug.Log("No parent object found");
+                // オブジェクトが無い
+                Debug.Log("No object found");
             }
         }
     }

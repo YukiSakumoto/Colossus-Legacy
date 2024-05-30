@@ -4702,6 +4702,7 @@ MonoBehaviour:
   m_damageTime: 0
   m_damagePoint: 0
   m_nowAttackId: -1
+  m_hand: {fileID: 1539243790716188066, guid: 6b68d9ccafe2a6842a0d640e8e796452, type: 3}
 --- !u!114 &623357088475236962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5406,6 +5407,7 @@ MonoBehaviour:
   m_damageTime: 0
   m_damagePoint: 0
   m_nowAttackId: -1
+  m_hand: {fileID: 5058710448935673509, guid: fff8449e7a3e8044da27cef2164a95ab, type: 3}
 --- !u!114 &2505092768774085899
 MonoBehaviour:
   m_ObjectHideFlags: 0

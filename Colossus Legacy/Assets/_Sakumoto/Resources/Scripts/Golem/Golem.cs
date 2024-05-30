@@ -15,8 +15,8 @@ public class Golem : MonoBehaviour
     [SerializeField] private GolemRight m_golemRight;   // Unityでアタッチ済み
     [SerializeField] private GolemMain m_golemMain;
 
-    [SerializeField] private GameObject m_myself;
-    [SerializeField] private GameObject m_target;
+    [SerializeField] protected GameObject m_myself;
+    [SerializeField] protected GameObject m_target;
 
     [SerializeField] private TMPro.TMP_Text m_text;
 

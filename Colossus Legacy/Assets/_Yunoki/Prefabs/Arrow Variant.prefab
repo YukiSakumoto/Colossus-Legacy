@@ -13,6 +13,18 @@ PrefabInstance:
       value: Arrow Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -51,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8401156109603033622, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
       propertyPath: m_Convex
@@ -97,7 +113,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &-6795503938675097067
 MonoBehaviour:
@@ -111,3 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c42a1e2ca44f3479341f669b604372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_targetTag: EnemyWeak

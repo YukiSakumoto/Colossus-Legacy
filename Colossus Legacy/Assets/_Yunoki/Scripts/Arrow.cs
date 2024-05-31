@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    [SerializeField] private string m_targetTag = "EnemyWeak";
+
     void Start()
     {
         // transform.localScale = new Vector3(10, 10, 10);
@@ -16,10 +18,11 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag==("Enemy"))
+        if(collision.gameObject.tag==(m_targetTag))
         {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            Debug.Log("Arrow Hit!");
+            //Destroy(collision.gameObject);
+            //Destroy(gameObject);
         }
     }
 }

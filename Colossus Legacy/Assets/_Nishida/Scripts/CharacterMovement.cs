@@ -54,6 +54,8 @@ public class CharacterMovement : MonoBehaviour
     private const float m_damageCoolSetTime = 0.6f;      // ダメージを受けた後の硬直時間固定値
     private const float m_invincibilitySetTime = 2f;     // ダメージを受けた後の無敵時間固定値
     private const float m_blownAwayStiffnessSetTime = 0.8f; // 吹っ飛ぶダメージを受けたときの硬直時間固定値
+    private const float m_swordMoveStiffnessSetTime = 0.3f;
+    private const float m_swordMoveSetTime = 0.2f;
 
     private float m_rollCoolTime = 0f;         // 回避行動の実行時間
     private float m_rollStiffnessTime = 0f;    // 回避行動終了時の硬直時間
@@ -64,6 +66,8 @@ public class CharacterMovement : MonoBehaviour
     private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
     private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
+    private float m_swordMoveStiffnessTime;
+    private float m_swordMoveTime;
 
     private bool m_walkFlg = false;                      // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
@@ -82,6 +86,7 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
     private bool m_weaponAttackCoolTimeCheckFlg = false; // 攻撃モーションから移動に移れるまでの時間かの管理
     private bool m_weaponChangeCoolTimeCheckFlg = false; // 武器の種類を変える時のクールタイムかの管理
+    private bool m_swordMoveFlg = false;
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
 
@@ -185,6 +190,9 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
+                    m_swordMoveFlg = true;
+                    m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
+                    m_swordMoveTime = m_swordMoveSetTime;
                 }
                 else // 弓で攻撃
                 {
@@ -195,21 +203,33 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // 剣を振った時に前に進む処理
-        //if (!m_weaponFlg && m_weaponAttackCoolTimeCheckFlg)
-        //{
-        //    // Y軸の回転に合わせて移動方向を計算する
-        //    Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-        //    Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
+        if (m_swordMoveFlg)
+        {
+            m_swordMoveStiffnessTime -= Time.deltaTime;
+            if (m_swordMoveStiffnessTime < 0)
+            {
+                m_swordMoveTime -= Time.deltaTime;
+                if (m_swordMoveTime >= 0)
+                {
+                    // Y軸の回転に合わせて移動方向を計算する
+                    Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+                    Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
 
-        //    // Rigidbodyを使ってオブジェクトを移動
-        //    m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+                    // Rigidbodyを使ってオブジェクトを移動
+                    m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
 
-        //    // 移動方向が0でない場合にオブジェクトの向きを変更する
-        //    if (movement != Vector3.zero)
-        //    {
-        //        transform.forward = movement.normalized;
-        //    }
-        //}
+                    // 移動方向が0でない場合にオブジェクトの向きを変更する
+                    if (movement != Vector3.zero)
+                    {
+                        transform.forward = movement.normalized;
+                    }
+                }
+                else
+                {
+                    m_swordMoveFlg = false;
+                }
+            }
+        }
 
         // サブ攻撃。マウスの右クリックで爆弾を投げる。
         if (Input.GetMouseButtonDown(1))

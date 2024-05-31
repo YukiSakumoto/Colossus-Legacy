@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    [SerializeField] private string m_targetTag = "EnemyWeak";
+
+    void OnTriggerEnter(Collider _other)
     {
-        if (other.gameObject.tag == ("Enemy"))
+        if (_other.gameObject.tag == (m_targetTag))
         {
-            Destroy(other.gameObject);
+            //Destroy(_other.gameObject);
+            Debug.Log("Sword Hit!");
         }
     }
 }

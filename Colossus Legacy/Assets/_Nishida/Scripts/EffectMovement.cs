@@ -11,13 +11,14 @@ public class EffectMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SwordEffect = Resources.Load<EffekseerEffectAsset>("Simple_Ribbon_Sword");
+        SwordEffect = Resources.Load<EffekseerEffectAsset>("Simple_Ribbon_Sworder");
     }
 
     public void PlayerSwordEffect()
     {
         // transformの位置でエフェクトを再生する
         Vector3 EffectPosition = transform.position;
+        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
         EffectPosition.y += 1f;
         EffekseerHandle handle = EffekseerSystem.PlayEffect(SwordEffect, EffectPosition);
 

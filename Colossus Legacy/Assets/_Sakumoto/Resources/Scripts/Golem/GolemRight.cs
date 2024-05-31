@@ -18,9 +18,9 @@ public class GolemRight : Golem
     {
         attackManager = GetComponent<AttackManager>();
 
-        //attackManager.AddAttack(0, "SwingDown", 50.0f, 1.0f);
-        //attackManager.AddAttack(1, "SwingDown", 50.0f, 5.0f);
-        //attackManager.AddAttack(2, "Palms", 30.0f, 5.0f, true);
+        attackManager.AddAttack(0, "SwingDown", 50.0f, 1.0f);
+        attackManager.AddAttack(1, "SwingDown", 50.0f, 5.0f);
+        attackManager.AddAttack(2, "Palms", 30.0f, 5.0f, true);
         attackManager.AddAttack(3, "Protrusion", 100.0f, 8.0f);
     }
 

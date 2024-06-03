@@ -24,7 +24,7 @@ public class AnimationMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (characterMovement.Getm_attackFlg)
+        if (characterMovement.Getm_attackAnimeFlg)
         {
             if (!characterMovement.Getm_weaponFlg)
             {
@@ -36,22 +36,27 @@ public class AnimationMovement : MonoBehaviour
             }
         }
 
-        if (characterMovement.Getm_subAttackFlg)
+        if (characterMovement.Getm_subAttackAnimeFlg)
         {
             animator.SetTrigger("p_Bomb");
         }
 
-        if (characterMovement.Getm_rollFlg)
+        if (characterMovement.Getm_secondSwordAttackAnimeFlg)
+        {
+            animator.SetTrigger("p_SecondSword");
+        }
+
+        if (characterMovement.Getm_rollAnimeFlg)
         {
             animator.SetTrigger("p_Roll");
         }
 
-        if (characterMovement.Getm_damageFlg)
+        if (characterMovement.Getm_damageAnimeFlg)
         {
             animator.SetTrigger("p_Damage");
         }
 
-        if(characterMovement.Getm_blownAwayFlg)
+        if(characterMovement.Getm_blownAwayAnimeFlg)
         {
             animator.SetTrigger("p_blownAway");
         }
@@ -70,7 +75,7 @@ public class AnimationMovement : MonoBehaviour
             animator.SetBool("b_Death", false);
         }
 
-        if (characterMovement.Getm_walkFlg)
+        if (characterMovement.Getm_walkAnimeFlg)
         {
             animator.SetBool("b_Run", true);
         }

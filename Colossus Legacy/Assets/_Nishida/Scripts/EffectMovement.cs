@@ -27,4 +27,18 @@ public class EffectMovement : MonoBehaviour
         EffectRotate *= Quaternion.Euler(-30, -90, 0);
         handle.SetRotation(EffectRotate);
     }
+
+    public void PlayerSword2Effect()
+    {
+        // transformの位置でエフェクトを再生する
+        Vector3 EffectPosition = transform.position;
+        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+        EffectPosition.y += 1f;
+        EffekseerHandle handle = EffekseerSystem.PlayEffect(SwordEffect, EffectPosition);
+
+        // transformの回転を設定する。
+        Quaternion EffectRotate = transform.rotation;
+        EffectRotate *= Quaternion.Euler(40, -90, 0);
+        handle.SetRotation(EffectRotate);
+    }
 }

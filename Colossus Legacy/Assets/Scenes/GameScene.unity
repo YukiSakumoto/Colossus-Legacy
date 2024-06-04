@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -464,10 +464,6 @@ PrefabInstance:
     - target: {fileID: 5631344438163005941, guid: 9697070ca41d2fa4e862b63f68e501ca, type: 3}
       propertyPath: m_Name
       value: TerrainWorld
-      objectReference: {fileID: 0}
-    - target: {fileID: 5631344438163005941, guid: 9697070ca41d2fa4e862b63f68e501ca, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7861677514554439760, guid: 9697070ca41d2fa4e862b63f68e501ca, type: 3}
       propertyPath: m_LocalPosition.x

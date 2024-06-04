@@ -7,6 +7,8 @@ using Effekseer;
 
 public class CharacterMovement : MonoBehaviour
 {
+    GameObject swordObject;
+
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
 
     [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
@@ -54,11 +56,11 @@ public class CharacterMovement : MonoBehaviour
     private const float m_damageCoolSetTime = 0.6f;               // ダメージを受けた後の硬直時間固定値
     private const float m_invincibilitySetTime = 2f;              // ダメージを受けた後の無敵時間固定値
     private const float m_blownAwayStiffnessSetTime = 0.8f;       // 吹っ飛ぶダメージを受けたときの硬直時間固定値
-    private const float m_swordMoveAcceleration = 2f;             // 剣で攻撃したときの前進固定値
-    private const float m_swordMoveStiffnessSetTime = 0.3f;       // 攻撃する前の硬直時間固定値
-    private const float m_swordMoveSetTime = 0.2f;                // 攻撃するときの移動時間固定値
-    private const float m_swordSecondMoveStiffnessSetTime = 0.3f; // 2段攻撃したときの硬直時間固定値
-    private const float m_swordSecondMoveSetTime = 0.2f;          // 2段攻撃したときの移動時間固定値
+    private const float m_swordMoveAcceleration = 4f;             // 剣で攻撃したときの前進固定値
+    private const float m_swordMoveStiffnessSetTime = 0.4f;       // 攻撃する前の硬直時間固定値
+    private const float m_swordMoveSetTime = 0.1f;                // 攻撃するときの移動時間固定値
+    private const float m_swordSecondMoveStiffnessSetTime = 0.4f; // 2段攻撃したときの硬直時間固定値
+    private const float m_swordSecondMoveSetTime = 0.1f;          // 2段攻撃したときの移動時間固定値
 
     private float m_rollCoolTime = 0f;         // 回避行動の実行時間
     private float m_rollStiffnessTime = 0f;    // 回避行動終了時の硬直時間
@@ -98,7 +100,8 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!m_rb)
+        swordObject = GameObject.Find("Sword Variant");
+        if (!m_rb)
         {
             Debug.Log("RigidBody is Null");
         }
@@ -169,12 +172,14 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!m_weaponFlg) // 弓に変更
                 {
+                    swordObject.SetActive(false);
                     m_weaponFlg = true;
                     m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
                 else // 剣に変更
                 {
+                    swordObject.SetActive(true);
                     m_weaponFlg = false;
                     m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
@@ -183,7 +188,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // モーション重複の管理系処理
-        motionProcessing();
+        MotionProcessing();
 
         // マウス左クリックで装備している武器で攻撃。使った武器によって硬直時間が異なる。
         if (Input.GetMouseButtonDown(0))
@@ -210,8 +215,7 @@ public class CharacterMovement : MonoBehaviour
         // 剣を振った時に前に進む処理
         if (m_swordMoveFlg)
         {
-            m_swordMoveStiffnessTime -= Time.deltaTime;
-            if (m_swordMoveStiffnessTime < 0)
+            if(m_swordMoveStiffnessTime < m_swordMoveStiffnessSetTime)
             {
                 // モーション中にもう一度クリックすると2段攻撃
                 if (Input.GetMouseButtonDown(0))
@@ -219,7 +223,11 @@ public class CharacterMovement : MonoBehaviour
                     m_secondSwordAttackAnimeFlg = true;
                     m_secondSwordAttackFlg = true;
                 }
+            }
 
+            m_swordMoveStiffnessTime -= Time.deltaTime;
+            if (m_swordMoveStiffnessTime < 0)
+            {
                 m_swordMoveTime -= Time.deltaTime;
                 if (m_swordMoveTime >= 0)
                 {
@@ -316,7 +324,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // 時間経過で発生したりフラグを変更する処理
-        timeProcessing();
+        TimeProcessing();
     }
 
     private void LateUpdate()
@@ -355,12 +363,12 @@ public class CharacterMovement : MonoBehaviour
                     m_KnockBackVec = transform.position - targetTransform.position;
 
                     int damage = (int)Damage.small;
-                    hit(damage);
+                    Hit(damage);
                 }
                 else
                 {
                     // 当たったオブジェクトにタグが設定されていない場合にコンソールに表示
-                    Debug.Log(targetTransform.name + " is does not have the " + m_targetTag + " Tag");
+                    //Debug.Log(targetTransform.name + " is does not have the " + m_targetTag + " Tag");
                 }
             }
             else
@@ -372,7 +380,7 @@ public class CharacterMovement : MonoBehaviour
     }
 
     // ダメージを受けたときの汎用処理
-    void hit(int _damage)
+    void Hit(int _damage)
     {
         m_playerLife -= _damage;
         if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
@@ -402,7 +410,7 @@ public class CharacterMovement : MonoBehaviour
     }
 
     // モーション重複防止用のフラグ管理系処理
-    void motionProcessing()
+    void MotionProcessing()
     {
         // 回避行動モーションの重複防止
         if (m_rollAnimeFlg)
@@ -430,7 +438,7 @@ public class CharacterMovement : MonoBehaviour
     }
 
     // 時間経過で発生したりフラグを変更する処理
-    void timeProcessing()
+    void TimeProcessing()
     {
         // 回避行動時のモーション時間処理
         if (m_rollCoolTimeCheckFlg)
@@ -562,5 +570,15 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_deathFlg
     {
         get { return m_deathFlg; }
+    }
+
+    public bool Getm_swordMoveFlg
+    {
+        get { return m_swordMoveFlg; }
+    }
+
+    public bool Getm_secondSwordAttackFlg
+    {
+        get { return m_secondSwordAttackFlg; }
     }
 }

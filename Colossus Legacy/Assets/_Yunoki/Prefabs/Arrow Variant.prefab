@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4865309214770636011, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
+      propertyPath: m_TagString
+      value: ArrowAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 5246372888971771473, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
       propertyPath: m_LocalScale.x
       value: 5

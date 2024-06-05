@@ -2787,7 +2787,7 @@ MonoBehaviour:
   - {fileID: 5206400234882894243}
   - {fileID: 7340954945696897147}
   m_weakCollider: {fileID: 5015811315214492197}
-  m_golemLeft: {fileID: 9166437352457723710}
+  m_golemLeft: {fileID: 0}
   m_golemRight: {fileID: 0}
   m_golemMain: {fileID: 0}
   m_myself: {fileID: 683931030228963651}
@@ -2801,6 +2801,7 @@ MonoBehaviour:
   m_myShoulder: {fileID: 315256197570243376}
   m_myHand: {fileID: 3217880229677068867}
   m_smoothTime: 15
+  m_limitDeg: -30
 --- !u!114 &623357088475236962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3483,6 +3484,7 @@ MonoBehaviour:
   m_myShoulder: {fileID: 4203257974664550715}
   m_myHand: {fileID: 8487275552369355415}
   m_smoothTime: 15
+  m_limitDeg: 60
 --- !u!114 &2505092768774085899
 MonoBehaviour:
   m_ObjectHideFlags: 0

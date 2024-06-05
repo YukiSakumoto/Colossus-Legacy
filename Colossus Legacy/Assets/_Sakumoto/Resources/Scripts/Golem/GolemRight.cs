@@ -31,18 +31,21 @@ public class GolemRight : Golem
     private Quaternion m_initRot;           // 初期角度
     private Quaternion m_targetRot;         // 対象への角度保存用
 
-    [SerializeField] private float m_smoothTime = 15.0f; // 目標値に到達するまでのおおよその時間
+    [SerializeField] private float m_smoothTime = 15.0f;    // 目標値に到達するまでのおおよその時間
     private float m_nowTime = 0.0f;
+
+    [SerializeField] private float m_limitDeg = -30.0f;     // 角度の限界
 
 
     void Start()
     {
         attackManager = GetComponent<AttackManager>();
 
-        attackManager.AddAttack(0, "SwingDown", new Vector2(0.0f, 22.0f), 1.0f);
-        attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 5.0f);
-        //attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 5.0f, true);
-        //attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 100.0f), 8.0f);
+        attackManager.AddAttack(0, "SwingDown", new Vector2(10.0f, 22.0f), 1.0f);
+        attackManager.AddAttack(1, "SwingDown", new Vector2(10.0f, 22.0f), 5.0f);
+        attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 5.0f, true);
+        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 100.0f), 8.0f);
+        attackManager.AddAttack(4, "Protrusion", new Vector2(0.0f, 15.0f), 8.0f);
 
         // 初期角度の保存
         m_initRot = this.transform.rotation;
@@ -164,17 +167,17 @@ public class GolemRight : Golem
         // 2つのベクトルから角度算出
         float deg = Vector3.SignedAngle(myVec, targetVec, Vector3.up);
 
-        // deg < 0.0f のときだけ角度が 2 倍になっていたため補正
-        if (deg < 0.0f) deg *= 0.5f;
+        // deg > 0.0f のときだけ角度が 2 倍になっていたため補正
+        if (deg > 0.0f) deg *= 0.5f;
 
         // 初期位置から角度を算出（角度制御用）
         float initDeg = Vector3.SignedAngle(m_initVec, targetVec, Vector3.up);
         if (initDeg > 0.0f) initDeg *= 0.5f;
 
         // 初期位置から特定の値まで開かないようにする（30°まで）
-        if (initDeg < -30.0f)
+        if (initDeg < m_limitDeg)
         {
-            deg = -30.0f - (initDeg - deg);
+            deg = m_limitDeg - (initDeg - deg);
         }
         Debug.Log(deg);
 

@@ -26,13 +26,14 @@ public class GolemLeft : Golem
     [SerializeField] private GameObject m_myShoulder;
     [SerializeField] private GameObject m_myHand;
 
-    private Vector3 m_initVec;
+    private Vector3 m_initVec;              // 腕の向きの初期ベクトル
 
     private Quaternion m_initRot;           // 初期角度
     private Quaternion m_targetRot;         // 対象への角度保存用
-    
-    [SerializeField] private float m_smoothTime = 15.0f; // 目標値に到達するまでのおおよその時間
+
+    [SerializeField] private float m_smoothTime = 15.0f;    // 目標値に到達するまでのおおよその時間
     private float m_nowTime = 0.0f;
+    [SerializeField] private float m_limitDeg = 30.0f;        // 角度の限度
 
 
     void Start()
@@ -41,8 +42,8 @@ public class GolemLeft : Golem
 
         attackManager.AddAttack(0, "SwingDown", new Vector2(0.0f, 22.0f), 1.0f);
         attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 5.0f);
-        //attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 5.0f, true);
-        //attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 100.0f), 8.0f);
+        attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 5.0f, true);
+        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 100.0f), 8.0f);
 
         // 初期角度の保存
         m_initRot = this.transform.rotation;
@@ -171,10 +172,10 @@ public class GolemLeft : Golem
         float initDeg = Vector3.SignedAngle(m_initVec, targetVec, Vector3.up);
         if (initDeg < 0.0f) initDeg *= 0.5f;
 
-        // 初期位置から特定の値まで開かないようにする（30°まで）
-        if (initDeg > 30.0f)
+        // 初期位置から特定の値まで開かないようにする
+        if (initDeg > m_limitDeg)
         {
-            deg = 30.0f - (initDeg - deg);
+            deg = m_limitDeg - (initDeg - deg);
         }
 
         // 角度から回転情報を取得

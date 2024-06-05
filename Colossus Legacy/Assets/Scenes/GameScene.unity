@@ -1576,10 +1576,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
-    - target: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1592932452490048242, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_text
       value: 
@@ -1588,10 +1584,6 @@ PrefabInstance:
       propertyPath: m_target
       value: 
       objectReference: {fileID: 2025905942}
-    - target: {fileID: 2803960910077753707, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
-      propertyPath: m_target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8623833562460542569, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

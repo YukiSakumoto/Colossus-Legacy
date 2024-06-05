@@ -72,13 +72,13 @@ public class GolemRight : Golem
             if (m_protrusionNowTime <= 0.17f + 0.5f && m_protrusionNowTime >= 0.5f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
-                pos.y += 0.12f;
+                pos.y += 20.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
             else if (m_protrusionNowTime >= 0.83f + 0.5f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
-                pos.y -= 0.12f;
+                pos.y -= 20.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
         }
@@ -179,7 +179,6 @@ public class GolemRight : Golem
         {
             deg = m_limitDeg - (initDeg - deg);
         }
-        Debug.Log(deg);
 
         // Šp“x‚©‚ç‰ñ“]î•ñ‚ğæ“¾
         m_targetRot.eulerAngles += new Vector3(0.0f, deg, 0.0f);

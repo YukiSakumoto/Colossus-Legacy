@@ -70,13 +70,13 @@ public class GolemLeft : Golem
             if (m_protrusionNowTime <= 0.17f + 0.5f && m_protrusionNowTime >= 0.5f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
-                pos.y += 0.12f;
+                pos.y += 20.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
             else if (m_protrusionNowTime >= 0.83f + 0.5f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
-                pos.y -= 0.12f;
+                pos.y -= 20.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
         }

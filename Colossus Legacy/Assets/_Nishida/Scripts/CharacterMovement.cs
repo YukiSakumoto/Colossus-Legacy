@@ -7,7 +7,11 @@ using Effekseer;
 
 public class CharacterMovement : MonoBehaviour
 {
-    GameObject swordObject;
+    [SerializeField] private GameObject m_swordObject;
+    [SerializeField] private GameObject m_bowObject;
+
+    Sword m_swordClass;
+    Bow m_bowClass;
 
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
 
@@ -100,7 +104,26 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        swordObject = GameObject.Find("Sword Variant");
+        if(!m_swordObject)
+        {
+            Debug.Log("Sword is Null");
+        }
+        else
+        {
+            m_swordObject.SetActive(true);
+            m_swordClass = m_swordObject.GetComponent<Sword>();
+        }
+
+        if (!m_bowObject)
+        {
+            Debug.Log("Bow is Null");
+        }
+        else
+        {
+            m_bowObject.SetActive(false);
+            m_bowClass = m_bowObject.GetComponent<Bow>();
+        }
+
         if (!m_rb)
         {
             Debug.Log("RigidBody is Null");
@@ -130,7 +153,7 @@ public class CharacterMovement : MonoBehaviour
             Vector3 movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed;
 
             // Rigidbodyを使ってキャラクターを移動
-            m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+            m_rb.MovePosition(transform.position + movement * Time.deltaTime);
 
             // キャラクターの向きを入力方向に変更
             if (movement != Vector3.zero)
@@ -145,7 +168,7 @@ public class CharacterMovement : MonoBehaviour
             Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
 
             // Rigidbodyを使ってオブジェクトを移動
-            m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+            m_rb.MovePosition(transform.position + movement * Time.deltaTime);
 
             // 移動方向が0でない場合にオブジェクトの向きを変更する
             if (movement != Vector3.zero)
@@ -172,14 +195,16 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!m_weaponFlg) // 弓に変更
                 {
-                    swordObject.SetActive(false);
+                    m_swordObject.SetActive(false);
+                    m_bowObject.SetActive(true);
                     m_weaponFlg = true;
                     m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
                 else // 剣に変更
                 {
-                    swordObject.SetActive(true);
+                    m_swordObject.SetActive(true);
+                    m_bowObject.SetActive(false);
                     m_weaponFlg = false;
                     m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
@@ -229,14 +254,14 @@ public class CharacterMovement : MonoBehaviour
             if (m_swordMoveStiffnessTime < 0)
             {
                 m_swordMoveTime -= Time.deltaTime;
-                if (m_swordMoveTime >= 0)
+                if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
                 {
                     // Y軸の回転に合わせて移動方向を計算する
                     Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
                     Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
 
                     // Rigidbodyを使ってオブジェクトを移動
-                    m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+                    m_rb.MovePosition(transform.position + movement * Time.deltaTime);
 
                     // 移動方向が0でない場合にオブジェクトの向きを変更する
                     if (movement != Vector3.zero)
@@ -264,14 +289,14 @@ public class CharacterMovement : MonoBehaviour
                 if (m_swordMoveStiffnessTime < 0)
                 {
                     m_swordMoveTime -= Time.deltaTime;
-                    if (m_swordMoveTime >= 0)
+                    if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
                     {
                         // Y軸の回転に合わせて移動方向を計算する
                         Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
                         Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
 
                         // Rigidbodyを使ってオブジェクトを移動
-                        m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
+                        m_rb.MovePosition(transform.position + movement * Time.deltaTime);
 
                         // 移動方向が0でない場合にオブジェクトの向きを変更する
                         if (movement != Vector3.zero)

@@ -11,8 +11,8 @@ public class Golem : MonoBehaviour
     [SerializeField] private List<Collider> attackColliders;
     [SerializeField] protected Collider m_weakCollider;
 
-    [SerializeField] private GolemLeft m_golemLeft;     // Unityでアタッチ済み
-    [SerializeField] private GolemRight m_golemRight;   // Unityでアタッチ済み
+    [SerializeField] private GolemLeft m_golemLeft;
+    [SerializeField] private GolemRight m_golemRight;
     [SerializeField] private GolemMain m_golemMain;
 
     [SerializeField] protected GameObject m_myself;
@@ -108,15 +108,22 @@ public class Golem : MonoBehaviour
         }
 
 
+        // 
         if (m_golemLeft.AttackWait())
         {
-            m_golemRight.AttackWait();
-            m_golemRight.SetNextAttackId(2);
+            if (m_golemLeft.m_nowAttackId == 2)
+            {
+                m_golemRight.AttackWait();
+                m_golemRight.SetNextAttackId(2);
+            }
         }
         if (m_golemRight.AttackWait())
         {
-            m_golemLeft.AttackWait();
-            m_golemLeft.SetNextAttackId(2);
+            if (m_golemRight.m_nowAttackId == 2)
+            {
+                m_golemLeft.AttackWait();
+                m_golemLeft.SetNextAttackId(2);
+            }
         }
 
         if (m_golemLeft.GetStop() && m_golemRight.GetStop())

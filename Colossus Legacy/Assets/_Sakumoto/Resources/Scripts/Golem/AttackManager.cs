@@ -9,7 +9,7 @@ public struct AttackData
 {
     public int m_id { get; set; }               // 攻撃ID
     public string m_name { get; set; }          // 攻撃名（アニメーションの名前）
-    public float m_dist { get; set; }           // 攻撃者を起点とした攻撃の発動距離
+    public Vector2 m_dist { get; set; }         // 攻撃者を起点とした攻撃の発動距離 (x : 感知最長距離   y : 感知最短距離)
     public float m_coolDown { get; set; }       // 攻撃後の硬直時間
     public bool m_waitFlg { get; set; }         // 待機フラグ（他の攻撃を待つ時間などに使用）
 }
@@ -56,14 +56,22 @@ public class AttackManager : MonoBehaviour
     {
         m_attackLists.Add(_attack);
     }
-    public void AddAttack(int _id, string _name, float _dist, float _coolDown, bool _flg = false)
+    public void AddAttack(int _id, string _name, Vector2 _dist, float _coolDown, bool _flg = false)
     {
-        AttackData attack = new AttackData();
+        AttackData attack = new();
         attack.m_id = _id;
         attack.m_name = _name;
-        attack.m_dist = _dist;
         attack.m_coolDown = _coolDown;
         attack.m_waitFlg = _flg;
+
+        // 追加された Vector2 の距離を降順に並び替え
+        attack.m_dist = _dist;
+        if (attack.m_dist.x < attack.m_dist.y)
+        {
+            Vector2 tmp = new(attack.m_dist.y, attack.m_dist.x);
+            attack.m_dist = tmp;
+        }
+
         AddAttack(attack);
     }
 
@@ -80,12 +88,13 @@ public class AttackManager : MonoBehaviour
         List<int> attacks = new List<int>();
         for (int i = 0; i < m_attackLists.Count; i++)
         {
-            if (m_attackLists[i].m_dist >= _dist)
+            // 感知最長 > ターゲットとの距離 > 感知最短 なら
+            if (m_attackLists[i].m_dist.x >= _dist && m_attackLists[i].m_dist.y <= _dist)
             {
                 attacks.Add(m_attackLists[i].m_id);
             }
         }
-        if (attacks.Count == 0) { Debug.Log("攻撃不可"); return -1; }  // 距離内に攻撃対象がいなかったら早期リターン
+        if (attacks.Count == 0) { return -1; }  // 距離内に攻撃対象がいなかったら早期リターン
 
 
         // 取得した一覧からランダムで攻撃
@@ -115,7 +124,7 @@ public class AttackManager : MonoBehaviour
         if (!m_canAttack) { return -1; }
 
         // 指定した攻撃が範囲外ならリターン
-        if (m_attackLists[SearchAttackId(m_nowId)].m_dist < _dist) { return -1; }
+        if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist || m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
 
         m_nowId = _id;
         m_coolDown = m_attackLists[SearchAttackId(m_nowId)].m_coolDown;

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Golem : MonoBehaviour
 {
     protected AttackManager attackManager;
     [SerializeField] private List<Collider> attackColliders;
-    [SerializeField] protected Collider m_weakCollider;
+    [SerializeField] protected WeakPoint m_weakCollider;
 
     [SerializeField] private GolemLeft m_golemLeft;
     [SerializeField] private GolemRight m_golemRight;
@@ -107,7 +108,6 @@ public class Golem : MonoBehaviour
             }
         }
 
-
         // 
         if (m_golemLeft.AttackWait())
         {
@@ -153,15 +153,32 @@ public class Golem : MonoBehaviour
             if (!m_lastAttack)
             {
                 m_hp = 1;
+
+                m_golemLeft.m_alive = false;
+                m_golemRight.m_alive = false;
             }
             else
             {
                 Debug.Log("ステージクリア！");
                 m_hp = 0;
+
                 m_alive = false;
+                m_golemMain.m_alive = false;
             }
 
             m_time = 3.0f;
+        }
+    }
+
+
+    // ゴーレムの弱点が攻撃された時の処理
+    protected void WeakHit()
+    {
+        if (!m_weakCollider) { return; }
+
+        if (m_weakCollider.m_weakHit)
+        {
+            m_damageFlg = true;
         }
     }
 
@@ -219,14 +236,22 @@ public class Golem : MonoBehaviour
         }
     }
 
+
+    // 弱点判定発生
     protected void WeakOn()
     {
-        m_weakCollider.enabled = true;
+        if (!m_weakCollider) { return; }
+        Collider col = m_weakCollider.GetComponent<Collider>();
+        col.enabled = true;
     }
 
+
+    // 弱点判定消去
     protected void WeakOff()
     {
-        m_weakCollider.enabled = false;
+        if (!m_weakCollider) { return; }
+        Collider col = m_weakCollider.GetComponent<Collider>();
+        col.enabled = false;
     }
 
 
@@ -236,6 +261,11 @@ public class Golem : MonoBehaviour
         m_stop = true;
         m_damageFlg = true;
         attackManager.ChangeAnimation("Damage", m_damageFlg);
+
+        if (m_weakCollider)
+        {
+            m_weakCollider.m_weakHit = false;
+        }
     }
 
 

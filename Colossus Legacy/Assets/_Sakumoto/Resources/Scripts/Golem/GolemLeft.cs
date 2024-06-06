@@ -38,6 +38,8 @@ public class GolemLeft : Golem
 
     void Start()
     {
+        m_weakCollider = GameObject.Find("L_Elixir_Collider_Weak").GetComponent<WeakPoint>();
+
         attackManager = GetComponent<AttackManager>();
 
         attackManager.AddAttack(0, "SwingDown", new Vector2(0.0f, 22.0f), 1.0f);
@@ -91,13 +93,14 @@ public class GolemLeft : Golem
         }
 
         // デバッグ用
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (m_weakCollider.enabled)
-            {
-                m_damageFlg = true;
-            }
-        }
+        WeakHit();
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    if (m_weakCollider.enabled)
+        //    {
+        //        m_damageFlg = true;
+        //    }
+        //}
     }
 
 

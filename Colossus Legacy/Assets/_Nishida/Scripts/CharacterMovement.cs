@@ -7,7 +7,11 @@ using Effekseer;
 
 public class CharacterMovement : MonoBehaviour
 {
-    GameObject swordObject;
+    [SerializeField] private GameObject m_swordObject;
+    [SerializeField] private GameObject m_bowObject;
+
+    Sword m_swordClass;
+    Bow m_bowClass;
 
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
 
@@ -100,7 +104,26 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        swordObject = GameObject.Find("Sword Variant");
+        if(!m_swordObject)
+        {
+            Debug.Log("Sword is Null");
+        }
+        else
+        {
+            m_swordObject.SetActive(true);
+            m_swordClass = m_swordObject.GetComponent<Sword>();
+        }
+
+        if (!m_bowObject)
+        {
+            Debug.Log("Bow is Null");
+        }
+        else
+        {
+            m_bowObject.SetActive(false);
+            m_bowClass = m_bowObject.GetComponent<Bow>();
+        }
+
         if (!m_rb)
         {
             Debug.Log("RigidBody is Null");
@@ -110,61 +133,6 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
-        float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
-
-        // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
-        if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
-            !m_damageMotionFlg && !m_damageBlownAwayStiffnessFlg && !m_deathFlg)
-        {
-            if (horizontalInput != 0f || varticalInput != 0f) // キー入力がされているときは歩きモーションになる
-            {
-                m_walkAnimeFlg = true;
-            }
-            else
-            {
-                m_walkAnimeFlg = false;
-            }
-
-            // 移動量計算
-            Vector3 movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed;
-
-            // Rigidbodyを使ってキャラクターを移動
-            m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
-
-            // キャラクターの向きを入力方向に変更
-            if (movement != Vector3.zero)
-            {
-                transform.forward = movement; // キャラクターを移動方向に向ける
-            }
-        }
-        else if (m_rollCoolTimeCheckFlg) // 回避行動中の移動処理
-        {
-            // Y軸の回転に合わせて移動方向を計算する
-            Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-            Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
-
-            // Rigidbodyを使ってオブジェクトを移動
-            m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
-
-            // 移動方向が0でない場合にオブジェクトの向きを変更する
-            if (movement != Vector3.zero)
-            {
-                transform.forward = movement.normalized;
-            }
-        }
-        else if(m_damageBlownAwayFlg) // ダメージモーション中のノックバックの動きとか
-        {
-            // enumに小数点が入れられないので計算用
-            float knockbackPower = 10f;
-
-            // ノックバック量計算
-            Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
-
-            // ノックバック方向に力を加えてキャラクターを移動させる
-            m_rb.MovePosition(transform.position + movement);
-        }
-
         // 武器チェンジ時の処理
         if (Input.GetKey(KeyCode.F))
         {
@@ -172,14 +140,16 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!m_weaponFlg) // 弓に変更
                 {
-                    swordObject.SetActive(false);
+                    m_swordObject.SetActive(false);
+                    m_bowObject.SetActive(true);
                     m_weaponFlg = true;
                     m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
                 }
                 else // 剣に変更
                 {
-                    swordObject.SetActive(true);
+                    m_swordObject.SetActive(true);
+                    m_bowObject.SetActive(false);
                     m_weaponFlg = false;
                     m_weaponChangeCoolTimeCheckFlg = true;
                     m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
@@ -229,22 +199,7 @@ public class CharacterMovement : MonoBehaviour
             if (m_swordMoveStiffnessTime < 0)
             {
                 m_swordMoveTime -= Time.deltaTime;
-                if (m_swordMoveTime >= 0)
-                {
-                    // Y軸の回転に合わせて移動方向を計算する
-                    Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-                    Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
-
-                    // Rigidbodyを使ってオブジェクトを移動
-                    m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
-
-                    // 移動方向が0でない場合にオブジェクトの向きを変更する
-                    if (movement != Vector3.zero)
-                    {
-                        transform.forward = movement.normalized;
-                    }
-                }
-                else
+                if (m_swordMoveTime < 0 || m_swordClass.Getm_hitFlg)
                 {
                     m_swordMoveFlg = false;
                     if(m_secondSwordAttackFlg) // 2段攻撃を行う用の変数設定
@@ -264,22 +219,7 @@ public class CharacterMovement : MonoBehaviour
                 if (m_swordMoveStiffnessTime < 0)
                 {
                     m_swordMoveTime -= Time.deltaTime;
-                    if (m_swordMoveTime >= 0)
-                    {
-                        // Y軸の回転に合わせて移動方向を計算する
-                        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-                        Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
-
-                        // Rigidbodyを使ってオブジェクトを移動
-                        m_rb.MovePosition(transform.position + movement * Time.fixedDeltaTime);
-
-                        // 移動方向が0でない場合にオブジェクトの向きを変更する
-                        if (movement != Vector3.zero)
-                        {
-                            transform.forward = movement.normalized;
-                        }
-                    }
-                    else
+                    if (m_swordMoveTime < 0 ||m_swordClass.Getm_hitFlg)
                     {
                         m_secondSwordAttackFlg = false;
                     }
@@ -325,6 +265,86 @@ public class CharacterMovement : MonoBehaviour
 
         // 時間経過で発生したりフラグを変更する処理
         TimeProcessing();
+    }
+
+    private void FixedUpdate()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
+        float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
+
+        // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
+        if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
+            !m_damageMotionFlg && !m_damageBlownAwayStiffnessFlg && !m_deathFlg)
+        {
+            if (horizontalInput != 0f || varticalInput != 0f) // キー入力がされているときは歩きモーションになる
+            {
+                m_walkAnimeFlg = true;
+            }
+            else
+            {
+                m_walkAnimeFlg = false;
+            }
+
+            // 移動量計算
+            Vector3 movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed * Time.deltaTime;
+
+            // Rigidbodyを使ってキャラクターを移動
+            m_rb.MovePosition(transform.position + movement);
+
+            // キャラクターの向きを入力方向に変更
+            if (movement != Vector3.zero)
+            {
+                transform.forward = movement; // キャラクターを移動方向に向ける
+            }
+        }
+        else if (m_rollCoolTimeCheckFlg) // 回避行動中の移動処理
+        {
+            // Y軸の回転に合わせて移動方向を計算する
+            Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+            Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
+
+            // Rigidbodyを使ってオブジェクトを移動
+            m_rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+            // 移動方向が0でない場合にオブジェクトの向きを変更する
+            if (movement != Vector3.zero)
+            {
+                transform.forward = movement.normalized;
+            }
+        }
+        else if (m_damageBlownAwayFlg) // ダメージモーション中のノックバックの動きとか
+        {
+            // enumに小数点が入れられないので計算用
+            float knockbackPower = 10f;
+
+            // ノックバック量計算
+            Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
+
+            // ノックバック方向に力を加えてキャラクターを移動させる
+            m_rb.MovePosition(transform.position + movement);
+        }
+
+        if (m_swordMoveFlg || (!m_swordMoveFlg && m_secondSwordAttackFlg))
+        {
+            if (m_swordMoveStiffnessTime < 0)
+            {
+                if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
+                {
+                    // Y軸の回転に合わせて移動方向を計算する
+                    Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+                    Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
+
+                    // Rigidbodyを使ってオブジェクトを移動
+                    m_rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+                    // 移動方向が0でない場合にオブジェクトの向きを変更する
+                    if (movement != Vector3.zero)
+                    {
+                        transform.forward = movement.normalized;
+                    }
+                }
+            }
+        }
     }
 
     private void LateUpdate()

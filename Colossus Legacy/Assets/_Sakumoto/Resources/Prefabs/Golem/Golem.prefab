@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 3514361109883760838}
   - component: {fileID: 7406542228663085519}
   - component: {fileID: 5015811315214492197}
+  - component: {fileID: 3856915413359426150}
   m_Layer: 0
   m_Name: R_Elixir_Collider_Weak
   m_TagString: EnemyWeak
@@ -191,6 +192,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3856915413359426150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814643526751234552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c517fb1751ad34aaeb00ea1f26dd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &902816035371502387
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +2799,7 @@ MonoBehaviour:
   - {fileID: 3935697317628065303}
   - {fileID: 5206400234882894243}
   - {fileID: 7340954945696897147}
-  m_weakCollider: {fileID: 5015811315214492197}
+  m_weakCollider: {fileID: 3856915413359426150}
   m_golemLeft: {fileID: 0}
   m_golemRight: {fileID: 0}
   m_golemMain: {fileID: 0}
@@ -2915,6 +2928,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8623833562460542569}
     m_Modifications:
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_effectNum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_forward.z
       value: -1
       objectReference: {fileID: 0}
@@ -2925,7 +2942,7 @@ PrefabInstance:
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_weakCollider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3687448561482263451}
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_laserCollider
       value: 
@@ -3004,7 +3021,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8894344340835249851, guid: 299c7482de910d145947aee8583916eb, type: 3}
       insertIndex: 1
       addedObject: {fileID: 2264881307867763910}
+    - targetCorrespondingSourceObject: {fileID: 7388763172484401888, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3687448561482263451}
   m_SourcePrefab: {fileID: 100100000, guid: 299c7482de910d145947aee8583916eb, type: 3}
+--- !u!1 &2913298407474544776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7388763172484401888, guid: 299c7482de910d145947aee8583916eb, type: 3}
+  m_PrefabInstance: {fileID: 5684727462635801192}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3687448561482263451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2913298407474544776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c517fb1751ad34aaeb00ea1f26dd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3231905669151568139 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7079162284350192483, guid: 299c7482de910d145947aee8583916eb, type: 3}
@@ -3406,15 +3443,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4707948120971315615, guid: d1da23704dedbbf45beefe022a427836, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2505092768774085899}
+    - targetCorrespondingSourceObject: {fileID: 8142800760357908413, guid: d1da23704dedbbf45beefe022a427836, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3960488622737645118}
   m_SourcePrefab: {fileID: 100100000, guid: d1da23704dedbbf45beefe022a427836, type: 3}
 --- !u!136 &461840526992104657 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 7222772671533227794, guid: d1da23704dedbbf45beefe022a427836, type: 3}
-  m_PrefabInstance: {fileID: 7085491494389105603}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &991748375290374835 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 8041138779301194096, guid: d1da23704dedbbf45beefe022a427836, type: 3}
   m_PrefabInstance: {fileID: 7085491494389105603}
   m_PrefabAsset: {fileID: 0}
 --- !u!136 &1222375283575192733 stripped
@@ -3427,6 +3462,23 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 8311537600439206957, guid: d1da23704dedbbf45beefe022a427836, type: 3}
   m_PrefabInstance: {fileID: 7085491494389105603}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1393216330923289726 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8142800760357908413, guid: d1da23704dedbbf45beefe022a427836, type: 3}
+  m_PrefabInstance: {fileID: 7085491494389105603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3960488622737645118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393216330923289726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c517fb1751ad34aaeb00ea1f26dd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &2040024133540532564 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 9086900504012067479, guid: d1da23704dedbbf45beefe022a427836, type: 3}
@@ -3477,7 +3529,7 @@ MonoBehaviour:
   - {fileID: 5782912570300689019}
   - {fileID: 3524396543155976693}
   - {fileID: 3776055476427990820}
-  m_weakCollider: {fileID: 991748375290374835}
+  m_weakCollider: {fileID: 3960488622737645118}
   m_golemLeft: {fileID: 0}
   m_golemRight: {fileID: 0}
   m_golemMain: {fileID: 0}

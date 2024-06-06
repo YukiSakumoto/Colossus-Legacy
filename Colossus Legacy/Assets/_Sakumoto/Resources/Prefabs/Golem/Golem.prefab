@@ -58,10 +58,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &2803960910077753707
 MonoBehaviour:
@@ -2915,9 +2915,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 8623833562460542569}
     m_Modifications:
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_forward.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_headTrans
+      value: 
+      objectReference: {fileID: 9047743595868656459}
+    - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_weakCollider
       value: 
-      objectReference: {fileID: 6316923979591653882}
+      objectReference: {fileID: 0}
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_laserCollider
       value: 
@@ -2936,7 +2944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7079162284350192483, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.064
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7079162284350192483, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3028,11 +3036,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &6316923979591653882 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 1823409631069049746, guid: 299c7482de910d145947aee8583916eb, type: 3}
-  m_PrefabInstance: {fileID: 5684727462635801192}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7955045513201805620 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
@@ -3044,6 +3047,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5e57672a7731445b2f4409f1116244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &9047743595868656459 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3707658070852213027, guid: 299c7482de910d145947aee8583916eb, type: 3}
+  m_PrefabInstance: {fileID: 5684727462635801192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7085491494389105603
 PrefabInstance:
   m_ObjectHideFlags: 0

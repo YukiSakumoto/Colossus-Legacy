@@ -24,16 +24,29 @@ public class GolemMain : Golem
 
     [SerializeField] private Collider m_laserCollider;
 
+    // ================================
+    // ターゲットへの回転補正系
+    // ================================
+    // 頭
+    [SerializeField] private Transform m_headTrans;
+
+    // 前方の基準となるローカル空間ベクトル
+    [SerializeField] private Vector3 m_forward = Vector3.forward;
+
+    // 初期方向ベクトル
+    private Vector3 m_initVec;
+
+
     void Start()
     {
         attackManager = GetComponent<AttackManager>();
-
-        //attackManager.AddAttack(0, "BigLaser", 100.0f, 10.0f);
 
         // エフェクトを取得する。
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
 
         m_effekseerHandleList = new List<EffekseerHandle>();
+
+        m_initVec = Vector3.back;
     }
 
 
@@ -48,6 +61,33 @@ public class GolemMain : Golem
                 m_damageFlg = true;
             }
         }
+
+        // プレイヤーを追従する処理
+        if (!m_target) { Debug.Log("ターゲット"); return; }
+        if (!m_headTrans) { Debug.Log("ヘッド"); return; }
+
+
+        // ====================================
+        // プレイヤーを追従する処理
+        // ====================================
+        // ターゲットへの向きベクトル計算
+        Vector3 dir = m_target.transform.position - m_headTrans.position;
+        // ターゲットの方向への回転
+        Quaternion lookAtRotation = Quaternion.LookRotation(dir, Vector3.up);
+        // 回転補正
+        Quaternion offsetRotation = Quaternion.FromToRotation(m_forward, Vector3.forward);
+
+        // ターゲット方向への回転の順に自身の向きを操作
+        // ※実際のプレイヤーへの向きが入る
+        Quaternion rot = lookAtRotation * offsetRotation;
+        // モデルの向き調整
+        rot.eulerAngles += new Vector3(-90.0f, 0.0f, 0.0f);
+
+        //// 初期角度とモデル角度の差分
+        //Vector3 deltaDir = m_initVec - rot.eulerAngles;
+
+        //m_headTrans.eulerAngles += deltaDir;
+        m_headTrans.rotation = rot;
     }
 
 

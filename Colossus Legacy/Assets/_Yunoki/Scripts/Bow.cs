@@ -17,46 +17,17 @@ public class Bow : MonoBehaviour
     void Start()
     {
         m_shotTimeCnt = m_shotTime;
-        // transform.localScale = new Vector3(10, 10, 10);
     }
     void Update()
     {
-        m_shotTimeCnt += Time.deltaTime;
+        m_shotTimeCnt -= Time.deltaTime;
+        if(m_shotTimeCnt <=0) { m_shotTimeCnt=0; }
 
-        if (Input.GetMouseButtonDown(0) && m_shotTimeCnt > m_shotTime)
+        if (Input.GetMouseButtonDown(0) && m_shotTimeCnt <= 0)
         {
             Shot();
-            m_shotTimeCnt = 0;
+            m_shotTimeCnt = m_shotTime;
         }
-
-        //-----------------------------------------------------------------
-
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    transform.Rotate(0, m_rot, 0, Space.Self);
-        //}
-
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    transform.Rotate(0, -m_rot, 0, Space.Self);
-        //}
-
-        //if (Input.GetKey(KeyCode.S))
-        //{
-        //    transform.Rotate(0, 0, m_rot, Space.Self);
-        //}
-
-        //if (Input.GetKey(KeyCode.W))
-        //{
-        //    transform.Rotate(0, 0, -m_rot, Space.Self);
-        //}
-
-        //if (Input.GetKey(KeyCode.F))
-        //{
-        //    transform.rotation = Quaternion.Euler(0, 90, 0);
-        //}
-
-        //-----------------------------------------------------------------
     }
     void Shot()
     {

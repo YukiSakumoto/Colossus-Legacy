@@ -9,7 +9,6 @@ public class Arrow : MonoBehaviour
 
     void Start()
     {
-        // transform.localScale = new Vector3(10, 10, 10);
     }
 
     void Update()
@@ -21,8 +20,6 @@ public class Arrow : MonoBehaviour
         if(collision.gameObject.tag==(m_targetTag))
         {
             Debug.Log("Arrow Hit!");
-            //Destroy(collision.gameObject);
-            //Destroy(gameObject);
         }
     }
 }

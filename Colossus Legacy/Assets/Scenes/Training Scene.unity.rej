@@ -1,0 +1,13 @@
+diff a/Colossus Legacy/Assets/Scenes/Training Scene.unity b/Colossus Legacy/Assets/Scenes/Training Scene.unity	(rejected hunks)
+@@ -353,6 +353,11 @@
+     m_AddedGameObjects: []
+     m_AddedComponents: []
+   m_SourcePrefab: {fileID: 100100000, guid: 6e0aa7ec5f2ea8042b19410620acb4b1, type: 3}
++--- !u!4 &241686672 stripped
++Transform:
++  m_CorrespondingSourceObject: {fileID: 1375361765897738713, guid: c0a81d9535c0d074f8d7ba83a75f1c24, type: 3}
++  m_PrefabInstance: {fileID: 1492992302}
++  m_PrefabAsset: {fileID: 0}
+ --- !u!1001 &242654385
+ PrefabInstance:
+   m_ObjectHideFlags: 0

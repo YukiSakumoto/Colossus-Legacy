@@ -6,7 +6,7 @@ using UnityEngine;
 public class EffectMovement : MonoBehaviour
 {
     EffekseerEffectAsset SwordEffect; // 剣を振った時のエフェクト
-    EffekseerEffectAsset aEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,6 @@ public class EffectMovement : MonoBehaviour
     {
         // transformの位置でエフェクトを再生する
         Vector3 EffectPosition = transform.position;
-        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
         EffectPosition.y += 1f;
         EffekseerHandle handle = EffekseerSystem.PlayEffect(SwordEffect, EffectPosition);
 
@@ -32,7 +31,6 @@ public class EffectMovement : MonoBehaviour
     {
         // transformの位置でエフェクトを再生する
         Vector3 EffectPosition = transform.position;
-        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
         EffectPosition.y += 1f;
         EffekseerHandle handle = EffekseerSystem.PlayEffect(SwordEffect, EffectPosition);
 

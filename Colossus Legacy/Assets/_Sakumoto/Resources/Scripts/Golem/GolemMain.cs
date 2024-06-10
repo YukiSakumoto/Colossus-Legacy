@@ -6,15 +6,14 @@ using UnityEngine;
 public class GolemMain : Golem
 {
     EffekseerEffectAsset m_effect;
-    // EffekseerHandle m_effectHandle;
-    List<EffekseerHandle> m_effekseerHandleList;
+    EffekseerHandle m_effectHandle;
 
     Vector3 m_effectPos;
     Quaternion m_effectRot;
     Vector3 m_effectScale = Vector3.one;
 
     // エフェクトの数（透明度が高かったため、エフェクトを大量に放つことでデカレーザーにしてみる）
-    public int m_effectNum = 5;
+    public int m_effectNum = 1;
 
     public float m_shotTime = 10.0f;
     public float m_coolTime = 10.0f;
@@ -24,16 +23,27 @@ public class GolemMain : Golem
 
     [SerializeField] private Collider m_laserCollider;
 
+    // ================================
+    // ターゲットへの回転補正系
+    // ================================
+    // 頭
+    [SerializeField] private Transform m_headTrans;
+
+    // 前方の基準となるローカル空間ベクトル
+    [SerializeField] private Vector3 m_forward = Vector3.forward;
+
+    // 初期方向ベクトル
+    private Vector3 m_initVec;
+
+
     void Start()
     {
         attackManager = GetComponent<AttackManager>();
 
-        //attackManager.AddAttack(0, "BigLaser", 100.0f, 10.0f);
-
         // エフェクトを取得する。
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
 
-        m_effekseerHandleList = new List<EffekseerHandle>();
+        m_initVec = Vector3.back;
     }
 
 
@@ -41,13 +51,31 @@ public class GolemMain : Golem
     {
         if (!m_alive) { return; }
 
-        if (Input.GetKeyUp(KeyCode.M))
-        {
-            if (m_weakCollider.enabled)
-            {
-                m_damageFlg = true;
-            }
-        }
+        WeakHit();
+
+        // ====================================
+        // プレイヤーを追従する処理
+        // ====================================
+        if (!m_target || !m_headTrans) { return; }
+
+        // ターゲットへの向きベクトル計算
+        Vector3 dir = m_target.transform.position - m_headTrans.position;
+        // ターゲットの方向への回転
+        Quaternion lookAtRotation = Quaternion.LookRotation(dir, Vector3.up);
+        // 回転補正
+        Quaternion offsetRotation = Quaternion.FromToRotation(m_forward, Vector3.forward);
+
+        // ターゲット方向への回転の順に自身の向きを操作
+        // ※実際のプレイヤーへの向きが入る
+        Quaternion rot = lookAtRotation * offsetRotation;
+        // モデルの向き調整
+        rot.eulerAngles += new Vector3(-90.0f, 0.0f, 0.0f);
+
+        //// 初期角度とモデル角度の差分
+        //Vector3 deltaDir = m_initVec - rot.eulerAngles;
+
+        //m_headTrans.eulerAngles += deltaDir;
+        m_headTrans.rotation = rot;
     }
 
 
@@ -56,19 +84,14 @@ public class GolemMain : Golem
         // エフェクトの位置設定
         m_effectPos = transform.position;
         m_effectPos.y += 4.0f;
-        m_effectPos.x -= 1.5f;
+        m_effectPos.x -= 0.5f;
 
         // エフェクトの回転設定
         m_effectRot = transform.rotation;
         m_effectRot *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
 
-        for (int i = 0; i < m_effectNum; i++)
-        {
-            EffekseerHandle effectHandle = EffekseerSystem.PlayEffect(m_effect, m_effectPos);
-            effectHandle.SetRotation(m_effectRot);
-
-            m_effekseerHandleList.Add(effectHandle);
-        }
+        m_effectHandle = EffekseerSystem.PlayEffect(m_effect, m_effectPos);
+        m_effectHandle.SetRotation(m_effectRot);
     }
 
 
@@ -77,19 +100,16 @@ public class GolemMain : Golem
         bool result = false;
 
         m_effectScale *= 0.95f;
-
-        for (int i = 0; i < m_effectNum; i++)
-        {
-            m_effekseerHandleList[i].SetScale(m_effectScale);
-        }
+        m_effectHandle.SetScale(m_effectScale);
 
         m_laserCollider.enabled = false;
 
         if (m_effectScale.x <= 0.01f)
         {
             m_effectScale = Vector3.one;
-            m_effekseerHandleList.Clear();
-            m_weakCollider.enabled = true;
+            m_effectHandle.Stop();
+
+            WeakOn();
 
             result = true;
         }

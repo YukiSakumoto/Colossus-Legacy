@@ -14,6 +14,7 @@ public class SoundPlay : MonoBehaviour
     [SerializeField] private AudioSource m_damageHeavy;
     [SerializeField] private AudioSource m_damageKnockBackStart;
     [SerializeField] private AudioSource m_damageKnockBackEnd;
+    [SerializeField] private AudioSource m_deflected;
 
     public void SoundSwordSwing()
     {
@@ -63,5 +64,10 @@ public class SoundPlay : MonoBehaviour
     public void SoundDamageKnockBackEnd()
     {
         m_damageKnockBackEnd.Play();
+    }
+
+    public void SoundDeflected()
+    {
+        m_deflected.Play();
     }
 }

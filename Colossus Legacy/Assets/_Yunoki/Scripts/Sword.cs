@@ -9,8 +9,11 @@ public class Sword : MonoBehaviour
     [SerializeField] private string m_targetWeakTag = "EnemyWeak";
     [SerializeField] private string m_targetBodyTag = "Enemy";
 
+    [SerializeField] private MeshCollider m_meshCollider;
+
     private bool m_hitFlg = false;
     private bool m_deflectedFlg = false;
+    private bool m_judgeEndFlg = false;
 
     void Start()
     {
@@ -19,6 +22,21 @@ public class Sword : MonoBehaviour
 
         // CharacterMovementがアタッチされているGameObjectからCharacterMovementコンポーネントを取得
         characterMovement = characterObject.GetComponent<CharacterMovement>();
+
+        m_meshCollider.enabled = false;
+    }
+
+    private void Update()
+    {
+        if (characterMovement.Getm_swordMoveFlg || characterMovement.Getm_secondSwordAttackFlg)
+        {
+            SwordAttackOn();
+        }
+        else
+        {
+            SwordAttackOff();
+            m_judgeEndFlg = false;
+        }
     }
 
     void LateUpdate()
@@ -29,23 +47,39 @@ public class Sword : MonoBehaviour
 
     void OnTriggerEnter(Collider _other)
     {
-        // 攻撃モーション中のみ判定を行うようにする
-        if (characterMovement.Getm_swordMoveFlg || (characterMovement.Getm_secondSwordAttackFlg && !m_deflectedFlg))
+        if (!m_judgeEndFlg)
         {
-            if (_other.gameObject.CompareTag(m_targetWeakTag))
+            if (!m_hitFlg && !m_deflectedFlg)
             {
-                //Destroy(_other.gameObject);
-                Debug.Log("Sword Hit! Enemy Ni Damage!");
-                m_hitFlg = true;
-            }
-
-            if (_other.gameObject.CompareTag(m_targetBodyTag))
-            {
-                //Destroy(_other.gameObject);
-                Debug.Log("Sword Deflected! Damage ga Hairanaiyo!");
-                m_deflectedFlg = true;
+                // 攻撃モーション中のみ判定を行うようにする
+                if (_other.gameObject.CompareTag(m_targetWeakTag))
+                {
+                    //Destroy(_other.gameObject);
+                    Debug.Log("ヒット！剣が敵の弱点に当たったげな");
+                    m_hitFlg = true;
+                    SwordAttackOff();
+                    m_judgeEndFlg = true;
+                }
+                else if (_other.gameObject.CompareTag(m_targetBodyTag))
+                {
+                    //Destroy(_other.gameObject);
+                    Debug.Log("弾かれ！剣が弾かれてダメージが入らへん");
+                    m_deflectedFlg = true;
+                    SwordAttackOff();
+                    m_judgeEndFlg = true;
+                }
             }
         }
+    }
+
+    private void SwordAttackOn()
+    {
+        m_meshCollider.enabled = true;
+    }
+
+    private void SwordAttackOff()
+    {
+        m_meshCollider.enabled = false;
     }
 
     public bool Getm_hitFlg

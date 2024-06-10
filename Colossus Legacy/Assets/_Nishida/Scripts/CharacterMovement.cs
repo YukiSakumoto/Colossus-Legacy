@@ -98,8 +98,8 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
     private bool m_weaponAttackCoolTimeCheckFlg = false; // 攻撃モーションから移動に移れるまでの時間かの管理
     private bool m_weaponChangeCoolTimeCheckFlg = false; // 武器の種類を変える時のクールタイムかの管理
-    private bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
-    private bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
+    public bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
+    public bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
     private bool m_bowShotFlg = false;                   // 弓攻撃を行う際の管理
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
@@ -392,7 +392,7 @@ public class CharacterMovement : MonoBehaviour
                 if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
                 {
                     // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("hit at " + targetTransform.name + " Tag");
+                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というタグのオブジェクトにヒット");
 
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                     m_KnockBackVec = transform.position - targetTransform.position;
@@ -409,7 +409,7 @@ public class CharacterMovement : MonoBehaviour
             else
             {
                 // オブジェクトが無い
-                Debug.Log("No object found");
+                Debug.Log("当たったオブジェクトが無い。");
             }
         }
     }
@@ -440,7 +440,7 @@ public class CharacterMovement : MonoBehaviour
         else // 体力が0以下になった場合に死亡して動きも止める
         {
             m_deathFlg = true;
-            Debug.Log("Player Life is Empty");
+            Debug.Log("主人公死亡");
         }
     }
 

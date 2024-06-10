@@ -11,7 +11,6 @@ public class Arrow : MonoBehaviour
 
     void Start()
     {
-        // transform.localScale = new Vector3(10, 10, 10);
     }
 
     void Update()
@@ -24,14 +23,7 @@ public class Arrow : MonoBehaviour
         arrowLiveTime -= Time.deltaTime;
         if (arrowLiveTime <= 0)
         {
-            Destroy(gameObject);
-        }
-
-        if (GetComponent<Rigidbody>().velocity != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity);
-            Vector3 initialRotationOffset = new Vector3(90, 0, 0);
-            transform.rotation *= Quaternion.Euler(initialRotationOffset);
+            Debug.Log("Arrow Hit!");
         }
     }
 

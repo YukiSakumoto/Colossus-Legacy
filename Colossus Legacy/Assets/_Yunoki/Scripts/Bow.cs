@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
-    [SerializeField] GameObject m_arrowObj; // –î‚ÌƒIƒuƒWƒFƒNƒg
-    [SerializeField] GameObject m_characterObj; // ålŒö‚ÌƒIƒuƒWƒFƒNƒg
+    [SerializeField] GameObject m_arrowObj; // ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½g
+    [SerializeField] GameObject m_characterObj; // ï¿½ï¿½lï¿½ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½g
 
     [SerializeField] float m_shotTime = 1.0f;
     [SerializeField] float m_speed = 60f;
@@ -20,7 +20,6 @@ public class Bow : MonoBehaviour
     }
     void Update()
     {
-<<<<<<< HEAD
         m_shotTimeCnt -= Time.deltaTime;
         if(m_shotTimeCnt <=0) { m_shotTimeCnt=0; }
 
@@ -29,9 +28,6 @@ public class Bow : MonoBehaviour
             Shot();
             m_shotTimeCnt = m_shotTime;
         }
-=======
-
->>>>>>> origin/main
     }
     public void Shot()
     {

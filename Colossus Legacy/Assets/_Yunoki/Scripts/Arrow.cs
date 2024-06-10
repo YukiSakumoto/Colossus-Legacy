@@ -23,18 +23,7 @@ public class Arrow : MonoBehaviour
         arrowLiveTime -= Time.deltaTime;
         if (arrowLiveTime <= 0)
         {
-<<<<<<< HEAD
             Debug.Log("Arrow Hit!");
-=======
-            Destroy(gameObject);
-        }
-
-        if (GetComponent<Rigidbody>().velocity != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity);
-            Vector3 initialRotationOffset = new Vector3(90, 0, 0);
-            transform.rotation *= Quaternion.Euler(initialRotationOffset);
->>>>>>> origin/main
         }
     }
 

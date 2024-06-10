@@ -1,0 +1,884 @@
+fileFormatVersion: 2
+guid: 30b3e4eeaea311c45b1764e837d2aae2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: manuButton_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 944.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 554897724e239374b9b6005879bd674a
+      internalID: -1865366475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_1
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 944.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fc3381397e879c40add51e0bd9c907f
+      internalID: 925575461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_2
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 944.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d022f6977808f46a448b7e16f2ad01
+      internalID: -1739465859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_3
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 944.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67d16b973d39f314680197082bbbe6da
+      internalID: -1170998223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_4
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 944.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c621c76d5971bb49a41a1540ac525f9
+      internalID: 1178528517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 787.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edfb638ee2d56cd488ec68603bcc1973
+      internalID: -1072207245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_6
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 787.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25d8fb0c10085414b8a1b5ec2c9e913e
+      internalID: -944558570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_7
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 787.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a0795e6948478a4bb7da10d3740fe44
+      internalID: 1796311849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_8
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 787.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0181f2fd33e7074b8d8e177cd03ac45
+      internalID: 758393832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_9
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 787.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb9d83ca2ce3f674982694b7c5b64948
+      internalID: 643733388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 630.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db3d2ca6790f4c84d917aa24c9cf1a95
+      internalID: 1749066419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_11
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 630.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d872423c198384a46a56a272fa33508f
+      internalID: 1628145353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_12
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 630.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7225ee86adc18004a81e6660fcba0b40
+      internalID: -1788422732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_13
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 630.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7419524c13748974eb56acb49568f2ca
+      internalID: 1109118901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_14
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 630.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88e11d5363ebaf94a9421d50a1468d83
+      internalID: 1467968310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 473.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22db8063bc0fc7c489736672c323d439
+      internalID: -552779555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_16
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 473.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 841583402077cc547ae7b66691f1de0f
+      internalID: -618512168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_17
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 473.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 775a1ff0db19ef047acce677e6d403bc
+      internalID: -134087509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_18
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 473.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e79e913f8ddae49a18be35608e3014
+      internalID: 376277052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_19
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 473.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffc206854503bc640ab51b077f46e0a2
+      internalID: -1626416280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 316.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4808b05beaa3bb24f9bce16661dda95c
+      internalID: 422321151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_21
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 316.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914bca5ea1d26854b8a664df4c308086
+      internalID: -848302660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_22
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 316.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40d9fea698ac3f14985a643295bd8505
+      internalID: -249041655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_23
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 316.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03784e1fc5e70314597d2e47cf2bc3f7
+      internalID: -1721558807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_24
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 316.5714
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74238c991a977864c9754b1e851897bf
+      internalID: -926932402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 159.57143
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ddab69e75aff0c41aff1f0243644171
+      internalID: -1045810772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_26
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 159.57143
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39ca1a41808a5b648b815e39a7b8440e
+      internalID: -2091500619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_27
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 159.57143
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22f6d9b44a92cc641a7a6eeb55c3e382
+      internalID: -1291096274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_28
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 159.57143
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8282ce9285bd7343904dbcf3b49ab06
+      internalID: 132961656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_29
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 159.57143
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5dd41e2cba917146821bac37e3d39cb
+      internalID: 2046181305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2.5714264
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 083bb6fd395ceec4c9e07f2e4e785ad4
+      internalID: -1891922805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_31
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 2.5714264
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bf912db6c50e414aabee4dda4b668cb
+      internalID: -1696581523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_32
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 2.5714264
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53963d3c459c04f4890e144fd672bc40
+      internalID: -1672305400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_33
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 2.5714264
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fed6d1f79bd35c4e8bb6fd229d7e200
+      internalID: 1678852390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: manuButton_34
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 2.5714264
+        width: 340.4
+        height: 157.42857
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 433d7b6fd8693f9408cd9ab661dd7a2d
+      internalID: 1486798215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 646a77474c014c141b4535e33a577487
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      manuButton_0: -1865366475
+      manuButton_1: 925575461
+      manuButton_10: 1749066419
+      manuButton_11: 1628145353
+      manuButton_12: -1788422732
+      manuButton_13: 1109118901
+      manuButton_14: 1467968310
+      manuButton_15: -552779555
+      manuButton_16: -618512168
+      manuButton_17: -134087509
+      manuButton_18: 376277052
+      manuButton_19: -1626416280
+      manuButton_2: -1739465859
+      manuButton_20: 422321151
+      manuButton_21: -848302660
+      manuButton_22: -249041655
+      manuButton_23: -1721558807
+      manuButton_24: -926932402
+      manuButton_25: -1045810772
+      manuButton_26: -2091500619
+      manuButton_27: -1291096274
+      manuButton_28: 132961656
+      manuButton_29: 2046181305
+      manuButton_3: -1170998223
+      manuButton_30: -1891922805
+      manuButton_31: -1696581523
+      manuButton_32: -1672305400
+      manuButton_33: 1678852390
+      manuButton_34: 1486798215
+      manuButton_4: 1178528517
+      manuButton_5: -1072207245
+      manuButton_6: -944558570
+      manuButton_7: 1796311849
+      manuButton_8: 758393832
+      manuButton_9: 643733388
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

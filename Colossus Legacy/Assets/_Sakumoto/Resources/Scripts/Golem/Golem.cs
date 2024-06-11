@@ -32,7 +32,7 @@ public class Golem : MonoBehaviour
     private float m_time = 0.0f;
 
     private bool m_lastAttack = false;
-    protected bool m_alive = true;
+    [SerializeField] protected bool m_alive = true;
 
 
     void Start()
@@ -83,7 +83,6 @@ public class Golem : MonoBehaviour
                         {
                             m_lastAttack = true;
 
-                            m_golemMain.ArmorDestroy();
                             m_golemMain.WakeUp();
                         }                        
 

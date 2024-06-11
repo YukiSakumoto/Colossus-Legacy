@@ -83,6 +83,7 @@ MonoBehaviour:
   m_hp: 100
   m_damageTime: 5
   m_damagePoint: 100
+  m_alive: 1
 --- !u!1 &2334771045410206020
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +925,7 @@ MonoBehaviour:
   m_hp: 100
   m_damageTime: 0
   m_damagePoint: 0
+  m_alive: 1
   m_nowAttackId: -1
   m_hand: {fileID: 1539243790716188066, guid: 6b68d9ccafe2a6842a0d640e8e796452, type: 3}
   m_myShoulder: {fileID: 5761922856404536030}
@@ -1176,6 +1178,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7079162284350192483, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722290876505937895, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722290876505937895, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8780771920278966103, guid: 299c7482de910d145947aee8583916eb, type: 3}
@@ -1690,6 +1700,7 @@ MonoBehaviour:
   m_hp: 100
   m_damageTime: 0
   m_damagePoint: 0
+  m_alive: 1
   m_nowAttackId: -1
   m_hand: {fileID: 5058710448935673509, guid: fff8449e7a3e8044da27cef2164a95ab, type: 3}
   m_myShoulder: {fileID: 38032138271864525}

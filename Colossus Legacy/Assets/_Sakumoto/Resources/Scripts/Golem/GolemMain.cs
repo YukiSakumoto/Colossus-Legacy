@@ -177,8 +177,10 @@ public class GolemMain : Golem
             else
             {
                 if (m_stop) return;
-
+                ArmorDestroy();
                 BigLaserEffect();
+
+                WeakOff();
 
                 m_laserTime = m_shotTime;
                 m_isLaser = true;

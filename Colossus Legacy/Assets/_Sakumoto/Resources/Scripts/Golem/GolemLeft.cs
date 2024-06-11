@@ -39,8 +39,9 @@ public class GolemLeft : Golem
     void Start()
     {
         m_weakCollider = GameObject.Find("L_Elixir_Collider_Weak").GetComponent<WeakPoint>();
+        //m_weakCollider = GameObject.Find("L_Elixir_Collider_Weak").GetComponent<WeakPoint>();
 
-        attackManager = GetComponent<AttackManager>();
+        attackManager = GetComponent<AttackManager>(); 
 
         attackManager.AddAttack(0, "SwingDown", new Vector2(0.0f, 22.0f), 1.0f);
         attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 5.0f);
@@ -92,15 +93,7 @@ public class GolemLeft : Golem
             m_nextAttackId = -1;
         }
 
-        // デバッグ用
         WeakHit();
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    if (m_weakCollider.enabled)
-        //    {
-        //        m_damageFlg = true;
-        //    }
-        //}
     }
 
 
@@ -128,7 +121,7 @@ public class GolemLeft : Golem
         m_protrusionNowTime = 0.0f;
 
         Vector3 targetPos = m_target.transform.position;
-        targetPos.y -= 2.5f;
+        targetPos.y -= 7.0f;
 
         Quaternion rot = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 

@@ -123,7 +123,7 @@ public class GolemRight : Golem
         m_protrusionNowTime = 0.0f;
 
         Vector3 targetPos = m_target.transform.position;
-        targetPos.y -= 2.5f;
+        targetPos.y -= 7.0f;
 
         Quaternion rot = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 

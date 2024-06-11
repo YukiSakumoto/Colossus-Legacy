@@ -12,9 +12,9 @@ public class Golem : MonoBehaviour
     [SerializeField] private List<Collider> attackColliders;
     [SerializeField] protected WeakPoint m_weakCollider;
 
-    [SerializeField] private GolemLeft m_golemLeft;
-    [SerializeField] private GolemRight m_golemRight;
-    [SerializeField] private GolemMain m_golemMain;
+    private GolemLeft m_golemLeft;
+    private GolemRight m_golemRight;
+    private GolemMain m_golemMain;
 
     [SerializeField] protected GameObject m_myself;
     [SerializeField] protected GameObject m_target;

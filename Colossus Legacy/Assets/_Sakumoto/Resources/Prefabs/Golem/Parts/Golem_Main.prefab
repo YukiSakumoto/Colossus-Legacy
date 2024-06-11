@@ -475,7 +475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5846789117094590674, guid: 066ba729d85f1624f8644b8f1a70bd4f, type: 3}
+  - {fileID: 2100000, guid: 2e05d7cbe94e2424590099718674af09, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -837,7 +837,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2467165876488089678, guid: 066ba729d85f1624f8644b8f1a70bd4f, type: 3}
+  - {fileID: 2100000, guid: 2e05d7cbe94e2424590099718674af09, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1123,7 +1123,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 9015215154287581454, guid: 066ba729d85f1624f8644b8f1a70bd4f, type: 3}
+  - {fileID: 2100000, guid: 2e05d7cbe94e2424590099718674af09, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1224,11 +1224,13 @@ MonoBehaviour:
   m_hp: 100
   m_damageTime: 0
   m_damagePoint: 0
+  m_alive: 1
   m_effectNum: 5
   m_shotTime: 10
   m_coolTime: 10
   m_shrinkSpeed: 0.1
-  m_laserCollider: {fileID: 0}
+  m_laserCollider:
+  - {fileID: 0}
   m_laserTransform: {fileID: 0}
   m_headTrans: {fileID: 0}
   m_forward: {x: 0, y: 0, z: 1}

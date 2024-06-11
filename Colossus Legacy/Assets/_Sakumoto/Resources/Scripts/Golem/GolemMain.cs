@@ -7,6 +7,10 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
+    [SerializeField] private List<Dissolve> m_dissolves;
+    [SerializeField] private float m_dissolveSpeed = 0.1f;
+    private float m_dissolveRatio = 0.0f;
+
     EffekseerEffectAsset m_effect;
     EffekseerHandle m_effectHandle;
 
@@ -146,6 +150,7 @@ public class GolemMain : Golem
 
     public void SpecialAttack()
     {
+        ArmorDestroy();
         m_laserTime -= Time.deltaTime;
         if (m_isLaser)
         {
@@ -177,7 +182,6 @@ public class GolemMain : Golem
             else
             {
                 if (m_stop) return;
-                ArmorDestroy();
                 BigLaserEffect();
 
                 WeakOff();
@@ -192,12 +196,25 @@ public class GolemMain : Golem
     // ŠZ”j‰ó
     public void ArmorDestroy()
     {
-        // ‚Å‚«‚ê‚ÎƒfƒBƒ]ƒ‹ƒu‚Å‚â‚Á‚Ä‚Ý‚½‚¢I
-        foreach (Transform child in transform)
+        if (m_dissolves.Count > 0)
         {
-            if (child.name == "Armors")
+            m_dissolveRatio += m_dissolveSpeed * Time.deltaTime;
+
+            for (int i = 0; i < m_dissolves.Count; i++)
             {
-                GameObject.Destroy(child.gameObject);
+                m_dissolves[i].SetDissolveAmount(m_dissolveRatio);
+            }
+
+            if (m_dissolveRatio >= 1.0f)
+            {
+                foreach (Transform child in transform)
+                {
+                    if (child.name == "Armors")
+                    {
+                        m_dissolves.Clear();
+                        GameObject.Destroy(child.gameObject);
+                    }
+                }
             }
         }
     }

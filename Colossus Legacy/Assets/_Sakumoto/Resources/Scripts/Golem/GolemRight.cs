@@ -46,7 +46,7 @@ public class GolemRight : Golem
         attackManager.AddAttack(0, "SwingDown", new Vector2(10.0f, 22.0f), 1.0f);
         attackManager.AddAttack(1, "SwingDown", new Vector2(10.0f, 22.0f), 5.0f);
         attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 5.0f, true);
-        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 100.0f), 8.0f);
+        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 55.0f), 8.0f);
         attackManager.AddAttack(4, "Protrusion", new Vector2(0.0f, 15.0f), 8.0f);
 
         // èâä˙äpìxÇÃï€ë∂

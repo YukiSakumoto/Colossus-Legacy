@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Bow : MonoBehaviour
 {
-    [SerializeField] GameObject m_arrowObj; // ��̃I�u�W�F�N�g
-    [SerializeField] GameObject m_characterObj; // ��l���̃I�u�W�F�N�g
+    [SerializeField] GameObject m_arrowObj; // 矢のオブジェクト
+    [SerializeField] GameObject m_characterObj; // 主人公のオブジェクト
 
     [SerializeField] float m_shotTime = 1.0f;
     [SerializeField] float m_speed = 60f;
@@ -17,17 +17,11 @@ public class Bow : MonoBehaviour
     void Start()
     {
         m_shotTimeCnt = m_shotTime;
+        // transform.localScale = new Vector3(10, 10, 10);
     }
     void Update()
     {
-        m_shotTimeCnt -= Time.deltaTime;
-        if(m_shotTimeCnt <=0) { m_shotTimeCnt=0; }
 
-        if (Input.GetMouseButtonDown(0) && m_shotTimeCnt <= 0)
-        {
-            Shot();
-            m_shotTimeCnt = m_shotTime;
-        }
     }
     public void Shot()
     {

@@ -9,7 +9,8 @@ public class WeakPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("SwordAttack"))
+        if (other.gameObject.CompareTag("SwordAttack") ||
+            other.gameObject.CompareTag("ArrowAttack"))
         {
             Debug.Log("ƒS[ƒŒƒ€‚Ìã“_‚ªUŒ‚‚³‚ê‚½I");
             m_weakHit = true;

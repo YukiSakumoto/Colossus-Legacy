@@ -12,9 +12,9 @@ public class Golem : MonoBehaviour
     [SerializeField] private List<Collider> attackColliders;
     [SerializeField] protected WeakPoint m_weakCollider;
 
-    [SerializeField] private GolemLeft m_golemLeft;
-    [SerializeField] private GolemRight m_golemRight;
-    [SerializeField] private GolemMain m_golemMain;
+    private GolemLeft m_golemLeft;
+    private GolemRight m_golemRight;
+    private GolemMain m_golemMain;
 
     [SerializeField] protected GameObject m_myself;
     [SerializeField] protected GameObject m_target;
@@ -32,7 +32,7 @@ public class Golem : MonoBehaviour
     private float m_time = 0.0f;
 
     private bool m_lastAttack = false;
-    protected bool m_alive = true;
+    [SerializeField] protected bool m_alive = true;
 
 
     void Start()
@@ -83,7 +83,6 @@ public class Golem : MonoBehaviour
                         {
                             m_lastAttack = true;
 
-                            m_golemMain.ArmorDestroy();
                             m_golemMain.WakeUp();
                         }                        
 

@@ -46,7 +46,15 @@ public class Golem : MonoBehaviour
 
     void Update()
     {
-        if (!m_alive) { return; }
+        if (!m_alive)
+        {
+            if (m_golemMain.MainDestroy())
+            {
+                //! ここチェック！
+                Destroy(m_golemMain);
+            }
+            return;
+        }
 
         // Null チェック
         if (!m_golemLeft || !m_golemRight || !m_golemMain)

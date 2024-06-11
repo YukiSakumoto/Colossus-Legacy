@@ -7,9 +7,13 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
-    [SerializeField] private List<Dissolve> m_dissolves;
-    [SerializeField] private float m_dissolveSpeed = 0.1f;
-    private float m_dissolveRatio = 0.0f;
+    [SerializeField] private List<Dissolve> m_armorDissolves;
+    [SerializeField] private float m_armorDissolveSpeed = 0.2f;
+    private float m_armorDissolveRatio = 0.0f;
+
+    [SerializeField] private List<Dissolve> m_mainDissolves;
+    [SerializeField] private float m_mainDissolveSpeed = 0.1f;
+    private float m_mainDissolveRatio = 0.0f;
 
     EffekseerEffectAsset m_effect;
     EffekseerHandle m_effectHandle;
@@ -196,27 +200,48 @@ public class GolemMain : Golem
     // ŠZ”j‰ó
     public void ArmorDestroy()
     {
-        if (m_dissolves.Count > 0)
+        if (m_armorDissolves.Count > 0)
         {
-            m_dissolveRatio += m_dissolveSpeed * Time.deltaTime;
+            m_armorDissolveRatio += m_armorDissolveSpeed * Time.deltaTime;
 
-            for (int i = 0; i < m_dissolves.Count; i++)
+            for (int i = 0; i < m_armorDissolves.Count; i++)
             {
-                m_dissolves[i].SetDissolveAmount(m_dissolveRatio);
+                m_armorDissolves[i].SetDissolveAmount(m_armorDissolveRatio);
             }
 
-            if (m_dissolveRatio >= 1.0f)
+            if (m_armorDissolveRatio >= 1.0f)
             {
                 foreach (Transform child in transform)
                 {
                     if (child.name == "Armors")
                     {
-                        m_dissolves.Clear();
+                        m_armorDissolves.Clear();
                         GameObject.Destroy(child.gameObject);
                     }
                 }
             }
         }
+    }
+
+
+    public bool MainDestroy()
+    {
+        if (m_mainDissolves.Count > 0)
+        {
+            m_mainDissolveRatio += m_mainDissolveSpeed * Time.deltaTime;
+
+            for (int i = 0; i < m_mainDissolves.Count; i++)
+            {
+                m_mainDissolves[i].SetDissolveAmount(m_mainDissolveRatio);
+            }
+
+            if (m_mainDissolveRatio >= 1.0f)
+            {
+                m_mainDissolves.Clear();
+                return true;
+            }
+        }
+        return false;
     }
 
 

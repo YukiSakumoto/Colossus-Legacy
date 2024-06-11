@@ -65,6 +65,7 @@ public class CharacterMovement : MonoBehaviour
     private const float m_swordMoveSetTime = 0.1f;                // 攻撃するときの移動時間固定値
     private const float m_swordSecondMoveStiffnessSetTime = 0.4f; // 2段攻撃したときの硬直時間固定値
     private const float m_swordSecondMoveSetTime = 0.1f;          // 2段攻撃したときの移動時間固定値
+    private const float m_bowShotSetTime = 0.57f;                 // 弓攻撃を行うタイミング調節固定値
 
     private float m_rollCoolTime = 0f;         // 回避行動の実行時間
     private float m_rollStiffnessTime = 0f;    // 回避行動終了時の硬直時間
@@ -75,8 +76,9 @@ public class CharacterMovement : MonoBehaviour
     private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
     private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
     private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
-    private float m_swordMoveStiffnessTime;
-    private float m_swordMoveTime;
+    private float m_swordMoveStiffnessTime = 0f;
+    private float m_swordMoveTime = 0f;
+    private float m_bowShotTime = 0f;          // 弓攻撃を行うタイミング調節
 
     private bool m_walkAnimeFlg = false;                 // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
@@ -96,8 +98,9 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
     private bool m_weaponAttackCoolTimeCheckFlg = false; // 攻撃モーションから移動に移れるまでの時間かの管理
     private bool m_weaponChangeCoolTimeCheckFlg = false; // 武器の種類を変える時のクールタイムかの管理
-    private bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
-    private bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
+    public bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
+    public bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
+    private bool m_bowShotFlg = false;                   // 弓攻撃を行う際の管理
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
 
@@ -177,7 +180,9 @@ public class CharacterMovement : MonoBehaviour
                 else // 弓で攻撃
                 {
                     m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
+                    m_bowShotTime = m_bowShotSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
+                    m_bowShotFlg = true;
                 }
             }
         }
@@ -345,6 +350,16 @@ public class CharacterMovement : MonoBehaviour
                 }
             }
         }
+
+        if(m_bowShotFlg)
+        {
+            m_bowShotTime -= Time.deltaTime;
+            if (m_bowShotTime <= 0)
+            {
+                m_bowClass.Shot();
+                m_bowShotFlg = false;
+            }
+        }
     }
 
     private void LateUpdate()
@@ -377,7 +392,7 @@ public class CharacterMovement : MonoBehaviour
                 if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
                 {
                     // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("hit at " + targetTransform.name + " Tag");
+                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というタグのオブジェクトにヒット");
 
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                     m_KnockBackVec = transform.position - targetTransform.position;
@@ -394,7 +409,7 @@ public class CharacterMovement : MonoBehaviour
             else
             {
                 // オブジェクトが無い
-                Debug.Log("No object found");
+                Debug.Log("当たったオブジェクトが無い。");
             }
         }
     }
@@ -425,7 +440,7 @@ public class CharacterMovement : MonoBehaviour
         else // 体力が0以下になった場合に死亡して動きも止める
         {
             m_deathFlg = true;
-            Debug.Log("Player Life is Empty");
+            Debug.Log("主人公死亡");
         }
     }
 

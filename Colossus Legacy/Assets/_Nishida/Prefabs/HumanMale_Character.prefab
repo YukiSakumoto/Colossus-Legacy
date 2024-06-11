@@ -3667,7 +3667,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cc41840066c466949902f62558dd7e9f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 3
   Loop: 0
   Mute: 0
@@ -3985,7 +3985,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 200892ef666092b488e36a69e2ead99f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 2.03
   Loop: 0
   Mute: 0
@@ -6165,7 +6165,7 @@ GameObject:
   - component: {fileID: 4575231394931611950}
   m_Layer: 0
   m_Name: HumanMale_Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6269,6 +6269,8 @@ MonoBehaviour:
   m_targetTag: EnemyAttack
   m_playerLife: 100
   m_rollTiredCount: 0
+  m_swordMoveFlg: 0
+  m_secondSwordAttackFlg: 0
 --- !u!65 &7611050671940130552
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10014,6 +10016,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterArrow
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14cca10aea2c9794a94fcb90574662ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10052,6 +10058,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1073817560458593339}
     m_Modifications:
+    - target: {fileID: -3518184843889283806, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
+      propertyPath: m_meshCollider
+      value: 
+      objectReference: {fileID: 8543143613973476164}
     - target: {fileID: 3966563153424824200, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
       propertyPath: m_Name
       value: Sword Variant
@@ -10117,6 +10127,11 @@ Transform:
 --- !u!1 &8059466290396894656 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3966563153424824200, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
+  m_PrefabInstance: {fileID: 6400998049918591560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &8543143613973476164 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 3340472548265857292, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
   m_PrefabInstance: {fileID: 6400998049918591560}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7307349922681870265

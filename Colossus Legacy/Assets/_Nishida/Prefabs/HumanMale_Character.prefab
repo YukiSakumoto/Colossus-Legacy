@@ -5481,6 +5481,7 @@ GameObject:
   - component: {fileID: 1691542655131832212}
   - component: {fileID: 1226871197212777157}
   - component: {fileID: 4575231394931611950}
+  - component: {fileID: 7349991365847316402}
   m_Layer: 0
   m_Name: HumanMale_Character
   m_TagString: Player
@@ -5550,7 +5551,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 84
@@ -5626,7 +5627,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.3125704, y: 1.64347, z: 0.15663147}
   m_Center: {x: 0.023866087, y: 1.0382577, z: -0.04593277}
@@ -5683,6 +5684,23 @@ MonoBehaviour:
   m_damageKnockBackStart: {fileID: 0}
   m_damageKnockBackEnd: {fileID: 0}
   m_deflected: {fileID: 0}
+--- !u!114 &7349991365847316402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729908777727010445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b05b1c13e22ab4458a1bc7b67977835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bombPrefab: {fileID: 5579394341268801993, guid: a5d507c274734f24b9d8cd7d8dd2e452, type: 3}
+  m_bombHeight: 9
+  m_speed: 300
+  m_bombChargeTime: 1
+  m_bombExpTime: 3
 --- !u!1 &5782989648294680116
 GameObject:
   m_ObjectHideFlags: 0

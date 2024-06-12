@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class ThrowBomb : MonoBehaviour
 {
-    [SerializeField] GameObject bombPrefab;
-    [SerializeField] float bombHeight = 9;
-    [SerializeField] float speed = 300;
-    [SerializeField] float bombChargeTime = 1;
-    [SerializeField] float bombExpTime = 5;
+    [SerializeField] GameObject m_bombPrefab;
+    [SerializeField] float m_bombHeight = 9;
+    [SerializeField] float m_speed = 300;
+    [SerializeField] float m_bombChargeTime = 1;
+    [SerializeField] float m_bombExpTime = 5;
+    float m_bombMotionTime = 0f;
+    private const float m_bombMotionSetTime = 0.23f; 
+    private bool m_bombThrowFlg = false;
 
     private float cnt = 0;
     
@@ -18,16 +21,29 @@ public class ThrowBomb : MonoBehaviour
         cnt -= Time.deltaTime;
         if (cnt <= 0) { cnt = 0; }
 
-        if (Input.GetMouseButtonDown(1))
+        if (!m_bombThrowFlg)
         {
-            if (cnt <= 0)
+            if (Input.GetMouseButtonDown(1))
             {
-                GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+                if (cnt <= 0)
+                {
+                    m_bombThrowFlg = true;
+                    m_bombMotionTime = m_bombMotionSetTime;
+                }
+            }
+        }
+        else
+        {
+            m_bombMotionTime -= Time.deltaTime;
+            if (m_bombMotionTime <= 0)
+            {
+                GameObject bomb = Instantiate(m_bombPrefab, transform.position, Quaternion.identity);
                 Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
-                bombRb.AddForce(transform.up * bombHeight, ForceMode.Impulse);
-                bombRb.AddForce(transform.forward * speed);
-                Destroy(bomb, bombExpTime);
-                cnt = bombChargeTime;
+                bombRb.AddForce(transform.up * m_bombHeight, ForceMode.Impulse);
+                bombRb.AddForce(transform.forward * m_speed);
+                Destroy(bomb, m_bombExpTime);
+                cnt = m_bombChargeTime;
+                m_bombThrowFlg = false;
             }
         }
     }

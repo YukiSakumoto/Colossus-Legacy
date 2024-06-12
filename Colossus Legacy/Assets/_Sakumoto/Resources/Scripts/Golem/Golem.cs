@@ -39,6 +39,13 @@ public class Golem : MonoBehaviour
     private bool m_lastAttack = false;
     [SerializeField] protected bool m_alive = true;
 
+    // ======================
+    // ディゾルブ処理用
+    // ======================
+    [SerializeField] private List<Dissolve> m_dissolves;
+    [SerializeField] private float m_dissolveSpeed = 0.1f;
+    private float m_dissolveRatio = 0.0f;
+
 
     void Start()
     {
@@ -55,9 +62,10 @@ public class Golem : MonoBehaviour
     {
         if (!m_alive)
         {
-            if (m_golemMain.MainDestroy())
+            m_golemLeft.PartsDestroy();
+            m_golemRight.PartsDestroy();
+            if (m_golemMain.PartsDestroy())
             {
-                //! ここチェック！
                 foreach (Transform child in this.transform)
                 {
                     //自分の子供をDestroyする
@@ -315,6 +323,26 @@ public class Golem : MonoBehaviour
     }
 
 
-
     public bool GetStop() { return m_stop; }
+
+
+    protected bool PartsDestroy()
+    {
+        if (m_dissolves.Count > 0)
+        {
+            m_dissolveRatio += m_dissolveSpeed * Time.deltaTime;
+
+            for (int i = 0; i < m_dissolves.Count; i++)
+            {
+                m_dissolves[i].SetDissolveAmount(m_dissolveRatio);
+            }
+
+            if (m_dissolveRatio >= 0.6f)
+            {
+                m_dissolves.Clear();
+                return true;
+            }
+        }
+        return false;
+    }
 }

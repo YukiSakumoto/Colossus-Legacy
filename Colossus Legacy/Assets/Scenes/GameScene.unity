@@ -3776,7 +3776,7 @@ PrefabInstance:
       objectReference: {fileID: 1929693044}
     - target: {fileID: 2803960910077753707, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_damagePoint
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3064622379411329356, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
       propertyPath: m_target

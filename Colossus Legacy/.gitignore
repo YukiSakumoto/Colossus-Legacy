@@ -71,8 +71,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Omission of assets imported by Nishida
-*/_Nishida/Blink/*
-
 # Effekseer plugin Compressing storage
 /[Aa]ssets/[Ee]ffekseer/*

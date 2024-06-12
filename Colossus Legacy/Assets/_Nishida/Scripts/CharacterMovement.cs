@@ -274,6 +274,9 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        m_rb.velocity = Vector3.zero;
+        m_rb.angularVelocity = Vector3.zero;
+
         float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
         float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
 

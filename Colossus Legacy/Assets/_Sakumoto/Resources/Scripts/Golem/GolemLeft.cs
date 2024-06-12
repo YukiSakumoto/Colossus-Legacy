@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Timeline;
@@ -73,13 +75,13 @@ public class GolemLeft : Golem
             if (m_protrusionNowTime <= 0.17f + 0.5f && m_protrusionNowTime >= 0.5f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
-                pos.y += 20.0f * Time.deltaTime;
+                pos.y += 35.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
             else if (m_protrusionNowTime >= 0.83f + 0.5f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
-                pos.y -= 20.0f * Time.deltaTime;
+                pos.y -= 35.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
         }

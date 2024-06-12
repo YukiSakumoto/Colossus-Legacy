@@ -1,10 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class Golem : MonoBehaviour
 {
@@ -23,7 +26,9 @@ public class Golem : MonoBehaviour
 
     protected bool m_stop = false;          // 両腕を同時に合わせるためのフラグ
 
-    [SerializeField] protected int m_hp = 100;               // ゴーレムの体力
+    [SerializeField] private int m_maxHp = 100;
+    private int m_hp;               // ゴーレムの体力
+    [SerializeField] private Image m_hpGage;
 
     protected bool m_damageFlg = false;     // 攻撃を受けた際のフラグ
     [SerializeField] private float m_damageTime = 0.0f;
@@ -42,6 +47,8 @@ public class Golem : MonoBehaviour
         m_golemLeft = GameObject.Find("Golem_Left").GetComponent<GolemLeft>();
         m_golemRight = GameObject.Find("Golem_Right").GetComponent<GolemRight>();
         m_golemMain = GameObject.Find("Golem_Main").GetComponent<GolemMain>();
+
+        m_hp = m_maxHp;
     }
 
     void Update()
@@ -51,7 +58,11 @@ public class Golem : MonoBehaviour
             if (m_golemMain.MainDestroy())
             {
                 //! ここチェック！
-                Destroy(m_golemMain);
+                foreach (Transform child in this.transform)
+                {
+                    //自分の子供をDestroyする
+                    Destroy(child.gameObject);
+                }
             }
             return;
         }
@@ -145,6 +156,9 @@ public class Golem : MonoBehaviour
     {
         // HPを減らすよ
         m_hp -= m_damagePoint;
+
+        float ratio = (float)m_hp / (float)m_maxHp;
+        m_hpGage.fillAmount = ratio;
 
         m_damageFlg = true;
 

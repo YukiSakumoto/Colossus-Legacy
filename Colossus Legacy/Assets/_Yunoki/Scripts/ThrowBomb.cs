@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using System;
 
 public class ThrowBomb : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class ThrowBomb : MonoBehaviour
     [SerializeField] float m_bombChargeTime = 1;
     [SerializeField] float m_bombExpTime = 5;
     float m_bombMotionTime = 0f;
-    private const float m_bombMotionSetTime = 0.23f; 
+    private const float m_bombMotionSetTime = 0.43f; 
     private bool m_bombThrowFlg = false;
 
     private float cnt = 0;
@@ -37,7 +38,16 @@ public class ThrowBomb : MonoBehaviour
             m_bombMotionTime -= Time.deltaTime;
             if (m_bombMotionTime <= 0)
             {
-                GameObject bomb = Instantiate(m_bombPrefab, transform.position, Quaternion.identity);
+                float rotateMathX = Math.Abs(transform.rotation.y);
+                float rotateMathZ = Math.Abs(transform.rotation.y);
+                float initialPosAddX = 0.3f * rotateMathX;
+                float initialPosAddY = 0.5f;
+                float initialPosAddZ = 1f * rotateMathZ;
+                Vector3 initialPosition = transform.position;
+                initialPosition.x += initialPosAddX; 
+                initialPosition.y += initialPosAddY;
+                initialPosition.z += initialPosAddZ;
+                GameObject bomb = Instantiate(m_bombPrefab, initialPosition, Quaternion.identity);
                 Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
                 bombRb.AddForce(transform.up * m_bombHeight, ForceMode.Impulse);
                 bombRb.AddForce(transform.forward * m_speed);

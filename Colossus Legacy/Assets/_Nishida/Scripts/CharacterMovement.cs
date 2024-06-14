@@ -53,8 +53,8 @@ public class CharacterMovement : MonoBehaviour
     private const float m_rollAcceleration = 2.4f;                // 回避行動の加速量固定値
     private const float m_rollTiredDecreaseBase = 0.25f;          // 回避行動の減速量設定
     private const float m_rollTiredDecreaseTimeBase = 3f;         // 回避行動の減速量回復時間固定値
-    private const float m_swordAttackCoolSetTime = 0.9f;          // 剣で攻撃したときの硬直時間固定値
-    private const float m_bowAttackCoolSetTime = 1.3f;            // 弓で攻撃したときの硬直時間固定値
+    private const float m_swordAttackCoolSetTime = 0.8f;          // 剣で攻撃したときの硬直時間固定値
+    private const float m_bowAttackCoolSetTime = 1.6f;            // 弓で攻撃したときの硬直時間固定値
     private const float m_subAttackCoolSetTime = 1f;              // サブ攻撃したときの硬直時間固定値
     private const float m_weaponChangeCoolSetTime = 1f;           // 武器チェンジ時のクールタイム固定値
     private const float m_damageCoolSetTime = 0.6f;               // ダメージを受けた後の硬直時間固定値

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SoundPlay : MonoBehaviour
 {
@@ -15,6 +16,25 @@ public class SoundPlay : MonoBehaviour
     [SerializeField] private AudioSource m_damageKnockBackStart;
     [SerializeField] private AudioSource m_damageKnockBackEnd;
     [SerializeField] private AudioSource m_deflected;
+
+    private float m_soundVolume = 0;
+
+    private void Start()
+    {
+        m_soundVolume = GameManager.Instance.soundVolume;
+
+        m_swordSwing.volume *= m_soundVolume;
+        m_bowCharge.volume *= m_soundVolume;
+        m_bowShot.volume *= m_soundVolume;
+        m_roll.volume *= m_soundVolume;
+        m_death.volume *= m_soundVolume;
+        m_damageSmall.volume *= m_soundVolume;
+        m_damageMiddle.volume *= m_soundVolume;
+        m_damageHeavy.volume *= m_soundVolume;
+        m_damageKnockBackStart.volume *= m_soundVolume;
+        m_damageKnockBackEnd.volume *= m_soundVolume;
+        m_deflected.volume *= m_soundVolume;
+    }   
 
     public void SoundSwordSwing()
     {

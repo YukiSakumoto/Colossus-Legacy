@@ -43,15 +43,19 @@ public class ThrowBomb : MonoBehaviour
                 float initialPosAddX = 0.3f * rotateMathX;
                 float initialPosAddY = 0.5f;
                 float initialPosAddZ = 1f * rotateMathZ;
+                float bombExpTimeAdd = 0.3f; 
                 Vector3 initialPosition = transform.position;
+
                 initialPosition.x += initialPosAddX; 
                 initialPosition.y += initialPosAddY;
                 initialPosition.z += initialPosAddZ;
+                Bomb bombClass = m_bombPrefab.GetComponent<Bomb>();
                 GameObject bomb = Instantiate(m_bombPrefab, initialPosition, Quaternion.identity);
                 Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
                 bombRb.AddForce(transform.up * m_bombHeight, ForceMode.Impulse);
                 bombRb.AddForce(transform.forward * m_speed);
-                Destroy(bomb, m_bombExpTime);
+                bombClass.SetTime(m_bombExpTime);
+                Destroy(bomb, m_bombExpTime + bombExpTimeAdd);
                 cnt = m_bombChargeTime;
                 m_bombThrowFlg = false;
             }

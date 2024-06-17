@@ -101,9 +101,10 @@ public class CharacterMovement : MonoBehaviour
     private bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
     private bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
     private bool m_bowShotFlg = false;                   // 弓攻撃を行う際の管理
-    private bool m_swordMotionFlg = false;
-    private bool m_bowMotionFlg = false;
-    private bool m_subAttackMotionFlg = false;
+    private bool m_swordMotionFlg = false;               // 剣攻撃モーション中の管理
+    private bool m_secondSwordMotionFlg = false;         // 2段攻撃モーション中の管理
+    private bool m_bowMotionFlg = false;                 // 弓攻撃モーション中の管理
+    private bool m_subAttackMotionFlg = false;           // サブ攻撃モーション中の管理
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
 
@@ -144,21 +145,24 @@ public class CharacterMovement : MonoBehaviour
         {
             if (!m_weaponChangeCoolTimeCheckFlg) // 武器チェンジが連続で発生しないようフラグで管理
             {
-                if (!m_weaponFlg) // 弓に変更
+                if (!m_swordMotionFlg && !m_secondSwordMotionFlg && !m_bowMotionFlg && !m_subAttackMotionFlg && !m_deathFlg) // 攻撃中と死後は武器チェンジ出来ないようにする
                 {
-                    m_swordObject.SetActive(false);
-                    m_bowObject.SetActive(true);
-                    m_weaponFlg = true;
-                    m_weaponChangeCoolTimeCheckFlg = true;
-                    m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
-                }
-                else // 剣に変更
-                {
-                    m_swordObject.SetActive(true);
-                    m_bowObject.SetActive(false);
-                    m_weaponFlg = false;
-                    m_weaponChangeCoolTimeCheckFlg = true;
-                    m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                    if (!m_weaponFlg) // 弓に変更
+                    {
+                        m_swordObject.SetActive(false);
+                        m_bowObject.SetActive(true);
+                        m_weaponFlg = true;
+                        m_weaponChangeCoolTimeCheckFlg = true;
+                        m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                    }
+                    else // 剣に変更
+                    {
+                        m_swordObject.SetActive(true);
+                        m_bowObject.SetActive(false);
+                        m_weaponFlg = false;
+                        m_weaponChangeCoolTimeCheckFlg = true;
+                        m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                    }
                 }
             }
         }
@@ -178,6 +182,7 @@ public class CharacterMovement : MonoBehaviour
                     m_weaponAttackCoolTimeCheckFlg = true;
                     m_swordMotionFlg = true;
                     m_swordMoveFlg = true;
+                    m_swordMotionFlg = true;
                     m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
                     m_swordMoveTime = m_swordMoveSetTime;
                 }
@@ -202,6 +207,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_secondSwordAttackAnimeFlg = true;
                     m_secondSwordAttackFlg = true;
+                    m_secondSwordMotionFlg = true;
                 }
             }
 
@@ -528,6 +534,7 @@ public class CharacterMovement : MonoBehaviour
             if (m_weaponAttackCoolTime <= 0)
             {
                 m_swordMotionFlg = false;
+                m_secondSwordMotionFlg = false;
                 m_bowMotionFlg = false;
                 m_subAttackMotionFlg = false;
                 m_weaponAttackCoolTimeCheckFlg = false;

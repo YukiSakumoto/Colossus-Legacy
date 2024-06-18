@@ -98,9 +98,13 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollFinishCheckFlg = false;           // 回避行動が終了しているかの管理
     private bool m_weaponAttackCoolTimeCheckFlg = false; // 攻撃モーションから移動に移れるまでの時間かの管理
     private bool m_weaponChangeCoolTimeCheckFlg = false; // 武器の種類を変える時のクールタイムかの管理
-    public bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
-    public bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
+    private bool m_swordMoveFlg = false;                 // 剣を振る際の前移動
+    private bool m_secondSwordAttackFlg = false;         // 2段攻撃を行う際の管理
     private bool m_bowShotFlg = false;                   // 弓攻撃を行う際の管理
+    private bool m_swordMotionFlg = false;               // 剣攻撃モーション中の管理
+    private bool m_secondSwordMotionFlg = false;         // 2段攻撃モーション中の管理
+    private bool m_bowMotionFlg = false;                 // 弓攻撃モーション中の管理
+    private bool m_subAttackMotionFlg = false;           // サブ攻撃モーション中の管理
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
 
@@ -141,21 +145,24 @@ public class CharacterMovement : MonoBehaviour
         {
             if (!m_weaponChangeCoolTimeCheckFlg) // 武器チェンジが連続で発生しないようフラグで管理
             {
-                if (!m_weaponFlg) // 弓に変更
+                if (!m_swordMotionFlg && !m_secondSwordMotionFlg && !m_bowMotionFlg && !m_subAttackMotionFlg && !m_deathFlg) // 攻撃中と死後は武器チェンジ出来ないようにする
                 {
-                    m_swordObject.SetActive(false);
-                    m_bowObject.SetActive(true);
-                    m_weaponFlg = true;
-                    m_weaponChangeCoolTimeCheckFlg = true;
-                    m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
-                }
-                else // 剣に変更
-                {
-                    m_swordObject.SetActive(true);
-                    m_bowObject.SetActive(false);
-                    m_weaponFlg = false;
-                    m_weaponChangeCoolTimeCheckFlg = true;
-                    m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                    if (!m_weaponFlg) // 弓に変更
+                    {
+                        m_swordObject.SetActive(false);
+                        m_bowObject.SetActive(true);
+                        m_weaponFlg = true;
+                        m_weaponChangeCoolTimeCheckFlg = true;
+                        m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                    }
+                    else // 剣に変更
+                    {
+                        m_swordObject.SetActive(true);
+                        m_bowObject.SetActive(false);
+                        m_weaponFlg = false;
+                        m_weaponChangeCoolTimeCheckFlg = true;
+                        m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                    }
                 }
             }
         }
@@ -173,7 +180,9 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
+                    m_swordMotionFlg = true;
                     m_swordMoveFlg = true;
+                    m_swordMotionFlg = true;
                     m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
                     m_swordMoveTime = m_swordMoveSetTime;
                 }
@@ -182,6 +191,7 @@ public class CharacterMovement : MonoBehaviour
                     m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
                     m_bowShotTime = m_bowShotSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
+                    m_bowMotionFlg = true;
                     m_bowShotFlg = true;
                 }
             }
@@ -197,6 +207,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     m_secondSwordAttackAnimeFlg = true;
                     m_secondSwordAttackFlg = true;
+                    m_secondSwordMotionFlg = true;
                 }
             }
 
@@ -240,31 +251,35 @@ public class CharacterMovement : MonoBehaviour
                 m_subAttackAnimeFlg = true;
                 m_weaponAttackCoolTime = m_subAttackCoolSetTime;
                 m_weaponAttackCoolTimeCheckFlg = true;
+                m_subAttackMotionFlg = true;
             }
         }
 
         // 回避行動
         if (Input.GetKey(KeyCode.Space))
         {
-            if (!m_rollFinishCheckFlg)
+            if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg)
             {
-                m_rollCoolTime = m_rollCoolSetTime; // 回避行動中の時間設定
-                m_rollStiffnessTime = m_rollStiffnessSetTime; // 回避行動後の硬直時間設定
-                m_rollCoolTimeCheckFlg = true;
-                m_rollFinishCheckFlg = true;
-                m_rollAnimeFlg = true;
-                // 回避行動をするたびに段々スピードが下がる
-                if (m_rollTiredCount < m_rollTiredCountMax)
+                if (!m_rollFinishCheckFlg)
                 {
-                    m_rollTiredCount++; // 減衰の量の増加
+                    m_rollCoolTime = m_rollCoolSetTime; // 回避行動中の時間設定
+                    m_rollStiffnessTime = m_rollStiffnessSetTime; // 回避行動後の硬直時間設定
+                    m_rollCoolTimeCheckFlg = true;
+                    m_rollFinishCheckFlg = true;
+                    m_rollAnimeFlg = true;
+                    // 回避行動をするたびに段々スピードが下がる
+                    if (m_rollTiredCount < m_rollTiredCountMax)
+                    {
+                        m_rollTiredCount++; // 減衰の量の増加
+                    }
+                    else
+                    {
+                        // 回避行動の減衰回数の限界
+                        m_rollTiredCount = m_rollTiredCountMax;
+                    }
+                    m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase; // 減衰の回復にかかる時間設定 
+                    m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
                 }
-                else
-                {
-                    // 回避行動の減衰回数の限界
-                    m_rollTiredCount = m_rollTiredCountMax;
-                }
-                m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase; // 減衰の回復にかかる時間設定 
-                m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
             }
         }
 
@@ -332,6 +347,7 @@ public class CharacterMovement : MonoBehaviour
             m_rb.MovePosition(transform.position + movement);
         }
 
+        // 剣を振っている間の処理
         if (m_swordMoveFlg || (!m_swordMoveFlg && m_secondSwordAttackFlg))
         {
             if (m_swordMoveStiffnessTime < 0)
@@ -354,6 +370,7 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
+        // 弓矢を放つ時の時間経過関係。
         if(m_bowShotFlg)
         {
             m_bowShotTime -= Time.deltaTime;
@@ -386,7 +403,7 @@ public class CharacterMovement : MonoBehaviour
         // ダメージモーション中や無敵中はダメージを受けない
         if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg)
         {
-            // 触れたオブジェクトののTransformを取得
+            // 触れたオブジェクトのTransformを取得
             Transform targetTransform = _other.transform;
 
             // オブジェクトが存在するかを確認
@@ -516,6 +533,10 @@ public class CharacterMovement : MonoBehaviour
             m_weaponAttackCoolTime -= Time.deltaTime;
             if (m_weaponAttackCoolTime <= 0)
             {
+                m_swordMotionFlg = false;
+                m_secondSwordMotionFlg = false;
+                m_bowMotionFlg = false;
+                m_subAttackMotionFlg = false;
                 m_weaponAttackCoolTimeCheckFlg = false;
             }
         }

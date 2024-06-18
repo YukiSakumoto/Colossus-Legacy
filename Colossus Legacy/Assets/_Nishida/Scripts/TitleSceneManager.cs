@@ -17,9 +17,13 @@ public class TitleSceneManager : MonoBehaviour
     StartButtonManager m_startButtonManagerClass;
     OptionButtonManager m_optionButtonManagerClass;
     ExitButtonManager m_exitButtonManagerClass;
+    OptionManuManager m_optionManuManagerClass;
     OptionManuExitButtonManager m_optionManuExitButtonManagerClass;
 
-    private bool m_optionManuFlg = false;
+    private float m_soundVolume = 0.5f;
+
+    private bool m_optionManuFlg = false; // オプションメニューを開いているかの管理
+    private bool m_optionManuCheckFlg = false; // オプションメニューを開いたことがあるかの管理
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +62,7 @@ public class TitleSceneManager : MonoBehaviour
         else
         {
             //m_optionManuCanvas = m_optionManuObj.GetComponent<Canvas>();
+            m_optionManuManagerClass = m_optionManuObj.GetComponent<OptionManuManager>();
             m_optionManuCanvas.gameObject.SetActive(false);
         }
 
@@ -74,23 +79,28 @@ public class TitleSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_startButtonManagerClass.Getm_startFlg)
+        if (m_startButtonManagerClass.Getm_startFlg) // Startが押されたらTraining Sceneをロードする
         {
-            // ゲームシーンをロードする
+            if (m_optionManuCheckFlg) // オプションメニューを開いたことがあったら音量を設定する
+            {
+                m_soundVolume = m_optionManuManagerClass.Getm_soundValue;
+            }
+            GameManager.Instance.soundVolume = m_soundVolume;
             SceneManager.LoadScene("Training Scene");
             Debug.Log("Startボタンが押されたよ");
             m_startButtonManagerClass.Setm_startFlg();
         }
 
-        if (m_optionButtonManagerClass.Getm_optionFlg)
+        if (m_optionButtonManagerClass.Getm_optionFlg) // Optionボタンが押されたらオプションメニューを開く
         {
             Debug.Log("Optionボタンが押されたぬ");
             m_optionButtonManagerClass.Setm_optionFlg();
             m_optionManuCanvas.gameObject.SetActive(true);
             m_optionManuFlg = true;
+            m_optionManuCheckFlg = true;
         }
 
-        if (m_exitButtonManagerClass.Getm_exitFlg)
+        if (m_exitButtonManagerClass.Getm_exitFlg) // Exitボタンが押されたらゲームを終了する
         {
             // ゲーム終了
             Application.Quit();

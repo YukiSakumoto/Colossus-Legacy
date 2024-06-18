@@ -9,6 +9,9 @@ TagManager:
   - EnemyAttack
   - ArrowAttack
   - SwordAttack
+  - Wall
+  - Dummy
+  - BombAttack
   layers:
   - Default
   - TransparentFX

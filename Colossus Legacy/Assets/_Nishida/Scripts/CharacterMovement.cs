@@ -2,20 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Effekseer;
+using UnityEngine.UI;
 
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private GameObject m_swordObject;
     [SerializeField] private GameObject m_bowObject;
-
+    [SerializeField] private Rigidbody m_rb; // リジッドボディ
+    [SerializeField] private Image m_hpGage;
+    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
+    [SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
     Sword m_swordClass;
     Bow m_bowClass;
-
-    [SerializeField] private Rigidbody m_rb; // リジッドボディ
-
-    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
     // ダメージ量
     enum Damage
     {
@@ -42,6 +41,8 @@ public class CharacterMovement : MonoBehaviour
     }
 
     private const int m_playerMaxLife = 100;   // 主人公の体力の上限値
+    private const int m_playerCautionLife = 50;   // 主人公の体力の注意値(バー黄色)
+    private const int m_playerDangerLife = 20;   // 主人公の体力の危険値(バー赤色)
     private const int m_rollTiredCountMax = 5; // 回避行動の移動減少量カウントの上限
 
     [SerializeField] private int m_playerLife = m_playerMaxLife; // 主人公の体力
@@ -134,6 +135,20 @@ public class CharacterMovement : MonoBehaviour
         if (!m_rb)
         {
             Debug.Log("RigidBody is Null");
+        }
+
+        if(!m_hpGage)
+        {
+            Debug.Log("HP Gage is Null");
+        }
+        else
+        {
+            m_hpGage.color = Color.green;
+        }
+
+        if(m_targetTag == "")
+        {
+            Debug.Log("tag is Null");
         }
     }
 
@@ -283,6 +298,12 @@ public class CharacterMovement : MonoBehaviour
             }
         }
 
+        // デバッグ。Yキーを押すたびに回復
+        if(Input.GetKey(KeyCode.Y)) 
+        {
+            Cure((int)Recovery.small);
+        }
+
         // 時間経過で発生したりフラグを変更する処理
         TimeProcessing();
     }
@@ -412,12 +433,23 @@ public class CharacterMovement : MonoBehaviour
                 if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
                 {
                     // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というタグのオブジェクトにヒット");
+                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というオブジェクトにヒット");
 
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                     m_KnockBackVec = transform.position - targetTransform.position;
 
                     int damage = (int)Damage.small;
+                    Hit(damage);
+                }
+                else if(targetTransform.gameObject.CompareTag(m_bombTag))
+                {
+                    // 当たったオブジェクトの名前をコンソールに表示する
+                    Debug.Log("主人公自爆");
+
+                    // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
+                    m_KnockBackVec = transform.position - targetTransform.position;
+
+                    int damage = (int)Damage.medium;
                     Hit(damage);
                 }
                 else
@@ -438,6 +470,17 @@ public class CharacterMovement : MonoBehaviour
     void Hit(int _damage)
     {
         m_playerLife -= _damage;
+        float ratio = (float)m_playerLife / (float)m_playerMaxLife;
+        m_hpGage.fillAmount = ratio;
+        if(m_playerLife <= m_playerDangerLife)
+        {
+            m_hpGage.color = Color.red;
+        }
+        else if(m_playerLife <= m_playerCautionLife)
+        {
+            m_hpGage.color = Color.yellow;
+        }
+
         if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
         {
             // 仮　ダメージを受けた時ノックバックしない場合
@@ -461,6 +504,26 @@ public class CharacterMovement : MonoBehaviour
         {
             m_deathFlg = true;
             Debug.Log("主人公死亡");
+        }
+    }
+
+    void Cure(int _recover)
+    {
+        m_playerLife += _recover;
+        if(m_playerLife > m_playerMaxLife)
+        {
+            m_playerLife = m_playerMaxLife;
+        }
+
+        float ratio = (float)m_playerLife / (float)m_playerMaxLife;
+        m_hpGage.fillAmount = ratio;
+        if(m_playerLife > m_playerCautionLife)
+        {
+            m_hpGage.color = Color.green;
+        }
+        else if(m_playerLife > m_playerDangerLife)
+        {
+            m_hpGage.color = Color.yellow;
         }
     }
 

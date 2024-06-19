@@ -37,9 +37,16 @@ public class TitleSoundPlay : MonoBehaviour
             m_sliderValue = m_sliderObj.GetComponent<Slider>();
         }
 
-        m_BGMVolume = m_BGM.volume;
-        m_BGM.volume = m_BGMVolume * m_soundVolume;
-        PlayBGM();
+        if (!m_BGM)
+        {
+            Debug.Log("BGM is Null");
+        }
+        else
+        {
+            m_BGMVolume = m_BGM.volume;
+            m_BGM.volume = m_BGMVolume * m_soundVolume;
+            PlayBGM();
+        }
     }
 
     private void Update()

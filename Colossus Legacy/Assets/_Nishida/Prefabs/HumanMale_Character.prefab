@@ -5584,11 +5584,11 @@ MonoBehaviour:
   m_swordObject: {fileID: 8059466290396894656}
   m_bowObject: {fileID: 8521937490163537220}
   m_rb: {fileID: 7207295301385276620}
+  m_hpGage: {fileID: 0}
   m_targetTag: EnemyAttack
+  m_bombTag: BombAttack
   m_playerLife: 100
   m_rollTiredCount: 0
-  m_swordMoveFlg: 0
-  m_secondSwordAttackFlg: 0
 --- !u!65 &7611050671940130552
 BoxCollider:
   m_ObjectHideFlags: 0

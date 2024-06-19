@@ -76,13 +76,52 @@ public class AttackManager : MonoBehaviour
     }
 
 
+    // 攻撃の削除処理
+    public void DeleteAttack(int _id)
+    {
+        for (int i = 0; i < m_attackLists.Count; i++)
+        {
+            AttackData attack = m_attackLists[i];
+            if (attack.m_id == _id)
+            {
+                int idx = m_attackLists[i].m_id;
+                m_animator.SetBool(m_attackLists[SearchAttackId(idx)].m_name, false);
+                m_attackLists.Remove(attack);
+            }
+        }
+    }
+
+
+    // 攻撃の削除処理
+    public void DeleteAttack(string _name)
+    {
+        for (int i = 0; i < m_attackLists.Count; i++)
+        {
+            AttackData attack = m_attackLists[i];
+            if (attack.m_name == _name)
+            {
+                int idx = m_attackLists[i].m_id;
+                m_animator.SetBool(m_attackLists[SearchAttackId(idx)].m_name, false);
+                m_attackLists.Remove(attack);
+            }
+        }
+    }
+
+
+    public void DeleteAll()
+    {
+        ResetAnimation();
+        m_attackLists.Clear();
+    }
+
+
     // 攻撃発生処理   →   引数：プレイヤーとの距離
     public int Action(float _dist)
     {
         // 待機状態なら現在の攻撃IDを返してリターン
         if (m_attackLists[SearchAttackId(m_nowId)].m_waitFlg && m_nowId != -1) { return m_nowId; }
 
-        if (!m_canAttack) { return -1; }      // クールダウンがまだなら早期リターン
+        if (!m_canAttack) { return m_nowId; }      // クールダウンがまだなら早期リターン
 
         // 発動可能な攻撃を取得
         List<int> attacks = new List<int>();
@@ -116,12 +155,11 @@ public class AttackManager : MonoBehaviour
 
     public int Action(float _dist, int _id)
     {
-
         // 待機状態なら現在の攻撃IDを返してリターン
         if (m_attackLists[SearchAttackId(m_nowId)].m_waitFlg) { return m_nowId; }
 
         // クールダウンがまだなら早期リターン
-        if (!m_canAttack) { return -1; }
+        if (!m_canAttack) { return m_nowId; }
 
         // 指定した攻撃が範囲外ならリターン
         if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist || m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
@@ -176,16 +214,23 @@ public class AttackManager : MonoBehaviour
     }
 
 
-    // 全アニメーションを停止
-    public void ResetAnimation()
+    public void ResetAttackAnimation()
     {
         for (int i = 0; i < m_attackLists.Count; i++)
         {
-            m_animator.SetBool(m_attackLists[i].m_name, false);
+            int idx = m_attackLists[i].m_id;
+            m_animator.SetBool(m_attackLists[SearchAttackId(idx)].m_name, false);
         }
-        m_animator.SetBool("Damage", false);
         m_nowId = -1;
         m_isAttackAnimation = false;
+    }
+
+
+    // 全アニメーションを停止
+    public void ResetAnimation()
+    {
+        ResetAttackAnimation();
+        m_animator.SetBool("Damage", false);
     }
 
 

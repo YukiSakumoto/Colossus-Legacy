@@ -9,12 +9,12 @@ public class Fade : MonoBehaviour
     [SerializeField] Image fadePanel;
     [SerializeField] float fadeTime = 2.0f;
 
-    private bool m_fadeEnabled = true;
+    //private bool m_fadeEnabled = true;
     public IEnumerator FadeIn()
     {
         Debug.Log("FadeIn");
         fadePanel.enabled = true;
-        m_fadeEnabled = true;
+        //m_fadeEnabled = true;
 
         yield return new WaitForSeconds(1.0f);
 
@@ -31,7 +31,7 @@ public class Fade : MonoBehaviour
         }
         fadePanel.color = endColor;
         fadePanel.enabled = false;
-        m_fadeEnabled = false;
+        //m_fadeEnabled = false;
     }
     public IEnumerator FadeOut()
     {
@@ -40,7 +40,7 @@ public class Fade : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         fadePanel.enabled = true;
-        m_fadeEnabled = true;
+        //m_fadeEnabled = true;
         float fadeOutTime = 0;
         Color startColor = fadePanel.color;
         Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f);

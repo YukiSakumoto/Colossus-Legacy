@@ -324,25 +324,9 @@ PrefabInstance:
       propertyPath: m_damageKnockBackStart
       value: 
       objectReference: {fileID: 1498857659}
-    - target: {fileID: 5277710507609095817, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5729908777727010445, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
       propertyPath: m_Name
       value: HumanMale_Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 7207295301385276620, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7207295301385276620, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
-      propertyPath: m_Constraints
-      value: 84
-      objectReference: {fileID: 0}
-    - target: {fileID: 7611050671940130552, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

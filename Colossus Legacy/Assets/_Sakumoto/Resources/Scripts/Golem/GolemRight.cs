@@ -28,28 +28,30 @@ public class GolemRight : Golem
     [SerializeField] private GameObject m_myShoulder;
     [SerializeField] private GameObject m_myHand;
 
-    private Vector3 m_initVec;
+    //private Vector3 m_initVec;
 
     private Quaternion m_initRot;           // 初期角度
     private Quaternion m_targetRot;         // 対象への角度保存用
+    private Quaternion m_nowRot;            // 現在の方向ベクトル
 
     [SerializeField] private float m_smoothTime = 15.0f;    // 目標値に到達するまでのおおよその時間
     private float m_nowTime = 0.0f;
 
-    [SerializeField] private float m_limitDeg = -30.0f;     // 角度の限界
+    //[SerializeField] private float m_limitDeg = -30.0f;     // 角度の限界
 
 
     void Start()
     {
-        // m_weakCollider = GameObject.Find("R_Elixir_Collider_Weak").GetComponent<WeakPoint>();
+        m_skinMesh = GetComponent<SkinMesh>();
+        m_dissolve = GetComponent<Dissolve>();
 
         attackManager = GetComponent<AttackManager>();
 
         attackManager.AddAttack(0, "SwingDown", new Vector2(10.0f, 22.0f), 1.0f);
-        attackManager.AddAttack(1, "SwingDown", new Vector2(10.0f, 22.0f), 5.0f);
-        attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 5.0f, true);
-        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 55.0f), 8.0f);
-        attackManager.AddAttack(4, "Protrusion", new Vector2(0.0f, 15.0f), 8.0f);
+        attackManager.AddAttack(1, "SwingDown", new Vector2(10.0f, 22.0f), 3.0f);
+        attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 1.0f, true);
+        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 55.0f), 2.0f);
+        attackManager.AddAttack(4, "Protrusion", new Vector2(0.0f, 15.0f), 1.0f);
 
         // 初期角度の保存
         m_initRot = this.transform.rotation;
@@ -58,17 +60,21 @@ public class GolemRight : Golem
         // 腕の初期ベクトルを保存
         if (m_myShoulder && m_myHand)
         {
-            m_initVec = m_myHand.transform.position - m_myShoulder.transform.position;
-            m_initVec = Vector3.ProjectOnPlane(m_initVec, Vector3.up);
+            //m_initVec = m_myHand.transform.position - m_myShoulder.transform.position;
+            //m_initVec = Vector3.ProjectOnPlane(m_initVec, Vector3.up);
         }
     }
 
 
     void Update()
     {
-        if (!m_alive) { return; }
+        if (!m_alive)
+        {
+            PartsDestroy();
+            return;
+        }
 
-        SmoothAngleChanger(m_targetRot, this.transform.rotation);
+        SmoothAngleChanger(m_targetRot, m_nowRot);
 
         if (m_instantiateObj)
         {
@@ -87,7 +93,7 @@ public class GolemRight : Golem
             }
         }
 
-        if (m_stop) { return; }
+        if (m_stop || m_damageFlg) { return; }
 
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
 
@@ -96,7 +102,6 @@ public class GolemRight : Golem
             m_nextAttackId = -1;
         }
 
-        // デバッグ用
         WeakHit();
     }
 
@@ -106,9 +111,10 @@ public class GolemRight : Golem
         if (m_nowAttackId == 2)
         {
             m_stop = true;
+            m_attackWait = true;
         }
 
-        return m_stop;
+        return m_attackWait;
     }
 
 
@@ -144,6 +150,7 @@ public class GolemRight : Golem
     // 回転角度の初期化
     private void InitRotation()
     {
+        m_nowRot = this.transform.rotation;
         m_targetRot = m_initRot;
         m_nowTime = 0.0f;
     }
@@ -152,6 +159,8 @@ public class GolemRight : Golem
     // ターゲットへの角度を保存
     private void CollectionTargetAngle()
     {
+        m_nowRot = this.transform.rotation;
+
         // 自身の方向ベクトル
         Vector3 myVec = m_myHand.transform.position - m_myShoulder.transform.position;
 
@@ -165,18 +174,14 @@ public class GolemRight : Golem
         // 2つのベクトルから角度算出
         float deg = Vector3.SignedAngle(myVec, targetVec, Vector3.up);
 
-        // deg > 0.0f のときだけ角度が 2 倍になっていたため補正
-        if (deg > 0.0f) deg *= 0.5f;
+        ////// 初期位置から角度を算出（角度制御用）
+        //float initDeg = Vector3.SignedAngle(m_initVec, targetVec, Vector3.up);
 
-        // 初期位置から角度を算出（角度制御用）
-        float initDeg = Vector3.SignedAngle(m_initVec, targetVec, Vector3.up);
-        if (initDeg > 0.0f) initDeg *= 0.5f;
-
-        // 初期位置から特定の値まで開かないようにする（30°まで）
-        if (initDeg < m_limitDeg)
-        {
-            deg = m_limitDeg - (initDeg - deg);
-        }
+        //// 初期位置から特定の値まで開かないようにする
+        //if (initDeg < m_limitDeg)
+        //{
+        //    deg = m_limitDeg - (initDeg - deg);
+        //}
 
         // 角度から回転情報を取得
         m_targetRot.eulerAngles += new Vector3(0.0f, deg, 0.0f);
@@ -188,6 +193,8 @@ public class GolemRight : Golem
     // なめらかに追従させる処理
     private void SmoothAngleChanger(Quaternion _targetRot, Quaternion _nowRot)
     {
+        if (_targetRot == _nowRot) { return; }
+
         float timeRatio = 0.0f;
         if (m_nowTime != 0.0f)
         {
@@ -195,7 +202,7 @@ public class GolemRight : Golem
         }
         if (timeRatio > 1.0f) { return; }
 
-        this.transform.rotation = Quaternion.Lerp(
+        this.transform.rotation = Quaternion.Slerp(
             _nowRot,
             _targetRot,
             timeRatio);

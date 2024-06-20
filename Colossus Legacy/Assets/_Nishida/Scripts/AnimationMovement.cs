@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AnimationMovement : MonoBehaviour
@@ -9,7 +10,13 @@ public class AnimationMovement : MonoBehaviour
     private CharacterMovement m_characterMovement;
     private Sword m_sword;
     private const float m_deathAnimationMax = 1.66f;
+    private const float m_hitStopSetTime = 0.2f;
+
     private float m_deathAnimation = 0f;
+    private float m_hitStopTime = 0f;
+    private float m_animationSpeed = 1f;
+
+    private bool m_hitStopFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -90,6 +97,27 @@ public class AnimationMovement : MonoBehaviour
         if(m_sword.Getm_deflectedFlg)
         {
             animator.SetTrigger("p_Deflected");
+        }
+
+        if (m_sword.Getm_hitFlg)
+        {
+            m_hitStopTime = m_hitStopSetTime;
+            m_animationSpeed = animator.speed;
+            animator.speed = 0f;
+            m_hitStopFlg = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (m_hitStopFlg)
+        {
+            m_hitStopTime -= Time.deltaTime;
+            if (m_hitStopTime < 0)
+            {
+                animator.speed = m_animationSpeed;
+                m_hitStopFlg = false;
+            }
         }
     }
 }

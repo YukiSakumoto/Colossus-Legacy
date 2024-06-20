@@ -1742,6 +1742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb57371b94b3cf44b01a01ab01e88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_swordObj: {fileID: 0}
 --- !u!1 &2068118575331530411
 GameObject:
   m_ObjectHideFlags: 0
@@ -5482,6 +5483,7 @@ GameObject:
   - component: {fileID: 1226871197212777157}
   - component: {fileID: 4575231394931611950}
   - component: {fileID: 7349991365847316402}
+  - component: {fileID: 2870190894587622017}
   m_Layer: 0
   m_Name: HumanMale_Character
   m_TagString: Player
@@ -5661,6 +5663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb57371b94b3cf44b01a01ab01e88c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_swordObj: {fileID: 8059466290396894656}
 --- !u!114 &4575231394931611950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5668,7 +5671,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5729908777727010445}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fac3a9f694b5857498f0f0bb8aa55dc5, type: 3}
   m_Name: 
@@ -5676,6 +5679,7 @@ MonoBehaviour:
   m_swordSwing: {fileID: 0}
   m_bowCharge: {fileID: 0}
   m_bowShot: {fileID: 0}
+  m_bombThrow: {fileID: 0}
   m_roll: {fileID: 0}
   m_death: {fileID: 0}
   m_damageSmall: {fileID: 0}
@@ -5684,6 +5688,7 @@ MonoBehaviour:
   m_damageKnockBackStart: {fileID: 0}
   m_damageKnockBackEnd: {fileID: 0}
   m_deflected: {fileID: 0}
+  m_subExplosion: {fileID: 0}
 --- !u!114 &7349991365847316402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5701,6 +5706,19 @@ MonoBehaviour:
   m_speed: 300
   m_bombChargeTime: 1
   m_bombExpTime: 3
+--- !u!114 &2870190894587622017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729908777727010445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a220e8163e208e447bd91fda3bfadf0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_soundPlayObj: {fileID: 0}
 --- !u!1 &5782989648294680116
 GameObject:
   m_ObjectHideFlags: 0

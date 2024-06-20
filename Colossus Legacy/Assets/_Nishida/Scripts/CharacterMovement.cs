@@ -318,8 +318,16 @@ public class CharacterMovement : MonoBehaviour
         m_rb.velocity = Vector3.zero;
         m_rb.angularVelocity = Vector3.zero;
 
+        //Vector3 position = transform.position;
+        //if (position.y < 0)
+        //{
+        //    position.y = 0;
+        //    transform.position = position;
+        //}
+
         if (!m_joyFlg)
         {
+
             float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
             float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
 
@@ -451,14 +459,17 @@ public class CharacterMovement : MonoBehaviour
                 }
                 else if(targetTransform.gameObject.CompareTag(m_bombTag))
                 {
-                    // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("主人公自爆");
+                    if(_other is CapsuleCollider)
+                    {
+                        // 当たったオブジェクトの名前をコンソールに表示する
+                        Debug.Log("主人公自爆");
 
-                    // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                    m_KnockBackVec = transform.position - targetTransform.position;
+                        // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
+                        m_KnockBackVec = transform.position - targetTransform.position;
 
-                    int damage = (int)Damage.medium;
-                    Hit(damage);
+                        int damage = (int)Damage.medium;
+                        Hit(damage);
+                    }
                 }
                 else
                 {

@@ -12,6 +12,7 @@ TagManager:
   - Wall
   - Dummy
   - BombAttack
+  - BoxFragment
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - NoCollisionGolem
   - Water
   - UI
-  - 
-  - 
-  - 
+  - NoCollisionFragment
+  - Fragment
+  - Terrain
   - 
   - 
   - 

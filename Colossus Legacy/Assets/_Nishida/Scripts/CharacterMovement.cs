@@ -2,20 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Effekseer;
+using UnityEngine.UI;
 
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private GameObject m_swordObject;
     [SerializeField] private GameObject m_bowObject;
-
+    [SerializeField] private Rigidbody m_rb; // リジッドボディ
+    [SerializeField] private Image m_hpGage;
+    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
+    [SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
     Sword m_swordClass;
     Bow m_bowClass;
-
-    [SerializeField] private Rigidbody m_rb; // リジッドボディ
-
-    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
     // ダメージ量
     enum Damage
     {
@@ -42,6 +41,8 @@ public class CharacterMovement : MonoBehaviour
     }
 
     private const int m_playerMaxLife = 100;   // 主人公の体力の上限値
+    private const int m_playerCautionLife = 50;   // 主人公の体力の注意値(バー黄色)
+    private const int m_playerDangerLife = 20;   // 主人公の体力の危険値(バー赤色)
     private const int m_rollTiredCountMax = 5; // 回避行動の移動減少量カウントの上限
 
     [SerializeField] private int m_playerLife = m_playerMaxLife; // 主人公の体力
@@ -89,6 +90,7 @@ public class CharacterMovement : MonoBehaviour
     private bool m_blownAwayAnimeFlg = false;            // 吹っ飛ぶ攻撃を受けたときの管理(AnimationMovementへの移送用)
     private bool m_deathFlg = false;                     // 死亡時の管理(AnimationMovementへの移送用)
     private bool m_secondSwordAttackAnimeFlg = false;    // 2段攻撃を行う際の管理(AnimationMovementへの移送用)
+    private bool m_joyAnimeFlg = false;                  // 喜んで動かなくなる管理(AnimationMovementへの移送用)
     private bool m_damageMotionFlg = false;              // ダメージモーション中の管理
     private bool m_damageBlownAwayFlg = false;           // 吹っ飛ぶモーション中の管理
     private bool m_damageBlownAwayStiffnessFlg = false;  // 吹っ飛ぶモーションの硬直時間の管理
@@ -105,6 +107,7 @@ public class CharacterMovement : MonoBehaviour
     private bool m_secondSwordMotionFlg = false;         // 2段攻撃モーション中の管理
     private bool m_bowMotionFlg = false;                 // 弓攻撃モーション中の管理
     private bool m_subAttackMotionFlg = false;           // サブ攻撃モーション中の管理
+    private bool m_joyFlg = false;                       // 喜んで動かなくなる管理
 
     private Vector3 m_KnockBackVec = Vector3.zero; // ノックバック量を代入する
 
@@ -135,152 +138,175 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("RigidBody is Null");
         }
+
+        if(!m_hpGage)
+        {
+            Debug.Log("HP Gage is Null");
+        }
+        else
+        {
+            m_hpGage.color = Color.green;
+        }
+
+        if(m_targetTag == "")
+        {
+            Debug.Log("tag is Null");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        // 武器チェンジ時の処理
-        if (Input.GetKey(KeyCode.F))
+        if (!m_joyFlg)
         {
-            if (!m_weaponChangeCoolTimeCheckFlg) // 武器チェンジが連続で発生しないようフラグで管理
+            // 武器チェンジ時の処理
+            if (Input.GetKey(KeyCode.F))
             {
-                if (!m_swordMotionFlg && !m_secondSwordMotionFlg && !m_bowMotionFlg && !m_subAttackMotionFlg && !m_deathFlg) // 攻撃中と死後は武器チェンジ出来ないようにする
+                if (!m_weaponChangeCoolTimeCheckFlg) // 武器チェンジが連続で発生しないようフラグで管理
                 {
-                    if (!m_weaponFlg) // 弓に変更
+                    if (!m_swordMotionFlg && !m_secondSwordMotionFlg && !m_bowMotionFlg && !m_subAttackMotionFlg && !m_deathFlg) // 攻撃中と死後は武器チェンジ出来ないようにする
                     {
-                        m_swordObject.SetActive(false);
-                        m_bowObject.SetActive(true);
-                        m_weaponFlg = true;
-                        m_weaponChangeCoolTimeCheckFlg = true;
-                        m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
-                    }
-                    else // 剣に変更
-                    {
-                        m_swordObject.SetActive(true);
-                        m_bowObject.SetActive(false);
-                        m_weaponFlg = false;
-                        m_weaponChangeCoolTimeCheckFlg = true;
-                        m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
-                    }
-                }
-            }
-        }
-
-        // モーション重複の管理系処理
-        MotionProcessing();
-
-        // マウス左クリックで装備している武器で攻撃。使った武器によって硬直時間が異なる。
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
-            {
-                m_attackAnimeFlg = true;
-                if (!m_weaponFlg) // 剣で攻撃
-                {
-                    m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
-                    m_weaponAttackCoolTimeCheckFlg = true;
-                    m_swordMotionFlg = true;
-                    m_swordMoveFlg = true;
-                    m_swordMotionFlg = true;
-                    m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
-                    m_swordMoveTime = m_swordMoveSetTime;
-                }
-                else // 弓で攻撃
-                {
-                    m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
-                    m_bowShotTime = m_bowShotSetTime;
-                    m_weaponAttackCoolTimeCheckFlg = true;
-                    m_bowMotionFlg = true;
-                    m_bowShotFlg = true;
-                }
-            }
-        }
-
-        // 剣を振った時に前に進む処理
-        if (m_swordMoveFlg)
-        {
-            if(m_swordMoveStiffnessTime < m_swordMoveStiffnessSetTime)
-            {
-                // モーション中にもう一度クリックすると2段攻撃
-                if (Input.GetMouseButtonDown(0))
-                {
-                    m_secondSwordAttackAnimeFlg = true;
-                    m_secondSwordAttackFlg = true;
-                    m_secondSwordMotionFlg = true;
-                }
-            }
-
-            m_swordMoveStiffnessTime -= Time.deltaTime;
-            if (m_swordMoveStiffnessTime < 0)
-            {
-                m_swordMoveTime -= Time.deltaTime;
-                if (m_swordMoveTime < 0 || m_swordClass.Getm_hitFlg)
-                {
-                    m_swordMoveFlg = false;
-                    if(m_secondSwordAttackFlg) // 2段攻撃を行う用の変数設定
-                    {
-                        m_swordMoveStiffnessTime = m_swordSecondMoveStiffnessSetTime;
-                        m_swordMoveTime = m_swordSecondMoveSetTime;
+                        if (!m_weaponFlg) // 弓に変更
+                        {
+                            m_swordObject.SetActive(false);
+                            m_bowObject.SetActive(true);
+                            m_weaponFlg = true;
+                            m_weaponChangeCoolTimeCheckFlg = true;
+                            m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                        }
+                        else // 剣に変更
+                        {
+                            m_swordObject.SetActive(true);
+                            m_bowObject.SetActive(false);
+                            m_weaponFlg = false;
+                            m_weaponChangeCoolTimeCheckFlg = true;
+                            m_weaponChangeCoolTime = m_weaponChangeCoolSetTime;
+                        }
                     }
                 }
             }
-        }
-        else 
-        {
-            // 2段攻撃を行う時のみ派生
-            if (m_secondSwordAttackFlg)
+
+            // モーション重複の管理系処理
+            MotionProcessing();
+
+            // マウス左クリックで装備している武器で攻撃。使った武器によって硬直時間が異なる。
+            if (Input.GetMouseButtonDown(0))
             {
+                if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
+                {
+                    m_attackAnimeFlg = true;
+                    if (!m_weaponFlg) // 剣で攻撃
+                    {
+                        m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
+                        m_weaponAttackCoolTimeCheckFlg = true;
+                        m_swordMotionFlg = true;
+                        m_swordMoveFlg = true;
+                        m_swordMotionFlg = true;
+                        m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
+                        m_swordMoveTime = m_swordMoveSetTime;
+                    }
+                    else // 弓で攻撃
+                    {
+                        m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
+                        m_bowShotTime = m_bowShotSetTime;
+                        m_weaponAttackCoolTimeCheckFlg = true;
+                        m_bowMotionFlg = true;
+                        m_bowShotFlg = true;
+                    }
+                }
+            }
+
+            // 剣を振った時に前に進む処理
+            if (m_swordMoveFlg)
+            {
+                if (m_swordMoveStiffnessTime < m_swordMoveStiffnessSetTime)
+                {
+                    // モーション中にもう一度クリックすると2段攻撃
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        m_secondSwordAttackAnimeFlg = true;
+                        m_secondSwordAttackFlg = true;
+                        m_secondSwordMotionFlg = true;
+                    }
+                }
+
                 m_swordMoveStiffnessTime -= Time.deltaTime;
                 if (m_swordMoveStiffnessTime < 0)
                 {
                     m_swordMoveTime -= Time.deltaTime;
-                    if (m_swordMoveTime < 0 ||m_swordClass.Getm_hitFlg)
+                    if (m_swordMoveTime < 0 || m_swordClass.Getm_hitFlg)
                     {
-                        m_secondSwordAttackFlg = false;
+                        m_swordMoveFlg = false;
+                        if (m_secondSwordAttackFlg) // 2段攻撃を行う用の変数設定
+                        {
+                            m_swordMoveStiffnessTime = m_swordSecondMoveStiffnessSetTime;
+                            m_swordMoveTime = m_swordSecondMoveSetTime;
+                        }
                     }
                 }
             }
-        }
-
-        // サブ攻撃。マウスの右クリックで爆弾を投げる。
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
+            else
             {
-                m_subAttackAnimeFlg = true;
-                m_weaponAttackCoolTime = m_subAttackCoolSetTime;
-                m_weaponAttackCoolTimeCheckFlg = true;
-                m_subAttackMotionFlg = true;
-            }
-        }
-
-        // 回避行動
-        if (Input.GetKey(KeyCode.Space))
-        {
-            if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg)
-            {
-                if (!m_rollFinishCheckFlg)
+                // 2段攻撃を行う時のみ派生
+                if (m_secondSwordAttackFlg)
                 {
-                    m_rollCoolTime = m_rollCoolSetTime; // 回避行動中の時間設定
-                    m_rollStiffnessTime = m_rollStiffnessSetTime; // 回避行動後の硬直時間設定
-                    m_rollCoolTimeCheckFlg = true;
-                    m_rollFinishCheckFlg = true;
-                    m_rollAnimeFlg = true;
-                    // 回避行動をするたびに段々スピードが下がる
-                    if (m_rollTiredCount < m_rollTiredCountMax)
+                    m_swordMoveStiffnessTime -= Time.deltaTime;
+                    if (m_swordMoveStiffnessTime < 0)
                     {
-                        m_rollTiredCount++; // 減衰の量の増加
+                        m_swordMoveTime -= Time.deltaTime;
+                        if (m_swordMoveTime < 0 || m_swordClass.Getm_hitFlg)
+                        {
+                            m_secondSwordAttackFlg = false;
+                        }
                     }
-                    else
-                    {
-                        // 回避行動の減衰回数の限界
-                        m_rollTiredCount = m_rollTiredCountMax;
-                    }
-                    m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase; // 減衰の回復にかかる時間設定 
-                    m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
                 }
             }
+
+            // サブ攻撃。マウスの右クリックで爆弾を投げる。
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
+                {
+                    m_subAttackAnimeFlg = true;
+                    m_weaponAttackCoolTime = m_subAttackCoolSetTime;
+                    m_weaponAttackCoolTimeCheckFlg = true;
+                    m_subAttackMotionFlg = true;
+                }
+            }
+
+            // 回避行動
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg)
+                {
+                    if (!m_rollFinishCheckFlg)
+                    {
+                        m_rollCoolTime = m_rollCoolSetTime; // 回避行動中の時間設定
+                        m_rollStiffnessTime = m_rollStiffnessSetTime; // 回避行動後の硬直時間設定
+                        m_rollCoolTimeCheckFlg = true;
+                        m_rollFinishCheckFlg = true;
+                        m_rollAnimeFlg = true;
+                        // 回避行動をするたびに段々スピードが下がる
+                        if (m_rollTiredCount < m_rollTiredCountMax)
+                        {
+                            m_rollTiredCount++; // 減衰の量の増加
+                        }
+                        else
+                        {
+                            // 回避行動の減衰回数の限界
+                            m_rollTiredCount = m_rollTiredCountMax;
+                        }
+                        m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase; // 減衰の回復にかかる時間設定 
+                        m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
+                    }
+                }
+            }
+
+        }
+        // デバッグ。Yキーを押すたびに回復
+        if(Input.GetKey(KeyCode.Y)) 
+        {
+            Cure((int)Recovery.small);
         }
 
         // 時間経過で発生したりフラグを変更する処理
@@ -292,92 +318,95 @@ public class CharacterMovement : MonoBehaviour
         m_rb.velocity = Vector3.zero;
         m_rb.angularVelocity = Vector3.zero;
 
-        float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
-        float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
-
-        // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
-        if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
-            !m_damageMotionFlg && !m_damageBlownAwayStiffnessFlg && !m_deathFlg)
+        if (!m_joyFlg)
         {
-            if (horizontalInput != 0f || varticalInput != 0f) // キー入力がされているときは歩きモーションになる
+            float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
+            float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
+
+            // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
+            if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
+                !m_damageMotionFlg && !m_damageBlownAwayStiffnessFlg && !m_deathFlg)
             {
-                m_walkAnimeFlg = true;
-            }
-            else
-            {
-                m_walkAnimeFlg = false;
-            }
-
-            // 移動量計算
-            Vector3 movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed * Time.deltaTime;
-
-            // Rigidbodyを使ってキャラクターを移動
-            m_rb.MovePosition(transform.position + movement);
-
-            // キャラクターの向きを入力方向に変更
-            if (movement != Vector3.zero)
-            {
-                transform.forward = movement; // キャラクターを移動方向に向ける
-            }
-        }
-        else if (m_rollCoolTimeCheckFlg) // 回避行動中の移動処理
-        {
-            // Y軸の回転に合わせて移動方向を計算する
-            Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-            Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
-
-            // Rigidbodyを使ってオブジェクトを移動
-            m_rb.MovePosition(transform.position + movement * Time.deltaTime);
-
-            // 移動方向が0でない場合にオブジェクトの向きを変更する
-            if (movement != Vector3.zero)
-            {
-                transform.forward = movement.normalized;
-            }
-        }
-        else if (m_damageBlownAwayFlg) // ダメージモーション中のノックバックの動きとか
-        {
-            // enumに小数点が入れられないので計算用
-            float knockbackPower = 10f;
-
-            // ノックバック量計算
-            Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
-
-            // ノックバック方向に力を加えてキャラクターを移動させる
-            m_rb.MovePosition(transform.position + movement);
-        }
-
-        // 剣を振っている間の処理
-        if (m_swordMoveFlg || (!m_swordMoveFlg && m_secondSwordAttackFlg))
-        {
-            if (m_swordMoveStiffnessTime < 0)
-            {
-                if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
+                if (horizontalInput != 0f || varticalInput != 0f) // キー入力がされているときは歩きモーションになる
                 {
-                    // Y軸の回転に合わせて移動方向を計算する
-                    Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-                    Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
+                    m_walkAnimeFlg = true;
+                }
+                else
+                {
+                    m_walkAnimeFlg = false;
+                }
 
-                    // Rigidbodyを使ってオブジェクトを移動
-                    m_rb.MovePosition(transform.position + movement * Time.deltaTime);
+                // 移動量計算
+                Vector3 movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed * Time.deltaTime;
 
-                    // 移動方向が0でない場合にオブジェクトの向きを変更する
-                    if (movement != Vector3.zero)
+                // Rigidbodyを使ってキャラクターを移動
+                m_rb.MovePosition(transform.position + movement);
+
+                // キャラクターの向きを入力方向に変更
+                if (movement != Vector3.zero)
+                {
+                    transform.forward = movement; // キャラクターを移動方向に向ける
+                }
+            }
+            else if (m_rollCoolTimeCheckFlg) // 回避行動中の移動処理
+            {
+                // Y軸の回転に合わせて移動方向を計算する
+                Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+                Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
+
+                // Rigidbodyを使ってオブジェクトを移動
+                m_rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+                // 移動方向が0でない場合にオブジェクトの向きを変更する
+                if (movement != Vector3.zero)
+                {
+                    transform.forward = movement.normalized;
+                }
+            }
+            else if (m_damageBlownAwayFlg) // ダメージモーション中のノックバックの動きとか
+            {
+                // enumに小数点が入れられないので計算用
+                float knockbackPower = 10f;
+
+                // ノックバック量計算
+                Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
+
+                // ノックバック方向に力を加えてキャラクターを移動させる
+                m_rb.MovePosition(transform.position + movement);
+            }
+
+            // 剣を振っている間の処理
+            if (m_swordMoveFlg || (!m_swordMoveFlg && m_secondSwordAttackFlg))
+            {
+                if (m_swordMoveStiffnessTime < 0)
+                {
+                    if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
                     {
-                        transform.forward = movement.normalized;
+                        // Y軸の回転に合わせて移動方向を計算する
+                        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+                        Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
+
+                        // Rigidbodyを使ってオブジェクトを移動
+                        m_rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+                        // 移動方向が0でない場合にオブジェクトの向きを変更する
+                        if (movement != Vector3.zero)
+                        {
+                            transform.forward = movement.normalized;
+                        }
                     }
                 }
             }
-        }
 
-        // 弓矢を放つ時の時間経過関係。
-        if(m_bowShotFlg)
-        {
-            m_bowShotTime -= Time.deltaTime;
-            if (m_bowShotTime <= 0)
+            // 弓矢を放つ時の時間経過関係。
+            if (m_bowShotFlg)
             {
-                m_bowClass.Shot();
-                m_bowShotFlg = false;
+                m_bowShotTime -= Time.deltaTime;
+                if (m_bowShotTime <= 0)
+                {
+                    m_bowClass.Shot();
+                    m_bowShotFlg = false;
+                }
             }
         }
     }
@@ -400,8 +429,8 @@ public class CharacterMovement : MonoBehaviour
     // Is Triggerが付いているColliderに接触したときの処理
     void OnTriggerEnter(Collider _other)
     {
-        // ダメージモーション中や無敵中はダメージを受けない
-        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg)
+        // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
+        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
         {
             // 触れたオブジェクトのTransformを取得
             Transform targetTransform = _other.transform;
@@ -412,12 +441,23 @@ public class CharacterMovement : MonoBehaviour
                 if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
                 {
                     // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というタグのオブジェクトにヒット");
+                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というオブジェクトにヒット");
 
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                     m_KnockBackVec = transform.position - targetTransform.position;
 
                     int damage = (int)Damage.small;
+                    Hit(damage);
+                }
+                else if(targetTransform.gameObject.CompareTag(m_bombTag))
+                {
+                    // 当たったオブジェクトの名前をコンソールに表示する
+                    Debug.Log("主人公自爆");
+
+                    // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
+                    m_KnockBackVec = transform.position - targetTransform.position;
+
+                    int damage = (int)Damage.medium;
                     Hit(damage);
                 }
                 else
@@ -438,6 +478,17 @@ public class CharacterMovement : MonoBehaviour
     void Hit(int _damage)
     {
         m_playerLife -= _damage;
+        float ratio = (float)m_playerLife / (float)m_playerMaxLife;
+        m_hpGage.fillAmount = ratio;
+        if(m_playerLife <= m_playerDangerLife)
+        {
+            m_hpGage.color = Color.red;
+        }
+        else if(m_playerLife <= m_playerCautionLife)
+        {
+            m_hpGage.color = Color.yellow;
+        }
+
         if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
         {
             // 仮　ダメージを受けた時ノックバックしない場合
@@ -461,6 +512,26 @@ public class CharacterMovement : MonoBehaviour
         {
             m_deathFlg = true;
             Debug.Log("主人公死亡");
+        }
+    }
+
+    void Cure(int _recover)
+    {
+        m_playerLife += _recover;
+        if(m_playerLife > m_playerMaxLife)
+        {
+            m_playerLife = m_playerMaxLife;
+        }
+
+        float ratio = (float)m_playerLife / (float)m_playerMaxLife;
+        m_hpGage.fillAmount = ratio;
+        if(m_playerLife > m_playerCautionLife)
+        {
+            m_hpGage.color = Color.green;
+        }
+        else if(m_playerLife > m_playerDangerLife)
+        {
+            m_hpGage.color = Color.yellow;
         }
     }
 
@@ -489,6 +560,12 @@ public class CharacterMovement : MonoBehaviour
         if (m_secondSwordAttackAnimeFlg)
         {
             m_secondSwordAttackAnimeFlg = false;
+        }
+
+        // 喜びモーションの重複防止
+        if (m_joyAnimeFlg) 
+        {
+            m_joyAnimeFlg = false;
         }
     }
 
@@ -639,5 +716,16 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_secondSwordAttackFlg
     {
         get { return m_secondSwordAttackFlg; }
+    }
+
+    public bool Getm_joyAnimeFlg
+    {
+        get { return Getm_joyAnimeFlg; }
+    }
+
+    void Setm_joyFlg()
+    {
+        m_joyFlg = true;
+        m_joyAnimeFlg = true;
     }
 }

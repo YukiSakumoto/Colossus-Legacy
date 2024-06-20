@@ -12,8 +12,8 @@ public class GameManagerGameScene : MonoBehaviour
     void Start()
     {
         fadeOutFlg = false;
-        charaInfo= GameObject.Find("HumanMale_Character").GetComponent<CharacterMovement>();
-        fade=GameObject.Find("Canvas").GetComponent<Fade>();
+        charaInfo = GameObject.Find("HumanMale_Character").GetComponent<CharacterMovement>();
+        fade = GameObject.Find("Canvas").GetComponent<Fade>();
         fade.StartCoroutine(fade.FadeIn());
     }
 
@@ -23,7 +23,7 @@ public class GameManagerGameScene : MonoBehaviour
         if(charaInfo.Getm_deathFlg && !fadeOutFlg)
         {
             fade.StartCoroutine(fade.FadeOut());
-            fadeOutFlg= true;
+            fadeOutFlg = true;
         }
     }
 }

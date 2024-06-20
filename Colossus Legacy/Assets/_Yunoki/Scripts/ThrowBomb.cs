@@ -38,10 +38,39 @@ public class ThrowBomb : MonoBehaviour
             m_bombMotionTime -= Time.deltaTime;
             if (m_bombMotionTime <= 0)
             {
-                float rotateMathX = Math.Abs(transform.rotation.y);
-                float rotateMathZ = Math.Abs(transform.rotation.y);
-                float initialPosAddX = 0.3f * rotateMathX;
-                float initialPosAddY = 0.5f;
+                float mathBig = 2f;
+                float mathSmall = 1f;
+
+                float rotateMathX = transform.rotation.y * mathBig;
+                float rotateMathZ = Math.Abs(transform.rotation.y) * mathBig;
+
+                if(rotateMathX > 0) 
+                {
+                    if(rotateMathX > mathSmall)
+                    {
+                        rotateMathX = mathBig - rotateMathX;
+                    }
+                }
+                else
+                {
+                    if(rotateMathX < -mathSmall)
+                    {
+                        rotateMathX = -mathBig - rotateMathX;
+                    }
+                }
+
+                if(rotateMathZ <= mathSmall)
+                {
+                    rotateMathZ = mathSmall - rotateMathZ;
+                }
+                else
+                {
+                    rotateMathZ = (-rotateMathZ) + mathSmall;
+                }
+                
+
+                float initialPosAddX = 1f * rotateMathX;
+                float initialPosAddY = 1f;
                 float initialPosAddZ = 1f * rotateMathZ;
                 float bombExpTimeAdd = 0.3f; 
                 Vector3 initialPosition = transform.position;

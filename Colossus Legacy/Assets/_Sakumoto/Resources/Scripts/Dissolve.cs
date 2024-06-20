@@ -5,19 +5,30 @@ using UnityEngine.Rendering;
 
 public class Dissolve : MonoBehaviour
 {
-    Material[] mat;
+    List<Material> materials = new List<Material>();
 
-    private void Start()
+    void Start()
     {
-        mat = GetComponent<Renderer>().materials;
+        //mat = GetComponent<Renderer>().materials;
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            materials.AddRange(renderer.materials);
+        }
     }
 
 
     public void SetDissolveAmount(float _ratio)
     {
-        for (int i = 0; i < mat.Length; i++)
+        //for (int i = 0; i < materials.Length; i++)
+        //{
+        //    materials[i].SetFloat("_DissolveAmount", _ratio);
+        //}
+
+        foreach (Material mat in materials)
         {
-            mat[i].SetFloat("_DissolveAmount", _ratio);
+            mat.SetFloat("_DissolveAmount", _ratio);
         }
     }
 }

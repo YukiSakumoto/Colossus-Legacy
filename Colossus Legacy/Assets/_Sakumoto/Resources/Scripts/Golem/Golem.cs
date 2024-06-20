@@ -11,6 +11,8 @@ using UnityEngine.UI;
 
 public class Golem : MonoBehaviour
 {
+    //bool m_skimEnable = true;
+
     protected AttackManager attackManager;
     [SerializeField] private List<Collider> attackColliders;
     [SerializeField] protected WeakPoint m_weakCollider;
@@ -25,6 +27,7 @@ public class Golem : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text m_text;
 
     protected bool m_stop = false;          // 両腕を同時に合わせるためのフラグ
+    protected bool m_attackWait = false;
 
     [SerializeField] private int m_maxHp = 100;
     private int m_hp;               // ゴーレムの体力
@@ -35,20 +38,26 @@ public class Golem : MonoBehaviour
     [SerializeField] private int m_damagePoint = 0;
 
     private float m_time = 0.0f;
+    [SerializeField] protected float m_dist = 0.0f;
 
     private bool m_lastAttack = false;
     [SerializeField] protected bool m_alive = true;
+    [SerializeField] protected bool m_enable = true;
 
     // ======================
     // ディゾルブ処理用
     // ======================
-    [SerializeField] private List<Dissolve> m_dissolves;
+    protected SkinMesh m_skinMesh;
+    protected Dissolve m_dissolve;
     [SerializeField] private float m_dissolveSpeed = 0.1f;
     private float m_dissolveRatio = 0.0f;
 
 
     void Start()
     {
+        m_skinMesh = GetComponent<SkinMesh>();
+        m_dissolve = GetComponent<Dissolve>();
+
         attackManager = GetComponent<AttackManager>();
 
         m_golemLeft = GameObject.Find("Golem_Left").GetComponent<GolemLeft>();
@@ -62,38 +71,72 @@ public class Golem : MonoBehaviour
     {
         if (!m_alive)
         {
-            m_golemLeft.PartsDestroy();
-            m_golemRight.PartsDestroy();
-            if (m_golemMain.PartsDestroy())
-            {
-                foreach (Transform child in this.transform)
+            if (m_golemLeft) m_golemLeft.PartsDestroy();
+            if (m_golemRight) m_golemRight.PartsDestroy();
+            if (m_golemMain) 
+                if (m_golemMain.PartsDestroy())
                 {
-                    //自分の子供をDestroyする
-                    Destroy(child.gameObject);
+                    foreach (Transform child in this.transform)
+                    {
+                        //自分の子供をDestroyする
+                        Destroy(child.gameObject);
+                    }
                 }
-            }
+
             return;
         }
-
-        // Null チェック
-        if (!m_golemLeft || !m_golemRight || !m_golemMain)
+        if (m_golemLeft)
         {
-            if (!m_golemLeft) { Debug.Log("LNull!!"); }
-            if (!m_golemRight) { Debug.Log("RNull!!"); }
-            if (!m_golemMain) { Debug.Log("MNull!!"); }
-
-            return;
+            if (!m_golemLeft.m_enable)
+            {
+                Destroy(m_golemLeft.gameObject);
+                if (m_golemRight)
+                {
+                    m_golemRight.attackManager.DeleteAll();
+                    m_golemRight.attackManager.AddAttack(9, "Rampage", new Vector2(0.1f, 55.0f), 0.0f);
+                }
+            }
+        }
+        if (m_golemRight)
+        {
+            if (!m_golemRight.m_enable)
+            {
+                Destroy(m_golemRight.gameObject);
+                if (m_golemLeft)
+                {
+                    m_golemLeft.attackManager.DeleteAll();
+                    m_golemLeft.attackManager.AddAttack(9, "Rampage", new Vector2(0.1f, 55.0f), 0.0f);
+                }
+            }
         }
 
         // ダメージの処理を先に持ってくる（早期リターン）
         if (!m_damageFlg)
         {
             // どちらかの部位がダメージを受けた状態なら全ての部位をダメージ状態にする
-            if (m_golemLeft.m_damageFlg || m_golemRight.m_damageFlg || m_golemMain.m_damageFlg)
+            if (m_golemLeft)
             {
-                DamageAction();
-
-                return;
+                if (m_golemLeft.m_damageFlg)
+                {
+                    m_golemLeft.m_alive = false;
+                    DamageAction();
+                }
+            }
+            if (m_golemRight)
+            {
+                if (m_golemRight.m_damageFlg)
+                {
+                    m_golemRight.m_alive = false;
+                    DamageAction();
+                }
+            }
+            if (m_golemMain)
+            {
+                if (m_golemMain.m_damageFlg)
+                {
+                    m_golemMain.m_alive = false;
+                    DamageAction();
+                }
             }
         }
         else
@@ -127,35 +170,38 @@ public class Golem : MonoBehaviour
                 {
                     m_damageFlg = false;
 
-                    m_golemLeft.WakeUp();
-                    m_golemRight.WakeUp();
-                    m_golemMain.WakeUp();
+                    if (m_golemLeft) m_golemLeft.WakeUp();
+                    if (m_golemRight) m_golemRight.WakeUp();
+                    if (m_golemMain) m_golemMain.WakeUp();
                 }
             }
         }
 
-        // 
-        if (m_golemLeft.AttackWait())
+        // 両方の腕がある時の処理
+        if (m_golemLeft && m_golemRight)
         {
-            if (m_golemLeft.m_nowAttackId == 2)
+            if (m_golemLeft.AttackWait())
             {
-                m_golemRight.AttackWait();
-                m_golemRight.SetNextAttackId(2);
+                if (m_golemLeft.m_nowAttackId == 2)
+                {
+                    m_golemRight.AttackWait();
+                    m_golemRight.SetNextAttackId(2);
+                }
             }
-        }
-        if (m_golemRight.AttackWait())
-        {
-            if (m_golemRight.m_nowAttackId == 2)
+            if (m_golemRight.AttackWait())
             {
-                m_golemLeft.AttackWait();
-                m_golemLeft.SetNextAttackId(2);
+                if (m_golemRight.m_nowAttackId == 2)
+                {
+                    m_golemLeft.AttackWait();
+                    m_golemLeft.SetNextAttackId(2);
+                }
             }
-        }
 
-        if (m_golemLeft.GetStop() && m_golemRight.GetStop())
-        {
-            m_golemLeft.AttackStart();
-            m_golemRight.AttackStart();
+            if (m_golemLeft.m_attackWait && m_golemRight.m_attackWait)
+            {
+                m_golemLeft.AttackStart();
+                m_golemRight.AttackStart();
+            }
         }
     }
 
@@ -171,9 +217,9 @@ public class Golem : MonoBehaviour
         m_damageFlg = true;
 
         // ダメージアニメーションの再生
-        m_golemLeft.HitDamage();
-        m_golemRight.HitDamage();
-        m_golemMain.HitDamage();
+        if (m_golemLeft) m_golemLeft.HitDamage();
+        if (m_golemRight) m_golemRight.HitDamage();
+        if (m_golemMain) m_golemMain.HitDamage();
 
         m_time = m_damageTime;
 
@@ -183,12 +229,11 @@ public class Golem : MonoBehaviour
             {
                 m_hp = 1;
 
-                m_golemLeft.m_alive = false;
-                m_golemRight.m_alive = false;
+                if (m_golemLeft) m_golemLeft.m_alive = false;
+                if (m_golemRight) m_golemRight.m_alive = false;
             }
             else
             {
-                Debug.Log("ステージクリア！");
                 m_hp = 0;
 
                 m_alive = false;
@@ -215,20 +260,18 @@ public class Golem : MonoBehaviour
     // ターゲットとの距離を取得して返す
     public float DistanceToTarget()
     {
-        float dist = 0.0f;
-
         if (m_target || m_myself)
         {
             Vector3 targetPos = m_target.transform.position;
             Vector3 myPos = m_myself.transform.position;
 
-            dist = Vector3.Distance(targetPos, myPos);
+            m_dist = Vector3.Distance(targetPos, myPos);
         }
 
         // デバッグ用
-        if (m_text) m_text.text = "Dist : " + dist.ToString("#.###");
+        if (m_text) m_text.text = "Dist : " + m_dist.ToString("#.###");
 
-        return dist;
+        return m_dist;
     }
 
 
@@ -236,9 +279,14 @@ public class Golem : MonoBehaviour
     {
         int resultId = -1;
 
-        if (_id == -1) resultId = attackManager.Action(_dist);
-        else resultId = attackManager.Action(_dist, _id);
-
+        if (_id == -1)
+        {
+            resultId = attackManager.Action(_dist);
+        }
+        else
+        {
+            resultId = attackManager.Action(_dist, _id);
+        }
         return resultId;
     }
 
@@ -256,13 +304,17 @@ public class Golem : MonoBehaviour
     // 攻撃判定消去
     private void AttackOff()
     {
-        m_stop = false;
-        attackManager.AnimationFin();
-
         for (int i = 0; i < attackColliders.Count; i++)
         {
             attackColliders[i].enabled = false;
         }
+    }
+
+    private void AttackAnimFin()
+    {
+        m_stop = false;
+        m_attackWait = false;
+        attackManager.AnimationFin();
     }
 
 
@@ -288,8 +340,9 @@ public class Golem : MonoBehaviour
     public void HitDamage()
     {
         m_stop = true;
-        m_damageFlg = true;
-        attackManager.ChangeAnimation("Damage", m_damageFlg);
+        //m_damageFlg = true;
+        attackManager.ResetAnimation();
+        attackManager.ChangeAnimation("Damage", true);
 
         if (m_weakCollider)
         {
@@ -303,7 +356,14 @@ public class Golem : MonoBehaviour
     {
         m_stop = false;
         m_damageFlg = false;
-        attackManager.ChangeAnimation("Damage", m_damageFlg);
+        attackManager.ResetAnimation();
+        attackManager.ChangeAnimation("Damage", false);
+    }
+
+
+    private void ResetAttack()
+    {
+        attackManager.ResetAttackAnimation();
     }
 
 
@@ -328,21 +388,19 @@ public class Golem : MonoBehaviour
 
     protected bool PartsDestroy()
     {
-        if (m_dissolves.Count > 0)
+        if (!m_dissolve) { return false; }
+
+        m_dissolveRatio += m_dissolveSpeed * Time.deltaTime;
+        m_dissolve.SetDissolveAmount(m_dissolveRatio);
+
+        if (m_dissolveRatio >= 0.6f)
         {
-            m_dissolveRatio += m_dissolveSpeed * Time.deltaTime;
-
-            for (int i = 0; i < m_dissolves.Count; i++)
-            {
-                m_dissolves[i].SetDissolveAmount(m_dissolveRatio);
-            }
-
-            if (m_dissolveRatio >= 0.6f)
-            {
-                m_dissolves.Clear();
-                return true;
-            }
+            m_enable = false;
         }
-        return false;
+
+        if (!m_skinMesh) { return false; }
+        m_skinMesh.SetSkinMeshShadow(false);
+
+        return true;
     }
 }

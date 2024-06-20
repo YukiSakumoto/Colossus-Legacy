@@ -7,7 +7,10 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
-    [SerializeField] private List<Dissolve> m_armorDissolves;
+    [SerializeField] private GameObject m_armors;
+    private Dissolve m_armorDissolves;
+    private SkinMesh m_armorSkinMesh;
+
     [SerializeField] private float m_armorDissolveSpeed = 0.2f;
     private float m_armorDissolveRatio = 0.0f;
 
@@ -29,8 +32,10 @@ public class GolemMain : Golem
 
     [SerializeField] private float m_shrinkSpeed = 0.1f;
 
+
     [SerializeField] private List<Collider> m_laserCollider;
     [SerializeField] private Transform m_laserTransform;
+    
 
     // ================================
     // ターゲットへの回転補正系
@@ -49,9 +54,21 @@ public class GolemMain : Golem
     private Vector3 m_initVec;
     private Quaternion m_initRot;
 
+    // サウンド
+    GolemSounds m_sound;
+
 
     void Start()
     {
+        m_skinMesh = GetComponent<SkinMesh>();
+        m_dissolve = GetComponent<Dissolve>();
+
+        if (m_armors)
+        {
+            m_armorDissolves = m_armors.GetComponent<Dissolve>();
+            m_armorSkinMesh = m_armors.GetComponent<SkinMesh>();
+        }
+
         attackManager = GetComponent<AttackManager>();
 
         // エフェクトを取得する。
@@ -64,6 +81,8 @@ public class GolemMain : Golem
         m_nowRot = m_initRot;
         m_headTrans.rotation = m_nowRot;
         //m_initVec += new Vector3(-90.0f, 0.0f, 0.0f);
+
+        m_sound = GetComponent<GolemSounds>();
     }
 
 
@@ -159,7 +178,9 @@ public class GolemMain : Golem
                 for (int i = 0; i < m_laserCollider.Count; i++)
                 {
                     m_laserCollider[i].enabled = true;
+                    m_sound.PlayLaserShot();
                 }
+                m_sound.PlayLaserKeep();
             }
         }
 
@@ -183,6 +204,7 @@ public class GolemMain : Golem
             {
                 if (m_stop) return;
                 BigLaserEffect();
+                m_sound.PlayLaserCharge();
 
                 WeakOff();
 
@@ -196,27 +218,47 @@ public class GolemMain : Golem
     // 鎧破壊
     public void ArmorDestroy()
     {
-        if (m_armorDissolves.Count > 0)
+        //if (m_armorDissolves.Count > 0)
+        //{
+        //    m_armorDissolveRatio += m_armorDissolveSpeed * Time.deltaTime;
+
+        //    for (int i = 0; i < m_armorDissolves.Count; i++)
+        //    {
+        //        m_armorDissolves[i].SetDissolveAmount(m_armorDissolveRatio);
+        //    }
+
+        //    if (m_armorDissolveRatio >= 1.0f)
+        //    {
+        //        foreach (Transform child in transform)
+        //        {
+        //            if (child.name == "Armors")
+        //            {
+        //                m_armorDissolves.Clear();
+        //                GameObject.Destroy(child.gameObject);
+        //            }
+        //        }
+        //    }
+        //}
+
+        if (!m_armors) { return; }
+        if (!m_armorDissolves) { return; }
+
+        m_armorDissolveRatio += m_armorDissolveSpeed * Time.deltaTime;
+        m_armorDissolves.SetDissolveAmount(m_armorDissolveRatio);
+
+        if (m_armorDissolveRatio >= 1.0f)
         {
-            m_armorDissolveRatio += m_armorDissolveSpeed * Time.deltaTime;
-
-            for (int i = 0; i < m_armorDissolves.Count; i++)
+            foreach (Transform child in transform)
             {
-                m_armorDissolves[i].SetDissolveAmount(m_armorDissolveRatio);
-            }
-
-            if (m_armorDissolveRatio >= 1.0f)
-            {
-                foreach (Transform child in transform)
+                if (child.name == "Armors")
                 {
-                    if (child.name == "Armors")
-                    {
-                        m_armorDissolves.Clear();
-                        GameObject.Destroy(child.gameObject);
-                    }
+                    GameObject.Destroy(child.gameObject);
                 }
             }
         }
+
+        if (!m_armorSkinMesh) { return; }
+        m_armorSkinMesh.SetSkinMeshShadow(false);
     }
 
 

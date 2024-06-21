@@ -327,9 +327,15 @@ public class CharacterMovement : MonoBehaviour
 
         if (!m_joyFlg)
         {
-
             float horizontalInput = Input.GetAxis("Horizontal"); // キーボードの左右入力
             float varticalInput = Input.GetAxis("Vertical"); // キーボードの上下入力
+
+            bool moveFlg = false;
+
+            Vector3 movement = new(0,0,0);
+            Vector3 rotationDirection = new(0,0,0);
+            Vector3 newPosition = new(0, 0, 0);
+            RaycastHit hit;
 
             // 移動の処理。回避行動、攻撃中、ダメージモーション中、死亡時は移動不可
             if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg &&
@@ -344,11 +350,10 @@ public class CharacterMovement : MonoBehaviour
                     m_walkAnimeFlg = false;
                 }
 
-                // 移動量計算
-                Vector3 movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed * Time.deltaTime;
+                moveFlg = true;
 
-                // Rigidbodyを使ってキャラクターを移動
-                m_rb.MovePosition(transform.position + movement);
+                // 移動量計算
+                movement = new Vector3(horizontalInput, 0.0f, varticalInput) * m_leftRightSpeed;
 
                 // キャラクターの向きを入力方向に変更
                 if (movement != Vector3.zero)
@@ -358,12 +363,11 @@ public class CharacterMovement : MonoBehaviour
             }
             else if (m_rollCoolTimeCheckFlg) // 回避行動中の移動処理
             {
-                // Y軸の回転に合わせて移動方向を計算する
-                Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-                Vector3 movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
+                moveFlg = true;
 
-                // Rigidbodyを使ってオブジェクトを移動
-                m_rb.MovePosition(transform.position + movement * Time.deltaTime);
+                // Y軸の回転に合わせて移動方向を計算する
+                rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+                movement = rotationDirection * (m_leftRightSpeed * (m_rollAcceleration - m_rollTiredDecrease));
 
                 // 移動方向が0でない場合にオブジェクトの向きを変更する
                 if (movement != Vector3.zero)
@@ -373,14 +377,13 @@ public class CharacterMovement : MonoBehaviour
             }
             else if (m_damageBlownAwayFlg) // ダメージモーション中のノックバックの動きとか
             {
+                moveFlg = true;
+
                 // enumに小数点が入れられないので計算用
                 float knockbackPower = 10f;
 
                 // ノックバック量計算
-                Vector3 movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
-
-                // ノックバック方向に力を加えてキャラクターを移動させる
-                m_rb.MovePosition(transform.position + movement);
+                movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
             }
 
             // 剣を振っている間の処理
@@ -390,13 +393,11 @@ public class CharacterMovement : MonoBehaviour
                 {
                     if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
                     {
+                        moveFlg = true;
+
                         // Y軸の回転に合わせて移動方向を計算する
-                        Vector3 rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
-                        Vector3 movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
-
-                        // Rigidbodyを使ってオブジェクトを移動
-                        m_rb.MovePosition(transform.position + movement * Time.deltaTime);
-
+                        rotationDirection = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0) * Vector3.forward;
+                        movement = rotationDirection * (m_leftRightSpeed * m_swordMoveAcceleration);
                         // 移動方向が0でない場合にオブジェクトの向きを変更する
                         if (movement != Vector3.zero)
                         {
@@ -404,6 +405,18 @@ public class CharacterMovement : MonoBehaviour
                         }
                     }
                 }
+            }
+
+            if(moveFlg)
+            {
+                newPosition = transform.position + movement * Time.deltaTime;
+                if (Physics.Raycast(transform.position, movement.normalized, out hit, movement.magnitude * Time.fixedDeltaTime))
+                {
+                    newPosition = hit.point;
+                }
+                // Rigidbodyを使ってキャラクターを移動
+                m_rb.MovePosition(newPosition);
+                m_rb.interpolation = RigidbodyInterpolation.Interpolate;
             }
 
             // 弓矢を放つ時の時間経過関係。

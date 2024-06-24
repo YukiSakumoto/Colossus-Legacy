@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private Image m_hpGage;
     [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
     [SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
+    [SerializeField] CharacterManager m_manager;
     Sword m_swordClass;
     Bow m_bowClass;
     // ダメージ量
@@ -114,9 +115,14 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!m_manager)
+        {
+            Debug.Log("CharacterMovement:manager is Null");
+        }
+
         if(!m_swordObject)
         {
-            Debug.Log("Sword is Null");
+            Debug.Log("CharacterMovement:Sword is Null");
         }
         else
         {
@@ -126,7 +132,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (!m_bowObject)
         {
-            Debug.Log("Bow is Null");
+            Debug.Log("CharacterMovement:Bow is Null");
         }
         else
         {
@@ -136,12 +142,12 @@ public class CharacterMovement : MonoBehaviour
 
         if (!m_rb)
         {
-            Debug.Log("RigidBody is Null");
+            Debug.Log("CharacterMovement:RigidBody is Null");
         }
 
         if(!m_hpGage)
         {
-            Debug.Log("HP Gage is Null");
+            Debug.Log("CharacterMovement:HP Gage is Null");
         }
         else
         {
@@ -150,7 +156,7 @@ public class CharacterMovement : MonoBehaviour
 
         if(m_targetTag == "")
         {
-            Debug.Log("tag is Null");
+            Debug.Log("CharacterMovement:tag is Null");
         }
     }
 
@@ -234,7 +240,7 @@ public class CharacterMovement : MonoBehaviour
                 if (m_swordMoveStiffnessTime < 0)
                 {
                     m_swordMoveTime -= Time.deltaTime;
-                    if (m_swordMoveTime < 0 || m_swordClass.Getm_hitFlg)
+                    if (m_swordMoveTime < 0 || m_manager.Getm_hitFlg)
                     {
                         m_swordMoveFlg = false;
                         if (m_secondSwordAttackFlg) // 2段攻撃を行う用の変数設定
@@ -254,7 +260,7 @@ public class CharacterMovement : MonoBehaviour
                     if (m_swordMoveStiffnessTime < 0)
                     {
                         m_swordMoveTime -= Time.deltaTime;
-                        if (m_swordMoveTime < 0 || m_swordClass.Getm_hitFlg)
+                        if (m_swordMoveTime < 0 || m_manager.Getm_hitFlg)
                         {
                             m_secondSwordAttackFlg = false;
                         }
@@ -391,7 +397,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (m_swordMoveStiffnessTime < 0)
                 {
-                    if (m_swordMoveTime >= 0 && !m_swordClass.Getm_hitFlg)
+                    if (m_swordMoveTime >= 0 && !m_manager.Getm_hitFlg)
                     {
                         moveFlg = true;
 
@@ -744,7 +750,7 @@ public class CharacterMovement : MonoBehaviour
 
     public bool Getm_joyAnimeFlg
     {
-        get { return Getm_joyAnimeFlg; }
+        get { return m_joyAnimeFlg; }
     }
 
     void Setm_joyFlg()

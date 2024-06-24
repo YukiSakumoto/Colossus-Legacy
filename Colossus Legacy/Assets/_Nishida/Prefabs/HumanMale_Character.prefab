@@ -1709,6 +1709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9078457075598623328}
+  m_manager: {fileID: 0}
 --- !u!95 &9026749388238207875
 Animator:
   serializedVersion: 5
@@ -1743,6 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_swordObj: {fileID: 0}
+  m_manager: {fileID: 0}
 --- !u!1 &2068118575331530411
 GameObject:
   m_ObjectHideFlags: 0
@@ -5483,6 +5485,7 @@ GameObject:
   - component: {fileID: 1226871197212777157}
   - component: {fileID: 7349991365847316402}
   - component: {fileID: 2870190894587622017}
+  - component: {fileID: 676730643335995157}
   m_Layer: 0
   m_Name: HumanMale_Character
   m_TagString: Player
@@ -5570,6 +5573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9078457075598623328}
+  m_manager: {fileID: 676730643335995157}
 --- !u!114 &1639719189717603026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5588,6 +5592,7 @@ MonoBehaviour:
   m_hpGage: {fileID: 0}
   m_targetTag: EnemyAttack
   m_bombTag: BombAttack
+  m_manager: {fileID: 676730643335995157}
   m_playerLife: 100
   m_rollTiredCount: 0
 --- !u!65 &7611050671940130552
@@ -5663,6 +5668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_swordObj: {fileID: 8059466290396894656}
+  m_manager: {fileID: 676730643335995157}
 --- !u!114 &7349991365847316402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5693,6 +5699,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_soundPlayObj: {fileID: 0}
+--- !u!114 &676730643335995157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729908777727010445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366169970ae05a54cbd8163ec542f5e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_movement: {fileID: 1639719189717603026}
+  m_animation: {fileID: 1352273227051474543}
+  m_effect: {fileID: 1226871197212777157}
+  m_throwBomb: {fileID: 7349991365847316402}
+  m_sound: {fileID: 2870190894587622017}
+  m_sword: {fileID: 1727143967730782058}
+  m_bow: {fileID: 6671742668299437404}
 --- !u!1 &5782989648294680116
 GameObject:
   m_ObjectHideFlags: 0
@@ -8618,6 +8643,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1073817560458593339}
     m_Modifications:
     - target: {fileID: -3518184843889283806, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
+      propertyPath: m_manager
+      value: 
+      objectReference: {fileID: 676730643335995157}
+    - target: {fileID: -3518184843889283806, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
       propertyPath: m_meshCollider
       value: 
       objectReference: {fileID: 8543143613973476164}
@@ -8678,6 +8707,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
+--- !u!114 &1727143967730782058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3518184843889283806, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
+  m_PrefabInstance: {fileID: 6400998049918591560}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059466290396894656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a6cba2ab2ca8840af4b970ce159fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7247181646743981946 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4343652023786958130, guid: 09b9715959902ec4eba08721e6723f38, type: 3}
@@ -8762,6 +8802,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d57b0e500c5d7f4fa4566b75cd6e966, type: 3}
+--- !u!114 &6671742668299437404 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5044552123461643547, guid: 0d57b0e500c5d7f4fa4566b75cd6e966, type: 3}
+  m_PrefabInstance: {fileID: 7307349922681870265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521937490163537220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c518984bb9444642955374dab68c51a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8521937490163537220 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1381739730854888189, guid: 0d57b0e500c5d7f4fa4566b75cd6e966, type: 3}

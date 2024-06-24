@@ -7,7 +7,8 @@ public class EffectMovement : MonoBehaviour
 {
     EffekseerEffectAsset SwordEffect; // 剣を振った時のエフェクト
     [SerializeField] GameObject m_swordObj;
-    Sword m_swordClass;
+    [SerializeField] CharacterManager m_manager;
+    //Sword m_swordClass;
 
     EffekseerHandle effectHandle;
 
@@ -23,11 +24,12 @@ public class EffectMovement : MonoBehaviour
         SwordEffect = Resources.Load<EffekseerEffectAsset>("Simple_Ribbon_Sworder");
         if(!m_swordObj)
         {
-            Debug.Log("EffectでSwordが入っていない");
+            Debug.Log("EffectMovement:sword is Null");
         }
-        else
+
+        if (!m_manager)
         {
-            m_swordClass = m_swordObj.GetComponent<Sword>();
+            Debug.Log("EffectMovement:manager is Null");
         }
     }
 
@@ -59,7 +61,7 @@ public class EffectMovement : MonoBehaviour
 
     private void Update()
     {
-        if (m_swordClass.Getm_hitFlg)
+        if (m_manager.Getm_hitFlg)
         {
             m_hitStopTime = m_hitStopSetTime;
             effectHandle.paused = true;
@@ -69,7 +71,6 @@ public class EffectMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (m_hitStopFlg)
         {
             m_hitStopTime -= Time.deltaTime;

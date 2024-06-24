@@ -218,28 +218,6 @@ public class GolemMain : Golem
     // ŠZ”j‰ó
     public void ArmorDestroy()
     {
-        //if (m_armorDissolves.Count > 0)
-        //{
-        //    m_armorDissolveRatio += m_armorDissolveSpeed * Time.deltaTime;
-
-        //    for (int i = 0; i < m_armorDissolves.Count; i++)
-        //    {
-        //        m_armorDissolves[i].SetDissolveAmount(m_armorDissolveRatio);
-        //    }
-
-        //    if (m_armorDissolveRatio >= 1.0f)
-        //    {
-        //        foreach (Transform child in transform)
-        //        {
-        //            if (child.name == "Armors")
-        //            {
-        //                m_armorDissolves.Clear();
-        //                GameObject.Destroy(child.gameObject);
-        //            }
-        //        }
-        //    }
-        //}
-
         if (!m_armors) { return; }
         if (!m_armorDissolves) { return; }
 

@@ -114,15 +114,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2e05d7cbe94e2424590099718674af09, type: 2}
     - target: {fileID: 246099950965794235, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.002
+      value: -0.0059
       objectReference: {fileID: 0}
     - target: {fileID: 246099950965794235, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.069
+      value: 0.0578
       objectReference: {fileID: 0}
     - target: {fileID: 246099950965794235, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.003
+      value: -0.0038
       objectReference: {fileID: 0}
     - target: {fileID: 568173138383097301, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -136,6 +136,10 @@ PrefabInstance:
       propertyPath: m_myself
       value: 
       objectReference: {fileID: 683931030228963651}
+    - target: {fileID: 586215946081366729, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
+      propertyPath: m_myShoulder
+      value: 
+      objectReference: {fileID: 543553537721881473}
     - target: {fileID: 586215946081366729, guid: 05bf3d04c93844a42bc996b921897de8, type: 3}
       propertyPath: m_smoothTime
       value: 1.5

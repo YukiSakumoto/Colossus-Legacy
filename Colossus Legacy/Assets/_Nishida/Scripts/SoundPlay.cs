@@ -8,6 +8,7 @@ public class SoundPlay : MonoBehaviour
     [SerializeField] private AudioSource m_swordSwing;
     [SerializeField] private AudioSource m_bowCharge;
     [SerializeField] private AudioSource m_bowShot;
+    [SerializeField] private AudioSource m_bombThrow;
     [SerializeField] private AudioSource m_roll;
     [SerializeField] private AudioSource m_death;
     [SerializeField] private AudioSource m_damageSmall;
@@ -16,6 +17,7 @@ public class SoundPlay : MonoBehaviour
     [SerializeField] private AudioSource m_damageKnockBackStart;
     [SerializeField] private AudioSource m_damageKnockBackEnd;
     [SerializeField] private AudioSource m_deflected;
+    [SerializeField] private AudioSource m_subExplosion;
 
     private float m_soundVolume = 0;
 
@@ -26,6 +28,7 @@ public class SoundPlay : MonoBehaviour
         m_swordSwing.volume *= m_soundVolume;
         m_bowCharge.volume *= m_soundVolume;
         m_bowShot.volume *= m_soundVolume;
+        m_bombThrow.volume *= m_soundVolume;
         m_roll.volume *= m_soundVolume;
         m_death.volume *= m_soundVolume;
         m_damageSmall.volume *= m_soundVolume;
@@ -34,6 +37,7 @@ public class SoundPlay : MonoBehaviour
         m_damageKnockBackStart.volume *= m_soundVolume;
         m_damageKnockBackEnd.volume *= m_soundVolume;
         m_deflected.volume *= m_soundVolume;
+        m_subExplosion.volume *= m_soundVolume;
     }   
 
     public void SoundSwordSwing()
@@ -49,6 +53,11 @@ public class SoundPlay : MonoBehaviour
     public void SoundBowShot()
     {
         m_bowShot.Play();
+    }
+
+    public void SoundBombThrow()
+    {
+        m_bombThrow.Play();
     }
 
     public void SoundRoll()
@@ -89,5 +98,10 @@ public class SoundPlay : MonoBehaviour
     public void SoundDeflected()
     {
         m_deflected.Play();
+    }
+
+    public void SoundSubExplosion()
+    {
+        m_subExplosion.Play();
     }
 }

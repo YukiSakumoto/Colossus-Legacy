@@ -81,9 +81,11 @@ MonoBehaviour:
   m_target: {fileID: 0}
   m_text: {fileID: 0}
   m_maxHp: 100
+  m_hp: 0
   m_hpGage: {fileID: 0}
   m_damageTime: 5
   m_damagePoint: 50
+  m_time: 0
   m_dist: 0
   m_alive: 1
   m_enable: 1
@@ -576,11 +578,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2187669305642150296, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_Pitch
-      value: 0.24
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2187669305642150296, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_Volume
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2187669305642150296, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: MaxDistance
@@ -665,11 +667,15 @@ PrefabInstance:
     - target: {fileID: 9214766249609121947, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_laserKeep
       value: 
-      objectReference: {fileID: 8300000, guid: 3c092577346f2f84f9fe4e4ce311f744, type: 3}
+      objectReference: {fileID: 8300000, guid: 11dcbbf0c2f2be344973e66fab554da6, type: 3}
     - target: {fileID: 9214766249609121947, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_laserShot
       value: 
       objectReference: {fileID: 8300000, guid: dbf3704d371c1aa49bf215498261430b, type: 3}
+    - target: {fileID: 9214766249609121947, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_golemMoveSE
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 9214766249609121947, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_laserCharge
       value: 

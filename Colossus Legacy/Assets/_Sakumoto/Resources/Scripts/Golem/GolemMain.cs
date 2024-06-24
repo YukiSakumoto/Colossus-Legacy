@@ -113,7 +113,7 @@ public class GolemMain : Golem
             // モデルの向き調整
             rot.eulerAngles += new Vector3(-90.0f, 0.0f, 0.0f);
 
-            //// 初期角度とモデル角度の差分
+            // 初期角度とモデル角度の差分
             Quaternion deltaDir = new Quaternion();
             deltaDir.eulerAngles = rot.eulerAngles - m_nowRot.eulerAngles;
 
@@ -178,9 +178,7 @@ public class GolemMain : Golem
                 for (int i = 0; i < m_laserCollider.Count; i++)
                 {
                     m_laserCollider[i].enabled = true;
-                    m_sound.PlayLaserShot();
                 }
-                m_sound.PlayLaserKeep();
             }
         }
 
@@ -205,6 +203,7 @@ public class GolemMain : Golem
                 if (m_stop) return;
                 BigLaserEffect();
                 m_sound.PlayLaserCharge();
+                Invoke("LaserShotSound", 2.0f);
 
                 WeakOff();
 
@@ -252,5 +251,12 @@ public class GolemMain : Golem
     private void TrackingOn()
     {
         m_trackingFlg = true;
+    }
+
+
+    private void LaserShotSound()
+    {
+        m_sound.PlayLaserShot();
+        m_sound.PlayLaserKeep();
     }
 }

@@ -7,8 +7,9 @@ public class AnimationMovement : MonoBehaviour
 {
     public Animator animator;
 
-    private CharacterMovement m_characterMovement;
-    private Sword m_sword;
+    [SerializeField] CharacterManager m_manager;
+    //private CharacterMovement m_characterMovement;
+    //private Sword m_sword;
     private const float m_deathAnimationMax = 1.66f;
     private const float m_hitStopSetTime = 0.2f;
 
@@ -21,22 +22,27 @@ public class AnimationMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!m_manager)
+        {
+            Debug.Log("AnimationMovement:manager is Null");
+        }
+
         animator = GetComponent<Animator>();
         // CharacterMovementを持つGameObjectを検索
-        GameObject characterObject = GameObject.Find("HumanMale_Character");
-        GameObject swordObject = GameObject.Find("Sword Variant");
+        //GameObject characterObject = GameObject.Find("HumanMale_Character");
+        //GameObject swordObject = GameObject.Find("Sword Variant");
 
         // CharacterMovementがアタッチされているGameObjectからCharacterMovementコンポーネントを取得
-        m_characterMovement = characterObject.GetComponent<CharacterMovement>();
-        m_sword = swordObject.GetComponent<Sword>();
+        //m_characterMovement = characterObject.GetComponent<CharacterMovement>();
+        //m_sword = swordObject.GetComponent<Sword>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_characterMovement.Getm_attackAnimeFlg)
+        if (m_manager.Getm_attackAnimeFlg)
         {
-            if (!m_characterMovement.Getm_weaponFlg)
+            if (!m_manager.Getm_weaponFlg)
             {
                 animator.SetTrigger("p_Sword");
             }
@@ -46,32 +52,32 @@ public class AnimationMovement : MonoBehaviour
             }
         }
 
-        if (m_characterMovement.Getm_subAttackAnimeFlg)
+        if (m_manager.Getm_subAttackAnimeFlg)
         {
             animator.SetTrigger("p_Bomb");
         }
 
-        if (m_characterMovement.Getm_secondSwordAttackAnimeFlg)
+        if (m_manager.Getm_secondSwordAttackAnimeFlg)
         {
             animator.SetTrigger("p_SecondSword");
         }
 
-        if (m_characterMovement.Getm_rollAnimeFlg)
+        if (m_manager.Getm_rollAnimeFlg)
         {
             animator.SetTrigger("p_Roll");
         }
 
-        if (m_characterMovement.Getm_damageAnimeFlg)
+        if (m_manager.Getm_damageAnimeFlg)
         {
             animator.SetTrigger("p_Damage");
         }
 
-        if(m_characterMovement.Getm_blownAwayAnimeFlg)
+        if(m_manager.Getm_blownAwayAnimeFlg)
         {
             animator.SetTrigger("p_blownAway");
         }
 
-        if (m_characterMovement.Getm_deathFlg)
+        if (m_manager.Getm_deathFlg)
         {
             if (m_deathAnimation <= m_deathAnimationMax)
             {
@@ -85,7 +91,7 @@ public class AnimationMovement : MonoBehaviour
             animator.SetBool("b_Death", false);
         }
 
-        if (m_characterMovement.Getm_walkAnimeFlg)
+        if (m_manager.Getm_walkAnimeFlg)
         {
             animator.SetBool("b_Run", true);
         }
@@ -94,17 +100,22 @@ public class AnimationMovement : MonoBehaviour
             animator.SetBool("b_Run", false);
         }
 
-        if(m_sword.Getm_deflectedFlg)
+        if(m_manager.Getm_deflectedFlg)
         {
             animator.SetTrigger("p_Deflected");
         }
 
-        if (m_sword.Getm_hitFlg)
+        if (m_manager.Getm_hitFlg)
         {
             m_hitStopTime = m_hitStopSetTime;
             m_animationSpeed = animator.speed;
             animator.speed = 0f;
             m_hitStopFlg = true;
+        }
+
+        if(m_manager.Getm_joyAnimeFlg)
+        {
+            animator.SetTrigger("p_Joy");
         }
     }
 

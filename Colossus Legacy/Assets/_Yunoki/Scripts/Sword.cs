@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    private CharacterMovement characterMovement;
+    //private CharacterMovement characterMovement;
 
     [SerializeField] private string m_targetWeakTag = "EnemyWeak";
     [SerializeField] private string m_targetBodyTag = "Enemy";
 
     [SerializeField] private MeshCollider m_meshCollider;
+
+    [SerializeField] CharacterManager m_manager;
 
     private bool m_hitFlg = false;
     private bool m_deflectedFlg = false;
@@ -21,14 +23,19 @@ public class Sword : MonoBehaviour
         GameObject characterObject = GameObject.Find("HumanMale_Character");
 
         // CharacterMovementがアタッチされているGameObjectからCharacterMovementコンポーネントを取得
-        characterMovement = characterObject.GetComponent<CharacterMovement>();
+        //characterMovement = characterObject.GetComponent<CharacterMovement>();
 
         m_meshCollider.enabled = false;
+
+        if (!m_manager)
+        {
+            Debug.Log("Sword:manager is Null");
+        }
     }
 
     private void Update()
     {
-        if (characterMovement.Getm_swordMoveFlg || characterMovement.Getm_secondSwordAttackFlg)
+        if (m_manager.Getm_swordMoveFlg || m_manager.Getm_secondSwordAttackFlg)
         {
             SwordAttackOn();
         }

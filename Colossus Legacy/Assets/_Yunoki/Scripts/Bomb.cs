@@ -8,11 +8,14 @@ public class Bomb : MonoBehaviour
 {
     [SerializeField] Rigidbody m_rb;
     [SerializeField] GameObject expParticle;
+    //[SerializeField] GameObject character;
     [SerializeField] MeshCollider m_meshCollider;
     [SerializeField] CapsuleCollider m_capsuleCollider;
     [SerializeField] MeshRenderer m_meshRenderer;
 
     [SerializeField] float GroundPos = 0.2f;
+
+    //SoundPlay m_sound;
 
     private Vector3 pos;
 

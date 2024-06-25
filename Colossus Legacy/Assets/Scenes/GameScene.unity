@@ -1177,6 +1177,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197972117}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &274763812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
+  m_PrefabInstance: {fileID: 8894306748364425969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &280906629 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4838610377875313934, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
@@ -1604,6 +1609,10 @@ PrefabInstance:
       propertyPath: fade
       value: 
       objectReference: {fileID: 1702089602}
+    - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+      propertyPath: golem
+      value: 
+      objectReference: {fileID: 274763812}
     - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
       propertyPath: charaInfo
       value: 

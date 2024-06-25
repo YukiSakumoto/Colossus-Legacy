@@ -43,6 +43,7 @@ public class GolemLeft : Golem
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         attackManager = GetComponent<AttackManager>(); 
 

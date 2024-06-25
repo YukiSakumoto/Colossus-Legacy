@@ -36329,6 +36329,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 6
+    functionName: CameraQuakingLong
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 6.0666666
     functionName: AttackOff
     data: 

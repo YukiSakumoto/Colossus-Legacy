@@ -2,11 +2,14 @@ using Effekseer;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
+    ~GolemMain() { Reset(); }
+
     [SerializeField] private GameObject m_armors;
     private Dissolve m_armorDissolves;
     private SkinMesh m_armorSkinMesh;
@@ -62,6 +65,7 @@ public class GolemMain : Golem
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         if (m_armors)
         {
@@ -214,6 +218,12 @@ public class GolemMain : Golem
     }
 
 
+    private void Reset()
+    {
+        m_effectHandle.Stop();
+    }
+
+
     // ŠZ”j‰ó
     public void ArmorDestroy()
     {
@@ -258,5 +268,7 @@ public class GolemMain : Golem
     {
         m_sound.PlayLaserShot();
         m_sound.PlayLaserKeep();
+        m_camera.StartShake(10.0f, 1.0f, 30.0f);
     }
+
 }

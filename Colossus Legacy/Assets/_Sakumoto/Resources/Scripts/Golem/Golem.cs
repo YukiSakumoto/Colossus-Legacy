@@ -53,10 +53,18 @@ public class Golem : MonoBehaviour
     private float m_dissolveRatio = 0.0f;
 
 
+    // ======================
+    // ÉJÉÅÉâÇóhÇÁÇ∑ÇÊ
+    // ======================
+    protected CameraQuake m_camera;
+
+
     void Start()
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         attackManager = GetComponent<AttackManager>();
 
@@ -69,6 +77,15 @@ public class Golem : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            CameraQuakingShort();
+        }
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            CameraQuakingLong();
+        }
+
         if (!m_alive)
         {
             if (m_golemLeft) m_golemLeft.PartsDestroy();
@@ -402,5 +419,17 @@ public class Golem : MonoBehaviour
         m_skinMesh.SetSkinMeshShadow(false);
 
         return true;
+    }
+
+
+    protected void CameraQuakingShort()
+    {
+        m_camera.StartShake(0.5f, 0.3f, 10.0f);
+    }
+
+
+    protected void CameraQuakingLong()
+    {
+        m_camera.StartShake(1.0f, 0.75f, 10.0f);
     }
 }

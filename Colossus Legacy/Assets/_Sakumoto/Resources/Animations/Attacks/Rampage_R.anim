@@ -28496,6 +28496,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 3.3333333
+    functionName: CameraQuakingLong
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 3.3666666
     functionName: AttackOff
     data: 
@@ -28517,6 +28524,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 5.5
+    functionName: CameraQuakingLong
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 5.533333
     functionName: AttackOff
     data: 
@@ -28533,6 +28547,13 @@ AnimationClip:
     messageOptions: 0
   - time: 7.3333335
     functionName: AttackOn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 7.6666665
+    functionName: CameraQuakingLong
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

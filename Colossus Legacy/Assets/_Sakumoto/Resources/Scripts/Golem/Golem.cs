@@ -30,14 +30,14 @@ public class Golem : MonoBehaviour
     protected bool m_attackWait = false;
 
     [SerializeField] private int m_maxHp = 100;
-    private int m_hp;               // ƒS[ƒŒƒ€‚Ì‘Ì—Í
+    public int m_hp;               // ƒS[ƒŒƒ€‚Ì‘Ì—Í
     [SerializeField] private Image m_hpGage;
 
     protected bool m_damageFlg = false;     // UŒ‚‚ğó‚¯‚½Û‚Ìƒtƒ‰ƒO
     [SerializeField] private float m_damageTime = 0.0f;
-    [SerializeField] private int m_damagePoint = 0;
+    [SerializeField] public int m_damagePoint = 0;
 
-    private float m_time = 0.0f;
+    [SerializeField] private float m_time = 0.0f;
     [SerializeField] protected float m_dist = 0.0f;
 
     private bool m_lastAttack = false;

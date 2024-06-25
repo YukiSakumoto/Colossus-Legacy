@@ -113,7 +113,7 @@ public class GolemMain : Golem
             // ƒ‚ƒfƒ‹‚ÌŒü‚«’²®
             rot.eulerAngles += new Vector3(-90.0f, 0.0f, 0.0f);
 
-            //// ‰ŠúŠp“x‚Æƒ‚ƒfƒ‹Šp“x‚Ì·•ª
+            // ‰ŠúŠp“x‚Æƒ‚ƒfƒ‹Šp“x‚Ì·•ª
             Quaternion deltaDir = new Quaternion();
             deltaDir.eulerAngles = rot.eulerAngles - m_nowRot.eulerAngles;
 
@@ -178,9 +178,7 @@ public class GolemMain : Golem
                 for (int i = 0; i < m_laserCollider.Count; i++)
                 {
                     m_laserCollider[i].enabled = true;
-                    m_sound.PlayLaserShot();
                 }
-                m_sound.PlayLaserKeep();
             }
         }
 
@@ -205,6 +203,7 @@ public class GolemMain : Golem
                 if (m_stop) return;
                 BigLaserEffect();
                 m_sound.PlayLaserCharge();
+                Invoke("LaserShotSound", 2.0f);
 
                 WeakOff();
 
@@ -218,28 +217,6 @@ public class GolemMain : Golem
     // ŠZ”j‰ó
     public void ArmorDestroy()
     {
-        //if (m_armorDissolves.Count > 0)
-        //{
-        //    m_armorDissolveRatio += m_armorDissolveSpeed * Time.deltaTime;
-
-        //    for (int i = 0; i < m_armorDissolves.Count; i++)
-        //    {
-        //        m_armorDissolves[i].SetDissolveAmount(m_armorDissolveRatio);
-        //    }
-
-        //    if (m_armorDissolveRatio >= 1.0f)
-        //    {
-        //        foreach (Transform child in transform)
-        //        {
-        //            if (child.name == "Armors")
-        //            {
-        //                m_armorDissolves.Clear();
-        //                GameObject.Destroy(child.gameObject);
-        //            }
-        //        }
-        //    }
-        //}
-
         if (!m_armors) { return; }
         if (!m_armorDissolves) { return; }
 
@@ -274,5 +251,12 @@ public class GolemMain : Golem
     private void TrackingOn()
     {
         m_trackingFlg = true;
+    }
+
+
+    private void LaserShotSound()
+    {
+        m_sound.PlayLaserShot();
+        m_sound.PlayLaserKeep();
     }
 }

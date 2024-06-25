@@ -6,6 +6,8 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     [SerializeField] private string m_targetTag = "EnemyWeak";
+    
+    public GameStatusManager m_gameStatusManager;
 
     float arrowLiveTime = 8f;
 
@@ -39,6 +41,14 @@ public class Arrow : MonoBehaviour
     {
         if(_other.gameObject.CompareTag(m_targetTag))
         {
+            if (!m_gameStatusManager)
+            {
+                Debug.Log("Arrow: GameStatusManager is Null");
+            }
+            else
+            {
+                m_gameStatusManager.DamageGolemArrow();
+            }
             Debug.Log("Arrow is EnemyWeak Hit!");
             Destroy(gameObject);
         }

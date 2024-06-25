@@ -35,7 +35,7 @@ public class GolemLeft : Golem
     private Quaternion m_nowRot;               // 現在の方向ベクトル
 
     [SerializeField] private float m_smoothTime = 15.0f;    // 目標値に到達するまでのおおよその時間
-    [SerializeField] private float m_nowTime = 0.0f;
+    private float m_nowTime = 0.0f;
     //[SerializeField] private float m_limitDeg = 30.0f;        // 角度の限度
 
 

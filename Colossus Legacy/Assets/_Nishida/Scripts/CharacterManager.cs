@@ -11,6 +11,11 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private PlayerSoundPlay m_sound;
     [SerializeField] private Sword m_sword;
     [SerializeField] private Bow m_bow;
+    [SerializeField] private GameObject m_arrowObj;
+    [SerializeField] private GameObject m_bombObj;
+
+    private Arrow m_arrow;
+    private Bomb m_bomb;
 
     private bool m_moveWalkAnimeFlg = false;
     private bool m_moveRollAnimeFlg = false;
@@ -64,17 +69,30 @@ public class CharacterManager : MonoBehaviour
         {
             Debug.Log("Character Manager:bow is Null");
         }
+
+        if(!m_arrowObj)
+        {
+            Debug.Log("Character Manager:arrow is Null");
+        }
+        else
+        {
+            m_arrow = m_arrowObj.GetComponent<Arrow>();
+        }
+
+        if (!m_bombObj)
+        {
+            Debug.Log("Character Manager:bomb is Null");
+        }
+        else
+        {
+            m_bomb = m_bombObj.GetComponent<Bomb>();
+        }
     }
 
     private void Update()
     {
         CharacterMovementFlgSet();
         SwordFlgSet();
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     private void CharacterMovementFlgSet()
@@ -97,6 +115,11 @@ public class CharacterManager : MonoBehaviour
     {
         m_swordHitFlg = m_sword.Getm_hitFlg;
         m_swordDeflectedFlg = m_sword.Getm_deflectedFlg;
+    }
+
+    public void SetHit(int _damage,bool _knockBack)
+    {
+        m_movement.Hit(_damage, _knockBack);
     }
 
     public bool Getm_walkAnimeFlg

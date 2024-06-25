@@ -236,10 +236,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 676730643335995157, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_bomb
+      value: 
+      objectReference: {fileID: 5656796648494295292, guid: a5d507c274734f24b9d8cd7d8dd2e452, type: 3}
+    - target: {fileID: 676730643335995157, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_arrow
+      value: 
+      objectReference: {fileID: -6795503938675097067, guid: deeb598f5bef6be459f5f56c0ef92070, type: 3}
+    - target: {fileID: 676730643335995157, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_bombObj
+      value: 
+      objectReference: {fileID: 5579394341268801993, guid: a5d507c274734f24b9d8cd7d8dd2e452, type: 3}
+    - target: {fileID: 676730643335995157, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_arrowObj
+      value: 
+      objectReference: {fileID: 1235784598067826792, guid: deeb598f5bef6be459f5f56c0ef92070, type: 3}
     - target: {fileID: 1639719189717603026, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
       propertyPath: m_hpGage
       value: 
       objectReference: {fileID: 1640889199}
+    - target: {fileID: 1727143967730782058, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_gameStatusManager
+      value: 
+      objectReference: {fileID: 1369402699}
     - target: {fileID: 1870926336220903938, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.78
@@ -288,6 +308,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character
       objectReference: {fileID: 0}
+    - target: {fileID: 6671742668299437404, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_gameStatusManager
+      value: 
+      objectReference: {fileID: 1369402699}
+    - target: {fileID: 7349991365847316402, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+      propertyPath: m_gameStatusManager
+      value: 
+      objectReference: {fileID: 1369402699}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1558,9 +1586,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1702089602}
     - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+      propertyPath: m_fade
+      value: 
+      objectReference: {fileID: 1702089602}
+    - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
       propertyPath: charaInfo
       value: 
       objectReference: {fileID: 2025905959}
+    - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+      propertyPath: m_charaInfo
+      value: 
+      objectReference: {fileID: 2025905953}
     - target: {fileID: 6730135490651603780, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -3728,8 +3764,8 @@ RectTransform:
   m_Children:
   - {fileID: 387845961}
   - {fileID: 1026981890}
-  - {fileID: 1703768008}
   - {fileID: 1902714743}
+  - {fileID: 1703768008}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

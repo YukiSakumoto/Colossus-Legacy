@@ -12,6 +12,7 @@ public class Sword : MonoBehaviour
     [SerializeField] private MeshCollider m_meshCollider;
 
     [SerializeField] CharacterManager m_manager;
+    [SerializeField] GameStatusManager m_gameStatusManager;
 
     private bool m_hitFlg = false;
     private bool m_deflectedFlg = false;
@@ -30,6 +31,11 @@ public class Sword : MonoBehaviour
         if (!m_manager)
         {
             Debug.Log("Sword:manager is Null");
+        }
+
+        if (!m_gameStatusManager)
+        {
+            Debug.Log("Sword:GameStatusManager is Null");
         }
     }
 
@@ -61,6 +67,7 @@ public class Sword : MonoBehaviour
                 // 攻撃モーション中のみ判定を行うようにする
                 if (_other.gameObject.CompareTag(m_targetWeakTag))
                 {
+                    m_gameStatusManager.DamageGolemSword();
                     //Destroy(_other.gameObject);
                     Debug.Log("ヒット！剣が敵の弱点に当たったげな");
                     m_hitFlg = true;

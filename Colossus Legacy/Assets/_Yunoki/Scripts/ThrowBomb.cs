@@ -7,6 +7,7 @@ using System;
 public class ThrowBomb : MonoBehaviour
 {
     [SerializeField] GameObject m_bombPrefab;
+    [SerializeField] GameStatusManager m_gameStatusManager;
     [SerializeField] float m_bombHeight = 9;
     [SerializeField] float m_speed = 300;
     [SerializeField] float m_bombChargeTime = 1;
@@ -16,7 +17,20 @@ public class ThrowBomb : MonoBehaviour
     private bool m_bombThrowFlg = false;
 
     private float cnt = 0;
-    
+
+    private void Start()
+    {
+        if(!m_bombPrefab)
+        {
+            Debug.Log("ThrowBomb: bomb is Null");
+        }
+
+        if (!m_gameStatusManager)
+        {
+            Debug.Log("ThrowBomb: GameStatusManager is Null");
+        }
+    }
+
     void Update()
     {
         cnt -= Time.deltaTime;
@@ -84,6 +98,7 @@ public class ThrowBomb : MonoBehaviour
                 bombRb.AddForce(transform.up * m_bombHeight, ForceMode.Impulse);
                 bombRb.AddForce(transform.forward * m_speed);
                 bombClass.SetTime(m_bombExpTime);
+                bombClass.m_gameStatusManager = m_gameStatusManager;
                 Destroy(bomb, m_bombExpTime + bombExpTimeAdd);
                 cnt = m_bombChargeTime;
                 m_bombThrowFlg = false;

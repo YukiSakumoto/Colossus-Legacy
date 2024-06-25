@@ -15,6 +15,11 @@ public class Bomb : MonoBehaviour
 
     [SerializeField] float GroundPos = 0.2f;
 
+    public GameStatusManager m_gameStatusManager;
+
+    private string m_characterTag = "Player";
+    private string m_golemTag = "EnemyWeak";
+
     //SoundPlay m_sound;
 
     private Vector3 pos;
@@ -56,7 +61,6 @@ public class Bomb : MonoBehaviour
         {
             m_meshRenderer.enabled = true;
         }
-
     }
 
     private void Update()
@@ -92,6 +96,37 @@ public class Bomb : MonoBehaviour
         m_rb.velocity = Vector3.zero;
         m_rb.angularVelocity = Vector3.zero;
         m_meshRenderer.enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider _other)
+    {
+        if(m_bombFlg)
+        {
+            Transform targetTransform = _other.transform;
+            if (targetTransform.gameObject.CompareTag(m_characterTag))
+            {
+                if (!m_gameStatusManager)
+                {
+                    Debug.Log("Bomb: GameStatusManager is Null");
+                }
+                else
+                {
+                    m_gameStatusManager.DamagePlayerBomb();
+                }
+            }
+
+            if (targetTransform.gameObject.CompareTag(m_golemTag))
+            {
+                if (!m_gameStatusManager)
+                {
+                    Debug.Log("Bomb: GameStatusManager is Null");
+                }
+                else
+                {
+                    m_gameStatusManager.DamageGolemBomb();
+                }
+            }
+        }
     }
 
     public void SetTime(float _time)

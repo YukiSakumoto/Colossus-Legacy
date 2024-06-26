@@ -859,14 +859,13 @@ MonoBehaviour:
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Warp
       Particle Flash","value":{"$content":3,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Golem
-      Expired bool","value":{"$content":4,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+      Expired bool","value":null,"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 436229348}
     - {fileID: 120201244}
     - {fileID: 1109869760}
     - {fileID: 1938760748}
-    - {fileID: 0}
 --- !u!4 &160428241
 Transform:
   m_ObjectHideFlags: 0
@@ -1159,11 +1158,17 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 4838610377875313934, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
   m_PrefabInstance: {fileID: 1498857655}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &300804110 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
+--- !u!114 &339915295 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2803960910077753707, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
   m_PrefabInstance: {fileID: 8894306748364425969}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b681f24d1bf159548b84d6887f1d6e93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387845960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,19 +1588,23 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
-      propertyPath: fade
-      value: 
-      objectReference: {fileID: 1702089602}
-    - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
       propertyPath: m_fade
       value: 
       objectReference: {fileID: 1702089602}
     - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
-      propertyPath: charaInfo
-      value: 
-      objectReference: {fileID: 2025905959}
-    - target: {fileID: 939124314691682591, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
       propertyPath: m_charaInfo
+      value: 
+      objectReference: {fileID: 2025905953}
+    - target: {fileID: 4535315229359685660, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+      propertyPath: m_golem
+      value: 
+      objectReference: {fileID: 339915295}
+    - target: {fileID: 4535315229359685660, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+      propertyPath: m_character
+      value: 
+      objectReference: {fileID: 2025905942}
+    - target: {fileID: 4535315229359685660, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+      propertyPath: m_characterManager
       value: 
       objectReference: {fileID: 2025905953}
     - target: {fileID: 6730135490651603780, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
@@ -1642,17 +1651,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8159102505856933233, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
-      propertyPath: soundVolume
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6730135490651603780, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1369402699}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
 --- !u!1 &705507993
 GameObject:
@@ -2734,26 +2736,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338206682}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1369402695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6730135490651603780, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
+--- !u!114 &1369402699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4535315229359685660, guid: cc4a80d1dddf39944a56bafad2182a0d, type: 3}
   m_PrefabInstance: {fileID: 674319565}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1369402699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1369402695}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c489e8d9c38fee34ebf54f0821f7b8e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_golem: {fileID: 300804110}
-  m_character: {fileID: 2025905942}
-  m_characterManager: {fileID: 2025905953}
 --- !u!4 &1392966089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 243116832499396615, guid: 913b2e858dcf3ce45bc65dc971d0e1fd, type: 3}
@@ -4394,17 +4387,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 366169970ae05a54cbd8163ec542f5e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2025905959 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1639719189717603026, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
-  m_PrefabInstance: {fileID: 67188130}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025905942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84f19c221ecc75849ad79e9698a50fc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4723474014132319803

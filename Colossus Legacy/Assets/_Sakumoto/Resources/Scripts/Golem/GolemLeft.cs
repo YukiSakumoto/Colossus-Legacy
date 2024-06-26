@@ -100,8 +100,6 @@ public class GolemLeft : Golem
         {
             m_nextAttackId = -1;
         }
-
-        WeakHit();
     }
 
 

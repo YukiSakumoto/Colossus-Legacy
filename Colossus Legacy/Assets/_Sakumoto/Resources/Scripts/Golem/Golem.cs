@@ -8,6 +8,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using UnityEditorInternal;
 
 public class Golem : MonoBehaviour
 {
@@ -77,15 +78,6 @@ public class Golem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            CameraQuakingShort();
-        }
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            CameraQuakingLong();
-        }
-
         if (!m_alive)
         {
             if (m_golemLeft) m_golemLeft.PartsDestroy();
@@ -263,14 +255,23 @@ public class Golem : MonoBehaviour
 
 
     // ÉSÅ[ÉåÉÄÇÃé„ì_Ç™çUåÇÇ≥ÇÍÇΩéûÇÃèàóù
-    protected void WeakHit()
+    protected void WeakHit(int _damage)
     {
         if (!m_weakCollider) { return; }
 
         if (m_weakCollider.m_weakHit)
         {
             m_damageFlg = true;
+            m_damagePoint = _damage;
         }
+    }
+
+
+    public void SetHit(int _damage)
+    {
+        if (m_golemLeft) m_golemLeft.WeakHit(_damage);
+        if (m_golemRight) m_golemRight.WeakHit(_damage);
+        if (m_golemMain) m_golemMain.WeakHit(_damage);
     }
 
 

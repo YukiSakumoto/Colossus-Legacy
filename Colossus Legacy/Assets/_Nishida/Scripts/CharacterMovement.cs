@@ -389,7 +389,7 @@ public class CharacterMovement : MonoBehaviour
                 float knockbackPower = 10f;
 
                 // ノックバック量計算
-                movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
+                movement = m_KnockBackVec.normalized * ((float)KnockBack.medium * knockbackPower);
             }
 
             // 剣を振っている間の処理
@@ -416,7 +416,7 @@ public class CharacterMovement : MonoBehaviour
             if(moveFlg)
             {
                 newPosition = transform.position + movement * Time.deltaTime;
-                if (Physics.Raycast(transform.position, movement.normalized, out hit, movement.magnitude * Time.fixedDeltaTime))
+                if (Physics.Raycast(transform.position, movement, out hit, movement.magnitude * Time.deltaTime))
                 {
                     newPosition = hit.point;
                 }
@@ -453,57 +453,6 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    // Is Triggerが付いているColliderに接触したときの処理
-    void OnTriggerEnter(Collider _other)
-    {
-        // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
-        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
-        {
-            // 触れたオブジェクトのTransformを取得
-            Transform targetTransform = _other.transform;
-
-            // オブジェクトが存在するかを確認
-            if (targetTransform != null)
-            {
-                if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
-                {
-                    // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というオブジェクトにヒット");
-
-                    // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                    m_KnockBackVec = transform.position - targetTransform.position;
-
-                    //int damage = (int)Damage.small;
-                    //Hit(damage);
-                }
-                else if(targetTransform.gameObject.CompareTag(m_bombTag))
-                {
-                    if(_other is CapsuleCollider)
-                    {
-                        // 当たったオブジェクトの名前をコンソールに表示する
-                        Debug.Log("主人公自爆");
-
-                        // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                        m_KnockBackVec = transform.position - targetTransform.position;
-
-                        //int damage = (int)Damage.medium;
-                        //Hit(damage);
-                    }
-                }
-                else
-                {
-                    // 当たったオブジェクトにタグが設定されていない場合にコンソールに表示
-                    //Debug.Log(targetTransform.name + " is does not have the " + m_targetTag + " Tag");
-                }
-            }
-            else
-            {
-                // オブジェクトが無い
-                Debug.Log("当たったオブジェクトが無い。");
-            }
-        }
-    }
-
     // ダメージを受けたときの汎用処理
     public void Hit(int _damage,bool _knockBack)
     {
@@ -530,7 +479,7 @@ public class CharacterMovement : MonoBehaviour
                     m_damageAnimeFlg = true;
                     m_damageMotionFlg = true;
                 }
-                else // 仮　ダメージを受けた時ノックバックする場合
+                else // ダメージを受けた時ノックバックする場合
                 {
                     m_blownAwayAnimeFlg = true;
                     m_damageBlownAwayFlg = true;
@@ -544,6 +493,29 @@ public class CharacterMovement : MonoBehaviour
             {
                 m_deathFlg = true;
                 Debug.Log("主人公死亡");
+            }
+        }
+    }
+
+    // Is Triggerが付いているColliderに接触したときの処理
+    void OnTriggerEnter(Collider _other)
+    {
+        // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
+        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
+        {
+            // 触れたオブジェクトのTransformを取得
+            Transform targetTransform = _other.transform;
+
+            // オブジェクトが存在するかを確認
+            if (targetTransform != null)
+            {
+                // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
+                m_KnockBackVec = transform.position - targetTransform.position;
+            }
+            else
+            {
+                // オブジェクトが無い
+                Debug.Log("当たったオブジェクトが無い。");
             }
         }
     }

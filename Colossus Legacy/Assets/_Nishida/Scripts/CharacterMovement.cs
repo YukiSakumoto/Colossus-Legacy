@@ -11,10 +11,10 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private GameObject m_bowObject;
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
     [SerializeField] private Image m_hpGage;
-    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
-    [SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
+    //[SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
+    //[SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
     [SerializeField] CharacterManager m_manager;
-    Sword m_swordClass;
+    //Sword m_swordClass;
     Bow m_bowClass;
     // ダメージ量
     enum Damage
@@ -124,11 +124,11 @@ public class CharacterMovement : MonoBehaviour
         {
             Debug.Log("CharacterMovement:Sword is Null");
         }
-        else
-        {
-            m_swordObject.SetActive(true);
-            m_swordClass = m_swordObject.GetComponent<Sword>();
-        }
+        //else
+        //{
+        //    m_swordObject.SetActive(true);
+        //    m_swordClass = m_swordObject.GetComponent<Sword>();
+        //}
 
         if (!m_bowObject)
         {
@@ -154,10 +154,10 @@ public class CharacterMovement : MonoBehaviour
             m_hpGage.color = Color.green;
         }
 
-        if(m_targetTag == "")
-        {
-            Debug.Log("CharacterMovement:tag is Null");
-        }
+        //if(m_targetTag == "")
+        //{
+        //    Debug.Log("CharacterMovement:tag is Null");
+        //}
     }
 
     // Update is called once per frame

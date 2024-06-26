@@ -8,6 +8,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
+using UnityEditorInternal;
 
 public class Golem : MonoBehaviour
 {
@@ -53,10 +54,18 @@ public class Golem : MonoBehaviour
     private float m_dissolveRatio = 0.0f;
 
 
+    // ======================
+    // ƒJƒƒ‰‚ğ—h‚ç‚·‚æ
+    // ======================
+    protected CameraQuake m_camera;
+
+
     void Start()
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         attackManager = GetComponent<AttackManager>();
 
@@ -246,14 +255,23 @@ public class Golem : MonoBehaviour
 
 
     // ƒS[ƒŒƒ€‚Ìã“_‚ªUŒ‚‚³‚ê‚½‚Ìˆ—
-    protected void WeakHit()
+    protected void WeakHit(int _damage)
     {
         if (!m_weakCollider) { return; }
 
         if (m_weakCollider.m_weakHit)
         {
             m_damageFlg = true;
+            m_damagePoint = _damage;
         }
+    }
+
+
+    public void SetHit(int _damage)
+    {
+        if (m_golemLeft) m_golemLeft.WeakHit(_damage);
+        if (m_golemRight) m_golemRight.WeakHit(_damage);
+        if (m_golemMain) m_golemMain.WeakHit(_damage);
     }
 
 
@@ -402,5 +420,17 @@ public class Golem : MonoBehaviour
         m_skinMesh.SetSkinMeshShadow(false);
 
         return true;
+    }
+
+
+    protected void CameraQuakingShort()
+    {
+        m_camera.StartShake(0.5f, 0.3f, 10.0f);
+    }
+
+
+    protected void CameraQuakingLong()
+    {
+        m_camera.StartShake(1.0f, 0.75f, 10.0f);
     }
 }

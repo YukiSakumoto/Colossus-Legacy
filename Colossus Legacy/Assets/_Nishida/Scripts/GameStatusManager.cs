@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameStatusManager : MonoBehaviour
 {
-    [SerializeField] GameObject m_golem;
+    [SerializeField] Golem m_golem;
     [SerializeField] GameObject m_character;
     [SerializeField] CharacterManager m_characterManager;
 
@@ -12,12 +12,9 @@ public class GameStatusManager : MonoBehaviour
     int m_characterDamage = 0;
 
     bool m_golemDamageFlg = false;
-    bool m_golemLeftDeathFlg = false;
-    bool m_golemRightDeathFlg = false;
-    bool m_golemMainDeathFlg = false;
+
     bool m_characterDamageFlg = false;
     bool m_characterKnockBackFlg = false;
-    bool m_characterDeathFlg = false;
 
 
     enum PlayerDamage // 主人公が受けるダメージ量
@@ -66,6 +63,7 @@ public class GameStatusManager : MonoBehaviour
     {
         if(m_golemDamageFlg)
         {
+            m_golem.SetHit(m_golemDamage);
             m_golemDamageFlg = false;
             m_golemDamage = 0;
         }
@@ -110,7 +108,7 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = false;
-        m_characterDamage = (int)PlayerDamage.big;
+        m_characterDamage = (int)PlayerDamage.medium;
         Debug.Log("GameStatusManager: DamagePlayerDown");
     }
 
@@ -118,7 +116,7 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = false;
-        m_characterDamage = (int)PlayerDamage.death;
+        m_characterDamage = (int)PlayerDamage.big;
         Debug.Log("GameStatusManager: DamagePlayerPressHand");
     }
 
@@ -126,7 +124,7 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = true;
-        m_characterDamage = (int)PlayerDamage.medium;
+        m_characterDamage = (int)PlayerDamage.death;
         Debug.Log("GameStatusManager: DamagePlayerBeam");
     }
 

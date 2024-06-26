@@ -2,11 +2,14 @@ using Effekseer;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
+    ~GolemMain() { Reset(); }
+
     [SerializeField] private GameObject m_armors;
     private Dissolve m_armorDissolves;
     private SkinMesh m_armorSkinMesh;
@@ -62,6 +65,7 @@ public class GolemMain : Golem
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         if (m_armors)
         {
@@ -73,6 +77,9 @@ public class GolemMain : Golem
 
         // エフェクトを取得する。
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
+        if (m_effect) { Debug.Log(m_effect); }
+
+        m_effectHandle = EffekseerSystem.PlayEffect(m_effect, m_effectPos);
 
         m_initVec = m_forward;
         m_initRot.eulerAngles = m_initVec;
@@ -89,9 +96,6 @@ public class GolemMain : Golem
     void Update()
     {
         if (!m_alive) { return; }
-
-        WeakHit();
-
 
         // ====================================
         // プレイヤーを追従する処理
@@ -214,6 +218,12 @@ public class GolemMain : Golem
     }
 
 
+    private void Reset()
+    {
+        m_effectHandle.Stop();
+    }
+
+
     // 鎧破壊
     public void ArmorDestroy()
     {
@@ -258,5 +268,7 @@ public class GolemMain : Golem
     {
         m_sound.PlayLaserShot();
         m_sound.PlayLaserKeep();
+        m_camera.StartShake(10.0f, 1.0f, 30.0f);
     }
+
 }

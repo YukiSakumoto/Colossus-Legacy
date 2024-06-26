@@ -473,8 +473,8 @@ public class CharacterMovement : MonoBehaviour
                     // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                     m_KnockBackVec = transform.position - targetTransform.position;
 
-                    int damage = (int)Damage.small;
-                    Hit(damage);
+                    //int damage = (int)Damage.small;
+                    //Hit(damage);
                 }
                 else if(targetTransform.gameObject.CompareTag(m_bombTag))
                 {
@@ -486,8 +486,8 @@ public class CharacterMovement : MonoBehaviour
                         // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
                         m_KnockBackVec = transform.position - targetTransform.position;
 
-                        int damage = (int)Damage.medium;
-                        Hit(damage);
+                        //int damage = (int)Damage.medium;
+                        //Hit(damage);
                     }
                 }
                 else
@@ -505,43 +505,46 @@ public class CharacterMovement : MonoBehaviour
     }
 
     // ダメージを受けたときの汎用処理
-    void Hit(int _damage)
+    public void Hit(int _damage,bool _knockBack)
     {
-        m_playerLife -= _damage;
-        float ratio = (float)m_playerLife / (float)m_playerMaxLife;
-        m_hpGage.fillAmount = ratio;
-        if(m_playerLife <= m_playerDangerLife)
+        // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
+        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
         {
-            m_hpGage.color = Color.red;
-        }
-        else if(m_playerLife <= m_playerCautionLife)
-        {
-            m_hpGage.color = Color.yellow;
-        }
+            m_playerLife -= _damage;
+            float ratio = (float)m_playerLife / (float)m_playerMaxLife;
+            m_hpGage.fillAmount = ratio;
+            if (m_playerLife <= m_playerDangerLife)
+            {
+                m_hpGage.color = Color.red;
+            }
+            else if (m_playerLife <= m_playerCautionLife)
+            {
+                m_hpGage.color = Color.yellow;
+            }
 
-        if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
-        {
-            // 仮　ダメージを受けた時ノックバックしない場合
-            if(!m_weaponFlg)
+            if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
             {
-                m_damageAnimeFlg = true;
-                m_damageMotionFlg = true;
+                // ダメージを受けた時ノックバックしない場合
+                if (!_knockBack)
+                {
+                    m_damageAnimeFlg = true;
+                    m_damageMotionFlg = true;
+                }
+                else // 仮　ダメージを受けた時ノックバックする場合
+                {
+                    m_blownAwayAnimeFlg = true;
+                    m_damageBlownAwayFlg = true;
+                    m_damageBlownAwayStiffnessFlg = true;
+                    m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
+                }
+                m_damageCoolTime = m_damageCoolSetTime;
+                m_invincibilityTime = m_invincibilitySetTime;
             }
-            else // 仮　ダメージを受けた時ノックバックする場合
+            else // 体力が0以下になった場合に死亡して動きも止める
             {
-                m_blownAwayAnimeFlg = true;
-                m_damageBlownAwayFlg = true;
-                m_damageBlownAwayStiffnessFlg = true;
-                m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
+                m_deathFlg = true;
+                Debug.Log("主人公死亡");
             }
-            m_damageCoolTime = m_damageCoolSetTime;
-            m_invincibilityTime = m_invincibilitySetTime;
- 
-        }
-        else // 体力が0以下になった場合に死亡して動きも止める
-        {
-            m_deathFlg = true;
-            Debug.Log("主人公死亡");
         }
     }
 

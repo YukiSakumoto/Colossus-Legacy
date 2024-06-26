@@ -132,6 +132,7 @@ MonoBehaviour:
   m_capsuleCollider: {fileID: 5005204231717777013}
   m_meshRenderer: {fileID: 6227635953981810716}
   GroundPos: 0.1
+  m_gameStatusManager: {fileID: 0}
 --- !u!136 &5005204231717777013
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class GameStatusManager : MonoBehaviour
 
     bool m_characterDamageFlg = false;
     bool m_characterKnockBackFlg = false;
+    bool m_characterDownFlg = false;
+    bool m_characterPushUpFlg = false;
 
 
     enum PlayerDamage // 主人公が受けるダメージ量
@@ -70,7 +72,7 @@ public class GameStatusManager : MonoBehaviour
         
         if(m_characterDamageFlg)
         {
-            m_characterManager.SetHit(m_characterDamage,m_characterKnockBackFlg);
+            m_characterManager.SetHit(m_characterDamage, m_characterKnockBackFlg, m_characterDownFlg, m_characterPushUpFlg);
             m_characterDamageFlg = false;
             m_characterDamage = 0;
         }
@@ -100,6 +102,8 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = false;
+        m_characterDownFlg = false;
+        m_characterPushUpFlg = true;
         m_characterDamage = (int)PlayerDamage.small;
         Debug.Log("GameStatusManager: DamagePlayerPushUP");
     }
@@ -108,6 +112,8 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = false;
+        m_characterDownFlg = true;
+        m_characterPushUpFlg = false;
         m_characterDamage = (int)PlayerDamage.medium;
         Debug.Log("GameStatusManager: DamagePlayerDown");
     }
@@ -116,6 +122,8 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = false;
+        m_characterDownFlg = false;
+        m_characterPushUpFlg = false;
         m_characterDamage = (int)PlayerDamage.big;
         Debug.Log("GameStatusManager: DamagePlayerPressHand");
     }
@@ -124,6 +132,8 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = true;
+        m_characterDownFlg = false;
+        m_characterPushUpFlg = false;
         m_characterDamage = (int)PlayerDamage.death;
         Debug.Log("GameStatusManager: DamagePlayerBeam");
     }
@@ -132,6 +142,8 @@ public class GameStatusManager : MonoBehaviour
     {
         m_characterDamageFlg = true;
         m_characterKnockBackFlg = true;
+        m_characterDownFlg = false;
+        m_characterPushUpFlg = false;
         m_characterDamage = (int)PlayerDamage.medium;
         Debug.Log("GameStatusManager: DamagePlayerBomb");
     }

@@ -5590,8 +5590,6 @@ MonoBehaviour:
   m_bowObject: {fileID: 8521937490163537220}
   m_rb: {fileID: 7207295301385276620}
   m_hpGage: {fileID: 0}
-  m_targetTag: EnemyAttack
-  m_bombTag: BombAttack
   m_manager: {fileID: 676730643335995157}
   m_playerLife: 100
   m_rollTiredCount: 0
@@ -5718,6 +5716,8 @@ MonoBehaviour:
   m_sound: {fileID: 2870190894587622017}
   m_sword: {fileID: 1727143967730782058}
   m_bow: {fileID: 6671742668299437404}
+  m_arrowObj: {fileID: 1235784598067826792, guid: deeb598f5bef6be459f5f56c0ef92070, type: 3}
+  m_bombObj: {fileID: 5579394341268801993, guid: a5d507c274734f24b9d8cd7d8dd2e452, type: 3}
 --- !u!1 &5782989648294680116
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,8 +8,8 @@ public class GameManagerGameScene : MonoBehaviour
 {
     public static GameManagerGameScene Instance { get; private set; }
 
-    public CharacterManager m_charaInfo;
-    public Fade m_fade;
+    CharacterManager m_charaInfo;
+    Fade m_fade;
     private bool fadeOutFlg;
 
     void Start()

@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class SkinMesh : MonoBehaviour
 {
-    SkinnedMeshRenderer[] m_renderers;
+    List<Renderer> m_renderers = new List<Renderer>();
     void Start()
     {
-        m_renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        m_renderers.AddRange(GetComponentsInChildren<SkinnedMeshRenderer>());
+        m_renderers.AddRange(GetComponentsInChildren<MeshRenderer>());
     }
 
 
     public void SetSkinMeshShadow(bool _flg)
     {
-        foreach (SkinnedMeshRenderer renderer in m_renderers)
+        foreach (Renderer renderer in m_renderers)
         {
-            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            renderer.receiveShadows = _flg;
+            if (renderer)
+            {
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.receiveShadows = _flg;
+            }
         }
     }
 }

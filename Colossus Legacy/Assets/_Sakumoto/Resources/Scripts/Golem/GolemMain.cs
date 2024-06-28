@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
-    ~GolemMain() { Reset(); }
+    //~GolemMain() { Reset(); }
 
     [SerializeField] private GameObject m_armors;
     private Dissolve m_armorDissolves;
@@ -77,9 +77,6 @@ public class GolemMain : Golem
 
         // エフェクトを取得する。
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
-        if (m_effect) { Debug.Log(m_effect); }
-
-        m_effectHandle = EffekseerSystem.PlayEffect(m_effect, m_effectPos);
 
         m_initVec = m_forward;
         m_initRot.eulerAngles = m_initVec;
@@ -95,7 +92,11 @@ public class GolemMain : Golem
 
     void Update()
     {
-        if (!m_alive) { return; }
+        if (!m_alive)
+        {
+            PartsDestroy();
+            return;
+        }
 
         // ====================================
         // プレイヤーを追従する処理
@@ -220,7 +221,7 @@ public class GolemMain : Golem
 
     private void Reset()
     {
-        m_effectHandle.Stop();
+        //m_effectHandle.Stop();
     }
 
 

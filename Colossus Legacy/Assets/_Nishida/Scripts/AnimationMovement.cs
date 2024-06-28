@@ -77,6 +77,15 @@ public class AnimationMovement : MonoBehaviour
             animator.SetTrigger("p_blownAway");
         }
 
+        if(m_manager.Getm_downAnimeFlg)
+        {
+            animator.SetTrigger("p_Down");
+        }
+        if (m_manager.Getm_pushUpAnimeFlg)
+        {
+            animator.SetTrigger("p_PushedUp");
+        }
+
         if (m_manager.Getm_deathFlg)
         {
             if (m_deathAnimation <= m_deathAnimationMax)

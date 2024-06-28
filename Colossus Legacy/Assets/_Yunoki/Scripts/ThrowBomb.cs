@@ -33,6 +33,32 @@ public class ThrowBomb : MonoBehaviour
 
     void Update()
     {
+        //if (Input.GetKey(KeyCode.Z))
+        //{
+        //    m_gameStatusManager.DamagePlayerBeam();
+        //    Debug.Log("ƒr[ƒ€UŒ‚");
+        //}
+        //if (Input.GetKey(KeyCode.X))
+        //{
+        //    m_gameStatusManager.DamagePlayerBomb();
+        //    Debug.Log("”š’eUŒ‚");
+        //}
+        //if (Input.GetKey(KeyCode.C))
+        //{
+        //    m_gameStatusManager.DamagePlayerDown();
+        //    Debug.Log("‰Ÿ‚µ‚Â‚Ô‚µUŒ‚");
+        //}
+        //if (Input.GetKey(KeyCode.V))
+        //{
+        //    m_gameStatusManager.DamagePlayerPressHand();
+        //    Debug.Log("‡¶UŒ‚");
+        //}
+        //if (Input.GetKey(KeyCode.B))
+        //{
+        //    m_gameStatusManager.DamagePlayerPushUP();
+        //    Debug.Log("ƒJƒ`ã‚°UŒ‚");
+        //}
+
         cnt -= Time.deltaTime;
         if (cnt <= 0) { cnt = 0; }
 

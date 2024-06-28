@@ -7,7 +7,6 @@ using System;
 public class ThrowBomb : MonoBehaviour
 {
     [SerializeField] GameObject m_bombPrefab;
-    [SerializeField] GameStatusManager m_gameStatusManager;
     [SerializeField] float m_bombHeight = 9;
     [SerializeField] float m_speed = 300;
     [SerializeField] float m_bombChargeTime = 1;
@@ -16,6 +15,7 @@ public class ThrowBomb : MonoBehaviour
     private const float m_bombMotionSetTime = 0.43f; 
     private bool m_bombThrowFlg = false;
 
+    private GameStatusManager m_gameStatusManager;
     private float cnt = 0;
 
     private void Start()
@@ -25,39 +25,36 @@ public class ThrowBomb : MonoBehaviour
             Debug.Log("ThrowBomb: bomb is Null");
         }
 
-        if (!m_gameStatusManager)
-        {
-            Debug.Log("ThrowBomb: GameStatusManager is Null");
-        }
+        m_gameStatusManager = GameObject.FindWithTag("GameManager").GetComponent<GameStatusManager>();
     }
 
     void Update()
     {
-        //if (Input.GetKey(KeyCode.Z))
-        //{
-        //    m_gameStatusManager.DamagePlayerBeam();
-        //    Debug.Log("ƒr[ƒ€UŒ‚");
-        //}
-        //if (Input.GetKey(KeyCode.X))
-        //{
-        //    m_gameStatusManager.DamagePlayerBomb();
-        //    Debug.Log("”š’eUŒ‚");
-        //}
-        //if (Input.GetKey(KeyCode.C))
-        //{
-        //    m_gameStatusManager.DamagePlayerDown();
-        //    Debug.Log("‰Ÿ‚µ‚Â‚Ô‚µUŒ‚");
-        //}
-        //if (Input.GetKey(KeyCode.V))
-        //{
-        //    m_gameStatusManager.DamagePlayerPressHand();
-        //    Debug.Log("‡¶UŒ‚");
-        //}
-        //if (Input.GetKey(KeyCode.B))
-        //{
-        //    m_gameStatusManager.DamagePlayerPushUP();
-        //    Debug.Log("ƒJƒ`ã‚°UŒ‚");
-        //}
+        if (Input.GetKey(KeyCode.Z))
+        {
+            m_gameStatusManager.DamagePlayerBeam();
+            Debug.Log("ƒr[ƒ€UŒ‚");
+        }
+        if (Input.GetKey(KeyCode.X))
+        {
+            m_gameStatusManager.DamagePlayerBomb();
+            Debug.Log("”š’eUŒ‚");
+        }
+        if (Input.GetKey(KeyCode.C))
+        {
+            m_gameStatusManager.DamagePlayerDown();
+            Debug.Log("‰Ÿ‚µ‚Â‚Ô‚µUŒ‚");
+        }
+        if (Input.GetKey(KeyCode.V))
+        {
+            m_gameStatusManager.DamagePlayerPressHand();
+            Debug.Log("‡¶UŒ‚");
+        }
+        if (Input.GetKey(KeyCode.B))
+        {
+            m_gameStatusManager.DamagePlayerPushUP();
+            Debug.Log("ƒJƒ`ã‚°UŒ‚");
+        }
 
         cnt -= Time.deltaTime;
         if (cnt <= 0) { cnt = 0; }

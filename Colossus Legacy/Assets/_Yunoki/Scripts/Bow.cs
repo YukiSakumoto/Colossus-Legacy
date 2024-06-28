@@ -11,13 +11,14 @@ public class Bow : MonoBehaviour
     [SerializeField] float m_shotTime = 1.0f;
     [SerializeField] float m_speed = 60f;
 
-    [SerializeField] private GameStatusManager m_gameStatusManager;
+    private GameStatusManager m_gameStatusManager;
     //[SerializeField] float m_rot = 90;
 
     private float m_shotTimeCnt;
 
     void Start()
     {
+        m_gameStatusManager = GameObject.FindWithTag("GameManager").GetComponent<GameStatusManager>();
         m_shotTimeCnt = m_shotTime;
         // transform.localScale = new Vector3(10, 10, 10);
     }
@@ -44,7 +45,14 @@ public class Bow : MonoBehaviour
         arrowRb.velocity = (m_characterObj.transform.forward * m_speed);
 
         Arrow arrowScript = arrow.GetComponent<Arrow>();
-        arrowScript.m_gameStatusManager = m_gameStatusManager;
+        if (!m_gameStatusManager)
+        {
+            Debug.Log("Bow: GameStatusManager is Null");
+        }
+        else
+        {
+            arrowScript.m_gameStatusManager = m_gameStatusManager;
+        }
         Debug.Log("Arrow Shot!");
         //Destroy(arrow, 5);
     }

@@ -8,7 +8,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
-    ~GolemMain() { Reset(); }
+    //~GolemMain() { Reset(); }
 
     [SerializeField] private GameObject m_armors;
     private Dissolve m_armorDissolves;
@@ -95,7 +95,11 @@ public class GolemMain : Golem
 
     void Update()
     {
-        if (!m_alive) { return; }
+        if (!m_alive)
+        {
+            PartsDestroy();
+            return;
+        }
 
         // ====================================
         // ƒvƒŒƒCƒ„[‚ğ’Ç]‚·‚éˆ—
@@ -220,7 +224,7 @@ public class GolemMain : Golem
 
     private void Reset()
     {
-        m_effectHandle.Stop();
+        //m_effectHandle.Stop();
     }
 
 

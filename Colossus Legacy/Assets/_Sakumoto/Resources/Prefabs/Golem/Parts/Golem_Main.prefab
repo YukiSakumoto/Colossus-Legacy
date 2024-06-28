@@ -271,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 3400795962613715429}
   serializedVersion: 2
   m_LocalRotation: {x: -0.70712435, y: -0.00003694493, z: 0.000019341403, w: 0.7070893}
-  m_LocalPosition: {x: 0.026874343, y: 0.08991677, z: 0.085}
+  m_LocalPosition: {x: 0.026874343, y: 0.08991677, z: 1.016}
   m_LocalScale: {x: 0.16, y: 1, z: 0.16}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -636,7 +636,7 @@ Transform:
   m_GameObject: {fileID: 5577586502777373059}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00004157423, y: 0.0000000066011108, z: 0.000005719065, w: 1}
-  m_LocalPosition: {x: -0, y: 0.103, z: 0}
+  m_LocalPosition: {x: -0, y: 0.965, z: 0}
   m_LocalScale: {x: 0.39481044, y: 0.39481044, z: 0.39481044}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1346,21 +1346,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackColliders: []
   m_weakCollider: {fileID: 1462957702215550114}
+  m_hpState: 0
+  m_enable: 1
   m_myself: {fileID: 0}
   m_target: {fileID: 0}
+  m_dist: 0
   m_text: {fileID: 0}
+  m_stop: 0
   m_maxHp: 100
+  m_hp: 0
   m_hpGage: {fileID: 0}
+  m_damageFlg: 0
   m_damageTime: 0
   m_damagePoint: 0
-  m_dist: 0
-  m_alive: 1
-  m_enable: 1
+  m_time: 0
   m_dissolveSpeed: 0.1
-  m_armorDissolves:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_armors: {fileID: 0}
   m_armorDissolveSpeed: 0.2
   m_effectNum: 1
   m_shotTime: 10

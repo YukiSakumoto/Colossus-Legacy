@@ -6,10 +6,12 @@ public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform target; // カメラが追従するキャラクター
     [SerializeField] private Vector3 offset;   // キャラクターに対するカメラの相対位置
+    public Vector3 nowPos { set; get; }
 
-    void LateUpdate()
+    void Update()
     {
         // キャラクターの位置に対してオフセットを追加してカメラの位置を設定
-        transform.position = target.position + offset;
+        nowPos = target.position + offset;
+        transform.position = nowPos;
     }
 }

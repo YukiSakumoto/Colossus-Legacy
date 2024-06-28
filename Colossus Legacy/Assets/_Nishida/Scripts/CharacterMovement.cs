@@ -11,10 +11,10 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private GameObject m_bowObject;
     [SerializeField] private Rigidbody m_rb; // リジッドボディ
     [SerializeField] private Image m_hpGage;
-    [SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
-    [SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
+    //[SerializeField] private string m_targetTag = "EnemyAttack"; // 敵との当たり判定を行う時のタグ名設定
+    //[SerializeField] private string m_bombTag = "BombAttack"; // 爆弾との当たり判定を行う時のタグ名設定
     [SerializeField] CharacterManager m_manager;
-    Sword m_swordClass;
+    //Sword m_swordClass;
     Bow m_bowClass;
     // ダメージ量
     enum Damage
@@ -60,6 +60,8 @@ public class CharacterMovement : MonoBehaviour
     private const float m_subAttackCoolSetTime = 1f;              // サブ攻撃したときの硬直時間固定値
     private const float m_weaponChangeCoolSetTime = 1f;           // 武器チェンジ時のクールタイム固定値
     private const float m_damageCoolSetTime = 0.6f;               // ダメージを受けた後の硬直時間固定値
+    private const float m_downCoolSetTime = 1.7f;                 // つぶされた後の硬直時間固定値
+    private const float m_pushUpCoolSetTime = 2f;                 // カチ上げられた後の硬直時間固定値
     private const float m_invincibilitySetTime = 2f;              // ダメージを受けた後の無敵時間固定値
     private const float m_blownAwayStiffnessSetTime = 0.8f;       // 吹っ飛ぶダメージを受けたときの硬直時間固定値
     private const float m_swordMoveAcceleration = 4f;             // 剣で攻撃したときの前進固定値
@@ -89,6 +91,8 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollAnimeFlg = false;                 // 回避行動の管理(AnimationMovementへの移送用)
     private bool m_damageAnimeFlg = false;               // プレイヤー被ダメージ時の管理(AnimationMovementへの移送用)
     private bool m_blownAwayAnimeFlg = false;            // 吹っ飛ぶ攻撃を受けたときの管理(AnimationMovementへの移送用)
+    private bool m_downAnimeFlg = false;
+    private bool m_pushUpAnimeFlg = false;
     private bool m_deathFlg = false;                     // 死亡時の管理(AnimationMovementへの移送用)
     private bool m_secondSwordAttackAnimeFlg = false;    // 2段攻撃を行う際の管理(AnimationMovementへの移送用)
     private bool m_joyAnimeFlg = false;                  // 喜んで動かなくなる管理(AnimationMovementへの移送用)
@@ -127,7 +131,6 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             m_swordObject.SetActive(true);
-            m_swordClass = m_swordObject.GetComponent<Sword>();
         }
 
         if (!m_bowObject)
@@ -154,10 +157,10 @@ public class CharacterMovement : MonoBehaviour
             m_hpGage.color = Color.green;
         }
 
-        if(m_targetTag == "")
-        {
-            Debug.Log("CharacterMovement:tag is Null");
-        }
+        //if(m_targetTag == "")
+        //{
+        //    Debug.Log("CharacterMovement:tag is Null");
+        //}
     }
 
     // Update is called once per frame
@@ -389,7 +392,7 @@ public class CharacterMovement : MonoBehaviour
                 float knockbackPower = 10f;
 
                 // ノックバック量計算
-                movement = m_KnockBackVec.normalized * ((float)KnockBack.medium / knockbackPower);
+                movement = m_KnockBackVec.normalized * ((float)KnockBack.medium * knockbackPower);
             }
 
             // 剣を振っている間の処理
@@ -416,7 +419,7 @@ public class CharacterMovement : MonoBehaviour
             if(moveFlg)
             {
                 newPosition = transform.position + movement * Time.deltaTime;
-                if (Physics.Raycast(transform.position, movement.normalized, out hit, movement.magnitude * Time.fixedDeltaTime))
+                if (Physics.Raycast(transform.position, movement, out hit, movement.magnitude * Time.deltaTime))
                 {
                     newPosition = hit.point;
                 }
@@ -446,10 +449,77 @@ public class CharacterMovement : MonoBehaviour
             m_blownAwayAnimeFlg = false;
         }
 
+        if(m_downAnimeFlg)
+        {
+            m_downAnimeFlg = false;
+        }
+
+        if(m_pushUpAnimeFlg)
+        {
+            m_pushUpAnimeFlg = false;
+        }
+
         // ダメージモーションの重複防止
         if (m_damageAnimeFlg)
         {
             m_damageAnimeFlg = false;
+        }
+    }
+
+    // ダメージを受けたときの汎用処理
+    public void Hit(int _damage, bool _knockBack, bool _down, bool _pushup)
+    {
+        // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
+        if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
+        {
+            m_playerLife -= _damage;
+            float ratio = (float)m_playerLife / (float)m_playerMaxLife;
+            m_hpGage.fillAmount = ratio;
+            if (m_playerLife <= m_playerDangerLife)
+            {
+                m_hpGage.color = Color.red;
+            }
+            else if (m_playerLife <= m_playerCautionLife)
+            {
+                m_hpGage.color = Color.yellow;
+            }
+
+            if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
+            {
+                // ダメージを受けた時ノックバックする場合
+                if (_knockBack)
+                {
+                    m_blownAwayAnimeFlg = true;
+                    m_damageBlownAwayFlg = true;
+                    m_damageBlownAwayStiffnessFlg = true;
+                    m_damageCoolTime = m_damageCoolSetTime;
+                    m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
+                }
+                else if(_down) // ダメージを受けたとき潰される場合
+                {
+                    m_downAnimeFlg = true;
+                    m_damageMotionFlg = true;
+                    m_damageCoolTime = m_downCoolSetTime;
+                }
+                else if(_pushup) // ダメージを受けた時カチ上げられる場合
+                {
+                    m_pushUpAnimeFlg = true;
+                    m_damageMotionFlg = true;
+                    m_damageCoolTime = m_pushUpCoolSetTime;
+                }
+                else // ダメージを受けた時に大きなアクションをしない場合
+                {
+                    m_damageAnimeFlg = true;
+                    m_damageMotionFlg = true;
+                    m_damageCoolTime = m_damageCoolSetTime;
+                }
+                m_invincibilityTime = m_invincibilitySetTime;
+            }
+            else // 体力が0以下になった場合に死亡して動きも止める
+            {
+                m_deathFlg = true;
+                Debug.Log("主人公死亡");
+            }
         }
     }
 
@@ -465,83 +535,14 @@ public class CharacterMovement : MonoBehaviour
             // オブジェクトが存在するかを確認
             if (targetTransform != null)
             {
-                if (targetTransform.gameObject.CompareTag(m_targetTag)) // オブジェクトが指定のタグを持っているか確認
-                {
-                    // 当たったオブジェクトの名前をコンソールに表示する
-                    Debug.Log("主人公ダメージ！ " + targetTransform.name + " というオブジェクトにヒット");
-
-                    // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                    m_KnockBackVec = transform.position - targetTransform.position;
-
-                    int damage = (int)Damage.small;
-                    Hit(damage);
-                }
-                else if(targetTransform.gameObject.CompareTag(m_bombTag))
-                {
-                    if(_other is CapsuleCollider)
-                    {
-                        // 当たったオブジェクトの名前をコンソールに表示する
-                        Debug.Log("主人公自爆");
-
-                        // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                        m_KnockBackVec = transform.position - targetTransform.position;
-
-                        int damage = (int)Damage.medium;
-                        Hit(damage);
-                    }
-                }
-                else
-                {
-                    // 当たったオブジェクトにタグが設定されていない場合にコンソールに表示
-                    //Debug.Log(targetTransform.name + " is does not have the " + m_targetTag + " Tag");
-                }
+                // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
+                m_KnockBackVec = transform.position - targetTransform.position;
             }
             else
             {
                 // オブジェクトが無い
                 Debug.Log("当たったオブジェクトが無い。");
             }
-        }
-    }
-
-    // ダメージを受けたときの汎用処理
-    void Hit(int _damage)
-    {
-        m_playerLife -= _damage;
-        float ratio = (float)m_playerLife / (float)m_playerMaxLife;
-        m_hpGage.fillAmount = ratio;
-        if(m_playerLife <= m_playerDangerLife)
-        {
-            m_hpGage.color = Color.red;
-        }
-        else if(m_playerLife <= m_playerCautionLife)
-        {
-            m_hpGage.color = Color.yellow;
-        }
-
-        if (m_playerLife > 0) // ダメージを受けて体力が0以下にならなければダメージモーション + 無敵時間発生
-        {
-            // 仮　ダメージを受けた時ノックバックしない場合
-            if(!m_weaponFlg)
-            {
-                m_damageAnimeFlg = true;
-                m_damageMotionFlg = true;
-            }
-            else // 仮　ダメージを受けた時ノックバックする場合
-            {
-                m_blownAwayAnimeFlg = true;
-                m_damageBlownAwayFlg = true;
-                m_damageBlownAwayStiffnessFlg = true;
-                m_blownAwayStiffnessTime = m_blownAwayStiffnessSetTime;
-            }
-            m_damageCoolTime = m_damageCoolSetTime;
-            m_invincibilityTime = m_invincibilitySetTime;
- 
-        }
-        else // 体力が0以下になった場合に死亡して動きも止める
-        {
-            m_deathFlg = true;
-            Debug.Log("主人公死亡");
         }
     }
 
@@ -732,6 +733,14 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_blownAwayAnimeFlg
     {
         get { return m_blownAwayAnimeFlg; }
+    }
+    public bool Getm_downAnimeFlg
+    {
+        get { return m_downAnimeFlg; }
+    }
+    public bool Getm_pushUpAnimeFlg
+    {
+        get { return m_pushUpAnimeFlg; }
     }
     public bool Getm_deathFlg
     {

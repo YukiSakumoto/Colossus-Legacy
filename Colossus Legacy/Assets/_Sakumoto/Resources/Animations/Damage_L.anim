@@ -15804,14 +15804,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: AttackOff
+    functionName: WeakOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: WeakOff
+    functionName: PlayStone
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -15824,6 +15824,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 1.6666666
+    functionName: PlayStone
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 2.6666667
     functionName: PlaySwing
     data: 
@@ -15831,8 +15838,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 2.6666667
+    functionName: PlayStone
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 3
     functionName: PlayStone
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 3
+    functionName: PlaySwing
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

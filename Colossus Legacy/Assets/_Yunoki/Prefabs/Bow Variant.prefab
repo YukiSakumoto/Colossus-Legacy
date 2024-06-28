@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c518984bb9444642955374dab68c51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowObj: {fileID: 1235784598067826792, guid: deeb598f5bef6be459f5f56c0ef92070, type: 3}
-  shotTime: 1
-  speed: 1
-  rot: 1
+  m_arrowObj: {fileID: 1235784598067826792, guid: deeb598f5bef6be459f5f56c0ef92070, type: 3}
+  m_characterObj: {fileID: 5729908777727010445, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
+  m_shotTime: 1
+  m_speed: 40

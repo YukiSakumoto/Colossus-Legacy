@@ -6,21 +6,33 @@ using UnityEngine;
 
 public class GameManagerGameScene : MonoBehaviour
 {
-    [SerializeField] CharacterMovement charaInfo;
-    [SerializeField] Fade fade;
+    [SerializeField] CharacterManager m_charaInfo;
+    [SerializeField] Fade m_fade;
     private bool fadeOutFlg;
 
     void Start()
     {
-        fadeOutFlg = false;
-        fade.StartCoroutine(fade.FadeIn());
+        if(!m_charaInfo)
+        {
+            Debug.Log("GameManagerGameScene:manager is Null");
+        }
+
+        if (!m_fade)
+        {
+            Debug.Log("GameManagerGameScene:fade is Null");
+        }
+        else
+        {
+            fadeOutFlg = false;
+            m_fade.StartCoroutine(m_fade.FadeIn());
+        }
     }
 
     void Update()
     {
-        if(charaInfo.Getm_deathFlg && !fadeOutFlg)
+        if(m_charaInfo.Getm_deathFlg && !fadeOutFlg)
         {
-            fade.StartCoroutine(fade.FadeOut());
+            m_fade.StartCoroutine(m_fade.FadeOut());
             fadeOutFlg = true;
         }
     }

@@ -44,6 +44,7 @@ public class GolemRight : Golem
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         attackManager = GetComponent<AttackManager>();
 
@@ -101,8 +102,6 @@ public class GolemRight : Golem
         {
             m_nextAttackId = -1;
         }
-
-        WeakHit();
     }
 
 

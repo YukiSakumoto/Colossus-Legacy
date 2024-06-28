@@ -43,6 +43,7 @@ public class GolemLeft : Golem
     {
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
+        m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
 
         attackManager = GetComponent<AttackManager>(); 
 
@@ -99,8 +100,6 @@ public class GolemLeft : Golem
         {
             m_nextAttackId = -1;
         }
-
-        WeakHit();
     }
 
 
@@ -185,7 +184,6 @@ public class GolemLeft : Golem
 
         // Šp“x‚©‚ç‰ñ“]î•ñ‚ğæ“¾
         m_targetRot.eulerAngles += new Vector3(0.0f, deg, 0.0f);
-        Debug.Log(m_targetRot.eulerAngles.y);
 
         m_nowTime = 0.0f;
     }

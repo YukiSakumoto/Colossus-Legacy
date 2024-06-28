@@ -11,6 +11,11 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private PlayerSoundPlay m_sound;
     [SerializeField] private Sword m_sword;
     [SerializeField] private Bow m_bow;
+    [SerializeField] private GameObject m_arrowObj;
+    [SerializeField] private GameObject m_bombObj;
+
+    private Arrow m_arrow;
+    private Bomb m_bomb;
 
     private bool m_moveWalkAnimeFlg = false;
     private bool m_moveRollAnimeFlg = false;
@@ -20,6 +25,8 @@ public class CharacterManager : MonoBehaviour
     private bool m_moveSecondSwordAttackAnimeFlg = false;
     private bool m_moveDamageAnimeFlg = false;
     private bool m_moveBlownAwayAnimeFlg = false;
+    private bool m_downAnimeFlg = false;
+    private bool m_pushUpAnimeFlg = false;
     private bool m_moveDeathFlg = false;
     private bool m_moveSwordMoveFlg = false;
     private bool m_moveSecondSwordAttackFlg = false;
@@ -64,17 +71,30 @@ public class CharacterManager : MonoBehaviour
         {
             Debug.Log("Character Manager:bow is Null");
         }
+
+        if(!m_arrowObj)
+        {
+            Debug.Log("Character Manager:arrow is Null");
+        }
+        else
+        {
+            m_arrow = m_arrowObj.GetComponent<Arrow>();
+        }
+
+        if (!m_bombObj)
+        {
+            Debug.Log("Character Manager:bomb is Null");
+        }
+        else
+        {
+            m_bomb = m_bombObj.GetComponent<Bomb>();
+        }
     }
 
     private void Update()
     {
         CharacterMovementFlgSet();
         SwordFlgSet();
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     private void CharacterMovementFlgSet()
@@ -87,6 +107,8 @@ public class CharacterManager : MonoBehaviour
         m_moveSecondSwordAttackAnimeFlg = m_movement.Getm_secondSwordAttackAnimeFlg;
         m_moveDamageAnimeFlg = m_movement.Getm_damageAnimeFlg;
         m_moveBlownAwayAnimeFlg = m_movement.Getm_blownAwayAnimeFlg;
+        m_downAnimeFlg = m_movement.Getm_downAnimeFlg;
+        m_pushUpAnimeFlg = m_movement.Getm_pushUpAnimeFlg;
         m_moveDeathFlg = m_movement.Getm_deathFlg;
         m_moveSwordMoveFlg = m_movement.Getm_swordMoveFlg;
         m_moveSecondSwordAttackFlg = m_movement.Getm_secondSwordAttackFlg;
@@ -97,6 +119,11 @@ public class CharacterManager : MonoBehaviour
     {
         m_swordHitFlg = m_sword.Getm_hitFlg;
         m_swordDeflectedFlg = m_sword.Getm_deflectedFlg;
+    }
+
+    public void SetHit(int _damage, bool _knockBack, bool _down, bool _pushup)
+    {
+        m_movement.Hit(_damage, _knockBack, _down, _pushup);
     }
 
     public bool Getm_walkAnimeFlg
@@ -130,6 +157,14 @@ public class CharacterManager : MonoBehaviour
     public bool Getm_blownAwayAnimeFlg
     {
         get { return m_moveBlownAwayAnimeFlg; }
+    }
+    public bool Getm_downAnimeFlg
+    {
+        get { return m_downAnimeFlg; }
+    }
+    public bool Getm_pushUpAnimeFlg
+    {
+        get { return m_pushUpAnimeFlg; }
     }
     public bool Getm_deathFlg
     {

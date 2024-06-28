@@ -10,6 +10,8 @@ public class Bow : MonoBehaviour
 
     [SerializeField] float m_shotTime = 1.0f;
     [SerializeField] float m_speed = 60f;
+
+    [SerializeField] private GameStatusManager m_gameStatusManager;
     //[SerializeField] float m_rot = 90;
 
     private float m_shotTimeCnt;
@@ -40,6 +42,9 @@ public class Bow : MonoBehaviour
         
         Rigidbody arrowRb = arrow.GetComponent<Rigidbody>();
         arrowRb.velocity = (m_characterObj.transform.forward * m_speed);
+
+        Arrow arrowScript = arrow.GetComponent<Arrow>();
+        arrowScript.m_gameStatusManager = m_gameStatusManager;
         Debug.Log("Arrow Shot!");
         //Destroy(arrow, 5);
     }

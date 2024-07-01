@@ -95,6 +95,10 @@ public class GolemMain : Golem
         if (!m_alive)
         {
             PartsDestroy();
+            if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.Battle)
+            {
+                GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.PlayerWin);
+            }
             return;
         }
 

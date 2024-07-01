@@ -63,6 +63,7 @@ public class GameStatusManager : MonoBehaviour
     {
         GameObject golemObj = GameObject.Find("Golem");
         GameObject characterObj = GameObject.Find("HumanMale_Character");
+        if (!golemObj || !characterObj) { return; }
 
         m_golem = golemObj.GetComponent<Golem>();
         m_characterManager = characterObj.GetComponent<CharacterManager>();

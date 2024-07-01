@@ -52,7 +52,7 @@ public class AnimationMovement : MonoBehaviour
             }
         }
 
-        if (m_manager.Getm_subAttackAnimeFlg)
+        if (m_manager.Getm_bombThrowCheckFlg)
         {
             animator.SetTrigger("p_Bomb");
         }

@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static UnityEngine.GraphicsBuffer;
+using Unity.VisualScripting;
 
 
 public class SemiTransmission : MonoBehaviour
 {
     [SerializeField] private GameObject player;     //インスペクター上でプレイヤーを接続しておく
+    [SerializeField] private Vector3 offset;   // キャラクターに対するカメラの相対位置
+
     Vector3 tergetPosition;
     float tergetOffsetYFoot = 0.1f; //rayを飛ばす方向のオフセット（足元の方）
-    float tergetOffsetYHead = 1.6f; //rayを飛ばす方向のオフセット（頭頂部の方）
+    float tergetOffsetYHead = -1.6f; //rayを飛ばす方向のオフセット（頭頂部の方）
 
     public GameObject[] prevRaycast;
     public List<GameObject> raycastHitsList_ = new List<GameObject>();
@@ -47,6 +51,7 @@ public class SemiTransmission : MonoBehaviour
         Vector3 _direction = __difference.normalized;           //カメラ-ターゲット間のベクトルの正規ベクトルを抽出
 
         Ray _ray = new Ray(this.transform.position, _direction);//Rayを発射
+        Debug.DrawLine(_ray.origin, _ray.direction, Color.red);
         RaycastHit[] rayCastHits = Physics.RaycastAll(_ray);    //Rayにあたったオブジェクトをすべて取得
 
         foreach (RaycastHit hit in rayCastHits)
@@ -56,7 +61,7 @@ public class SemiTransmission : MonoBehaviour
             {
                 IsHitObj ishitobj = hit.collider.GetComponent<IsHitObj>();
                 if (
-                hit.collider.tag == "Cave")          //タグを確認
+                hit.collider.CompareTag("Cave"))          //タグを確認
                 {
                     ishitobj.ClearMaterialInvoke();                 //透明にするメソッドを呼び出す。
                     raycastHitsList_.Add(hit.collider.gameObject);  //hitしたgameobjectを追加する

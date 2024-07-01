@@ -14,6 +14,7 @@ TagManager:
   - BombAttack
   - BoxFragment
   - GameManager
+  - Cave
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - Fragment
   - Terrain
   - PostProcessing
-  - 
-  - 
+  - IgnorePlayer
+  - Player
   - 
   - 
   - 

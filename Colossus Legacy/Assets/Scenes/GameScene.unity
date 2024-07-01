@@ -1216,6 +1216,63 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 4838610377875313934, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
   m_PrefabInstance: {fileID: 1498857655}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &295124932
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39646912
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 44.516
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216113133188033109, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_Name
+      value: TreasureChest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb38169d1ce828f489b5d153243add70, type: 3}
 --- !u!1 &387845960
 GameObject:
   m_ObjectHideFlags: 0
@@ -5282,3 +5339,4 @@ SceneRoots:
   - {fileID: 4958155399820387106}
   - {fileID: 1955129791}
   - {fileID: 1364044454}
+  - {fileID: 295124932}

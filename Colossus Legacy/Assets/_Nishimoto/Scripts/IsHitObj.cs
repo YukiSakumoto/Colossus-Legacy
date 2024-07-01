@@ -27,7 +27,7 @@ public class IsHitObj : MonoBehaviour
         mpb.SetColor(Shader.PropertyToID("_Color"), color);
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-            meshRenderers[i].GetComponent<Renderer>().material.shader = Shader.Find("Unlit/Transmission");
+            meshRenderers[i].GetComponent<Renderer>().material.shader = Shader.Find("Unlit/SkeltonShader");
             meshRenderers[i].SetPropertyBlock(mpb);
         }
     }

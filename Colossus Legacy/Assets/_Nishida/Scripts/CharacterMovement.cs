@@ -87,7 +87,6 @@ public class CharacterMovement : MonoBehaviour
     private bool m_walkAnimeFlg = false;                 // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
     private bool m_attackAnimeFlg = false;               // 攻撃の管理(AnimationMovementへの移送用)
-    private bool m_subAttackAnimeFlg = false;            // サブ攻撃の管理(AnimationMovementへの移送用)
     private bool m_rollAnimeFlg = false;                 // 回避行動の管理(AnimationMovementへの移送用)
     private bool m_damageAnimeFlg = false;               // プレイヤー被ダメージ時の管理(AnimationMovementへの移送用)
     private bool m_blownAwayAnimeFlg = false;            // 吹っ飛ぶ攻撃を受けたときの管理(AnimationMovementへの移送用)
@@ -272,11 +271,10 @@ public class CharacterMovement : MonoBehaviour
             }
 
             // サブ攻撃。マウスの右クリックで爆弾を投げる。
-            if (Input.GetMouseButtonDown(1))
+            if (m_manager.Getm_bombThrowCheckFlg)
             {
                 if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
                 {
-                    m_subAttackAnimeFlg = true;
                     m_weaponAttackCoolTime = m_subAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;
                     m_subAttackMotionFlg = true;
@@ -581,12 +579,6 @@ public class CharacterMovement : MonoBehaviour
             m_attackAnimeFlg = false;
         }
 
-        // サブ攻撃モーションの重複防止
-        if (m_subAttackAnimeFlg)
-        {
-            m_subAttackAnimeFlg = false;
-        }
-
         // 2段攻撃モーションの重複防止
         if (m_secondSwordAttackAnimeFlg)
         {
@@ -717,10 +709,6 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_attackAnimeFlg
     {
         get { return m_attackAnimeFlg; }
-    }
-    public bool Getm_subAttackAnimeFlg
-    {
-        get { return m_subAttackAnimeFlg; }
     }
     public bool Getm_secondSwordAttackAnimeFlg
     {

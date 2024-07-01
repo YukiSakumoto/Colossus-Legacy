@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameEvent : Singleton<GameEvent>
 {
@@ -16,6 +17,8 @@ public class GameEvent : Singleton<GameEvent>
     public GameEventState m_nowEvent;
     private GameEventState m_changeEvent;
 
+    private Scene m_nowScene;
+
 
     void Start()
     {
@@ -25,23 +28,29 @@ public class GameEvent : Singleton<GameEvent>
 
     void Update()
     {
-        // イベント切り替えの処理
-        if (m_changeEvent != GameEventState.None && m_nowEvent != m_changeEvent)
-        {
-            // バトルイベントに切り替わったら
-            if (m_changeEvent == GameEventState.Battle)
-            {
-                GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Battle, 0.5f);
-            }
-            // ゴーレムを討伐したら
-            else if (m_changeEvent == GameEventState.PlayerWin)
-            {
-                GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Win, 1.5f);
-            }
+        // 現在のシーンを取得
+        m_nowScene = SceneManager.GetActiveScene();
 
-            // 現在のイベントを変更
-            m_nowEvent = m_changeEvent;
-            m_changeEvent = GameEventState.None;
+        if (IsScene("GameScene"))
+        {
+            // イベント切り替えの処理
+            if (m_changeEvent != GameEventState.None && m_nowEvent != m_changeEvent)
+            {
+                // バトルイベントに切り替わったら
+                if (m_changeEvent == GameEventState.Battle)
+                {
+                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Battle, 0.5f);
+                }
+                // ゴーレムを討伐したら
+                else if (m_changeEvent == GameEventState.PlayerWin)
+                {
+                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Win, 1.5f);
+                }
+
+                // 現在のイベントを変更
+                m_nowEvent = m_changeEvent;
+                m_changeEvent = GameEventState.None;
+            }
         }
     }
 
@@ -72,6 +81,15 @@ public class GameEvent : Singleton<GameEvent>
             if (m_changeEvent != _event) { return false; }
         }
 
+        return true;
+    }
+
+
+    // シーン管理
+    public bool IsScene(string _name)
+    {
+        // 現在のシーンを取得
+        if (m_nowScene != SceneManager.GetSceneByName(_name)) { return false; }
         return true;
     }
 }

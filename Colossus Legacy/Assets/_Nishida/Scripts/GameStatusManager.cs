@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStatusManager : MonoBehaviour
 {
-    [SerializeField] Golem m_golem;
-    [SerializeField] GameObject m_character;
-    [SerializeField] CharacterManager m_characterManager;
+    public static GameStatusManager Instance { get; private set; }
+
+    Golem m_golem;
+    CharacterManager m_characterManager;
 
     int m_golemDamage = 0;
     int m_characterDamage = 0;
@@ -44,21 +46,41 @@ public class GameStatusManager : MonoBehaviour
 
     void Start()
     {
-        if(!m_golem)
+        if (Instance == null)
         {
-            Debug.Log("GameStatusManager: golem is Null");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
 
-        if (!m_character)
-        {
-            Debug.Log("GameStatusManager: character is Null");
-        }
+        SceneReset();
+    }
 
-        if (!m_characterManager)
-        {
-            Debug.Log("GameStatusManager: characterManger is Null");
-        }
+    private void SceneReset()
+    {
+        GameObject golemObj = GameObject.Find("Golem");
+        GameObject characterObj = GameObject.Find("HumanMale_Character");
+        if (!golemObj || !characterObj) { return; }
 
+        m_golem = golemObj.GetComponent<Golem>();
+        m_characterManager = characterObj.GetComponent<CharacterManager>();
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneReset();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void Update()

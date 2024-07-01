@@ -1,30 +1,44 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerGameScene : MonoBehaviour
 {
-    [SerializeField] CharacterManager m_charaInfo;
-    [SerializeField] Fade m_fade;
+    public static GameManagerGameScene Instance { get; private set; }
+
+    CharacterManager m_charaInfo;
+    Fade m_fade;
     private bool fadeOutFlg;
 
     void Start()
     {
-        if(!m_charaInfo)
+        if (Instance == null)
         {
-            Debug.Log("GameManagerGameScene:manager is Null");
-        }
-
-        if (!m_fade)
-        {
-            Debug.Log("GameManagerGameScene:fade is Null");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            fadeOutFlg = false;
-            m_fade.StartCoroutine(m_fade.FadeIn());
+            Destroy(gameObject);
         }
+
+        SceneReset();
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneReset();
+    }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void Update()
@@ -34,5 +48,18 @@ public class GameManagerGameScene : MonoBehaviour
             m_fade.StartCoroutine(m_fade.FadeOut());
             fadeOutFlg = true;
         }
+    }
+
+    private void SceneReset()
+    {
+        fadeOutFlg = false;
+
+        GameObject characterObj = GameObject.Find("HumanMale_Character");
+        GameObject fadeObj = GameObject.Find("Canvas");
+
+        m_charaInfo = characterObj.GetComponent<CharacterManager>();
+        m_fade = fadeObj.GetComponent<Fade>();
+
+        m_fade.StartCoroutine(m_fade.FadeIn());
     }
 }

@@ -23,49 +23,51 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        // カメラの位置調整
-        if (target.position.z >= 28.0f)
+        if (GameEvent.Instance.IsScene("GameScene"))
         {
-            if (offset != nearOffset)
+            // カメラの位置調整
+            if (target.position.z >= 28.0f)
             {
-                offset = ChangeOffset(offset, nearOffset, ref time);
+                if (offset != nearOffset)
+                {
+                    offset = ChangeOffset(offset, nearOffset, ref time);
+                }
+                else { time = 0.0f; }
             }
-            else { time = 0.0f; }
-        }
-        else if (target.position.z >= -17.5f)
-        {
-            if (offset != farOffset)
+            else if (target.position.z >= -17.5f)
             {
-                offset = ChangeOffset(offset, farOffset, ref time);
+                if (offset != farOffset)
+                {
+                    offset = ChangeOffset(offset, farOffset, ref time);
+                }
             }
-        }
-        else if (target.position.z >= -48.0f)
-        {
-            if (offset != nearOffset)
+            else if (target.position.z >= -48.0f)
             {
-                offset = ChangeOffset(offset, nearOffset, ref time);
+                if (offset != nearOffset)
+                {
+                    offset = ChangeOffset(offset, nearOffset, ref time);
+                }
+                else { time = 0.0f; }
             }
-            else { time = 0.0f; }
-        }
-        else
-        {
-            if (offset != farOffset)
+            else
             {
-                offset = ChangeOffset(offset, farOffset, ref time);
+                if (offset != farOffset)
+                {
+                    offset = ChangeOffset(offset, farOffset, ref time);
+                }
+                else { time = 0.0f; }
             }
-            else { time = 0.0f; }
-        }
 
 
-        // ゴレーム戦スタート
-        if (target.position.z >= -30.0f)
-        {
-            if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.BattleBefore)
+            // ゴレーム戦スタート
+            if (target.position.z >= -30.0f)
             {
-                GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.Battle);
+                if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.BattleBefore)
+                {
+                    GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.Battle);
+                }
             }
         }
-
 
         // キャラクターの位置に対してオフセットを追加してカメラの位置を設定
         nowPos = target.position + offset;

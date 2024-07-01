@@ -12,7 +12,7 @@ public class Sword : MonoBehaviour
     [SerializeField] private MeshCollider m_meshCollider;
 
     [SerializeField] CharacterManager m_manager;
-    [SerializeField] GameStatusManager m_gameStatusManager;
+    private GameStatusManager m_gameStatusManager;
 
     private bool m_hitFlg = false;
     private bool m_deflectedFlg = false;
@@ -33,10 +33,7 @@ public class Sword : MonoBehaviour
             Debug.Log("Sword:manager is Null");
         }
 
-        if (!m_gameStatusManager)
-        {
-            Debug.Log("Sword:GameStatusManager is Null");
-        }
+        m_gameStatusManager = GameObject.FindWithTag("GameManager").GetComponent<GameStatusManager>();
     }
 
     private void Update()

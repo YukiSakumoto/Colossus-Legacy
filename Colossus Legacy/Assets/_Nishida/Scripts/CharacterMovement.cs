@@ -71,18 +71,18 @@ public class CharacterMovement : MonoBehaviour
     private const float m_swordSecondMoveSetTime = 0.1f;          // 2段攻撃したときの移動時間固定値
     private const float m_bowShotSetTime = 0.57f;                 // 弓攻撃を行うタイミング調節固定値
 
-    private float m_rollCoolTime = 0f;         // 回避行動の実行時間
-    private float m_rollStiffnessTime = 0f;    // 回避行動終了時の硬直時間
-    private float m_rollTiredDecrease = 0f;    // 回避行動の減速量設定
-    private float m_rollTiredDecreaseTime = 0f;// 回避行動の減速量回復時間
-    private float m_weaponAttackCoolTime = 0f; // 攻撃モーションから移動に移れるまでの時間
-    private float m_weaponChangeCoolTime = 0f; // 武器の種類を変える時のクールタイム
-    private float m_damageCoolTime = 0f;       // ダメージを受けた後の硬直時間
-    private float m_invincibilityTime = 0f;    // ダメージを受けた後の無敵時間
-    private float m_blownAwayStiffnessTime = 0f;// 吹っ飛ぶダメージを受けたときの硬直時間
-    private float m_swordMoveStiffnessTime = 0f;
-    private float m_swordMoveTime = 0f;
-    private float m_bowShotTime = 0f;          // 弓攻撃を行うタイミング調節
+    private float m_rollCoolTime = 0f;           // 回避行動の実行時間
+    private float m_rollStiffnessTime = 0f;      // 回避行動終了時の硬直時間
+    private float m_rollTiredDecrease = 0f;      // 回避行動の減速量設定
+    private float m_rollTiredDecreaseTime = 0f;  // 回避行動の減速量回復時間
+    private float m_weaponAttackCoolTime = 0f;   // 攻撃モーションから移動に移れるまでの時間
+    private float m_weaponChangeCoolTime = 0f;   // 武器の種類を変える時のクールタイム
+    private float m_damageCoolTime = 0f;         // ダメージを受けた後の硬直時間
+    private float m_invincibilityTime = 0f;      // ダメージを受けた後の無敵時間
+    private float m_blownAwayStiffnessTime = 0f; // 吹っ飛ぶダメージを受けたときの硬直時間
+    private float m_swordMoveStiffnessTime = 0f; // 剣を振って動くときの硬直時間
+    private float m_swordMoveTime = 0f;          // 剣を振って動く時間
+    private float m_bowShotTime = 0f;            // 弓攻撃を行うタイミング調節
 
     private bool m_walkAnimeFlg = false;                 // 移動しているかの判定(AnimationMovementへの移送用)
     private bool m_weaponFlg = false;                    // 現在剣と弓のどちらを使用しているか判定(AnimationMovementへの移送用)
@@ -90,8 +90,8 @@ public class CharacterMovement : MonoBehaviour
     private bool m_rollAnimeFlg = false;                 // 回避行動の管理(AnimationMovementへの移送用)
     private bool m_damageAnimeFlg = false;               // プレイヤー被ダメージ時の管理(AnimationMovementへの移送用)
     private bool m_blownAwayAnimeFlg = false;            // 吹っ飛ぶ攻撃を受けたときの管理(AnimationMovementへの移送用)
-    private bool m_downAnimeFlg = false;
-    private bool m_pushUpAnimeFlg = false;
+    private bool m_downAnimeFlg = false;                 // 潰される攻撃を受けたときの管理(AnimationMovementへの移送用)
+    private bool m_pushUpAnimeFlg = false;               // カチ上げ攻撃を受けたときの管理(AnimationMovementへの移送用)
     private bool m_deathFlg = false;                     // 死亡時の管理(AnimationMovementへの移送用)
     private bool m_secondSwordAttackAnimeFlg = false;    // 2段攻撃を行う際の管理(AnimationMovementへの移送用)
     private bool m_joyAnimeFlg = false;                  // 喜んで動かなくなる管理(AnimationMovementへの移送用)
@@ -308,13 +308,16 @@ public class CharacterMovement : MonoBehaviour
                     }
                 }
             }
-
+        }
+        else
+        {
+            m_walkAnimeFlg = false;
         }
         // デバッグ。Yキーを押すたびに回復
-        if(Input.GetKey(KeyCode.Y)) 
-        {
-            Cure((int)Recovery.small);
-        }
+        //if(Input.GetKey(KeyCode.Y)) 
+        //{
+        //    Cure((int)Recovery.small);
+        //}
 
         // 時間経過で発生したりフラグを変更する処理
         TimeProcessing();
@@ -527,19 +530,26 @@ public class CharacterMovement : MonoBehaviour
         // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
         if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
         {
-            // 触れたオブジェクトのTransformを取得
-            Transform targetTransform = _other.transform;
-
-            // オブジェクトが存在するかを確認
-            if (targetTransform != null)
+            if (_other.CompareTag("TreasureOpen"))
             {
-                // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
-                m_KnockBackVec = transform.position - targetTransform.position;
+                Setm_joyFlg();
             }
             else
             {
-                // オブジェクトが無い
-                Debug.Log("当たったオブジェクトが無い。");
+                // 触れたオブジェクトのTransformを取得
+                Transform targetTransform = _other.transform;
+
+                // オブジェクトが存在するかを確認
+                if (targetTransform != null)
+                {
+                    // 攻撃を行ったオブジェクトの位置から攻撃を受けたオブジェクトの位置を引いて、攻撃を受けた方向のベクトルを計算
+                    m_KnockBackVec = transform.position - targetTransform.position;
+                }
+                else
+                {
+                    // オブジェクトが無い
+                    Debug.Log("当たったオブジェクトが無い。");
+                }
             }
         }
     }
@@ -743,6 +753,11 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_secondSwordAttackFlg
     {
         get { return m_secondSwordAttackFlg; }
+    }
+
+    public bool Getm_joyFlg
+    {
+        get { return m_joyFlg; }
     }
 
     public bool Getm_joyAnimeFlg

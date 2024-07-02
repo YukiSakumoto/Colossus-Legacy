@@ -5628,25 +5628,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1475340053}
     m_Modifications:
-    - target: {fileID: 2160205876049313977, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2263584498705815187, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4332128285959239260, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6750864680929313740, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_Name
       value: Ruins Map_Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 8205262029550538436, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8307543567755553536, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_LocalPosition.x

@@ -78,6 +78,7 @@ public class ThrowBomb : MonoBehaviour
         //    m_gameStatusManager.DamagePlayerPushUP();
         //    Debug.Log("ÉJÉ`è„Ç∞çUåÇ");
         //}
+        m_bombThrowCheckFlg = false;
 
         cnt -= Time.deltaTime;
         if (cnt <= 0) { cnt = 0; }
@@ -206,7 +207,7 @@ public class ThrowBomb : MonoBehaviour
 
     private void LateUpdate()
     {
-        m_bombThrowCheckFlg = false;
+        
     }
 
     public bool Getm_bombThrowCheckFlg

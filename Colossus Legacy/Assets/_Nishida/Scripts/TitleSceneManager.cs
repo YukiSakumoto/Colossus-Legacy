@@ -25,6 +25,16 @@ public class TitleSceneManager : MonoBehaviour
     private bool m_optionManuFlg = false; // オプションメニューを開いているかの管理
     private bool m_optionManuCheckFlg = false; // オプションメニューを開いたことがあるかの管理
 
+
+    // 追加 : 佐久本
+    // Credit表記
+    [SerializeField] private GameObject m_creditButtonObj;
+    [SerializeField] private GameObject m_creditManuObj;
+    [SerializeField] private GameObject m_creditExitButtonObj;
+    [SerializeField] private Canvas m_creditCanvas;
+    OptionButtonManager m_creditButtonManagerClass;
+    OptionManuExitButtonManager m_creditManuExitButtonManagerClass;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +65,15 @@ public class TitleSceneManager : MonoBehaviour
             m_exitButtonManagerClass = m_exitButtonObj.GetComponent<ExitButtonManager>();
         }
 
+        if (!m_creditButtonObj)
+        {
+            Debug.Log("CreditButton Null");
+        }
+        else
+        {
+            m_creditButtonManagerClass = m_creditButtonObj.GetComponent<OptionButtonManager>();
+        }
+
         if (!m_optionManuObj)
         {
             Debug.Log("OptionManu Null");
@@ -66,6 +85,17 @@ public class TitleSceneManager : MonoBehaviour
             m_optionManuCanvas.gameObject.SetActive(false);
         }
 
+        if (!m_creditManuObj)
+        {
+            Debug.Log("creditManu Null");
+        }
+        else
+        {
+            //m_optionManuCanvas = m_optionManuObj.GetComponent<Canvas>();
+            //m_optionManuManagerClass = m_optionManuObj.GetComponent<OptionManuManager>();
+            m_creditCanvas.gameObject.SetActive(false);
+        }
+
         if (!m_optionManuExitButtonObj)
         {
             Debug.Log("ManuExitTexture is Null");
@@ -73,6 +103,15 @@ public class TitleSceneManager : MonoBehaviour
         else
         {
             m_optionManuExitButtonManagerClass = m_optionManuExitButtonObj.GetComponent<OptionManuExitButtonManager>();
+        }
+
+        if (!m_creditExitButtonObj)
+        {
+            Debug.Log("CreditExitTexture is Null");
+        }
+        else
+        {
+            m_creditManuExitButtonManagerClass = m_creditExitButtonObj.GetComponent<OptionManuExitButtonManager>();
         }
     }
 
@@ -100,6 +139,13 @@ public class TitleSceneManager : MonoBehaviour
             m_optionManuCheckFlg = true;
         }
 
+        if (m_creditButtonManagerClass.Getm_optionFlg) // Optionボタンが押されたらオプションメニューを開く
+        {
+            Debug.Log("Creditボタンが押されわ");
+            m_creditButtonManagerClass.Setm_optionFlg();
+            m_creditCanvas.gameObject.SetActive(true);
+        }
+
         if (m_exitButtonManagerClass.Getm_exitFlg) // Exitボタンが押されたらゲームを終了する
         {
             // ゲーム終了
@@ -119,6 +165,13 @@ public class TitleSceneManager : MonoBehaviour
             m_optionManuExitButtonManagerClass.Setm_exitFlg();
             m_optionManuCanvas.gameObject.SetActive(false);
             m_optionManuFlg = false;
+        }
+
+        //add: 追加
+        if (m_creditManuExitButtonManagerClass.Getm_exitFlg)
+        {
+            m_creditManuExitButtonManagerClass.Setm_exitFlg();
+            m_creditCanvas.gameObject.SetActive(false);
         }
     }
 

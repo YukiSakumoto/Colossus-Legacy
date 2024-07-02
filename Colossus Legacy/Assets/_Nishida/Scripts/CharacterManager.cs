@@ -21,7 +21,6 @@ public class CharacterManager : MonoBehaviour
     private bool m_moveRollAnimeFlg = false;
     private bool m_moveWeaponFlg = false;
     private bool m_moveAttackAnimeFlg = false;
-    private bool m_moveSubAttackAnimeFlg = false;
     private bool m_moveSecondSwordAttackAnimeFlg = false;
     private bool m_moveDamageAnimeFlg = false;
     private bool m_moveBlownAwayAnimeFlg = false;
@@ -30,9 +29,11 @@ public class CharacterManager : MonoBehaviour
     private bool m_moveDeathFlg = false;
     private bool m_moveSwordMoveFlg = false;
     private bool m_moveSecondSwordAttackFlg = false;
+    private bool m_moveJoyFlg = false;
     private bool m_moveJoyAnimeFlg = false;
     private bool m_swordHitFlg = false;
     private bool m_swordDeflectedFlg = false;
+    private bool m_bombThrowCheckFlg = false;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +96,7 @@ public class CharacterManager : MonoBehaviour
     {
         CharacterMovementFlgSet();
         SwordFlgSet();
+        ThrowBombFlgSet();
     }
 
     private void CharacterMovementFlgSet()
@@ -103,7 +105,6 @@ public class CharacterManager : MonoBehaviour
         m_moveRollAnimeFlg = m_movement.Getm_rollAnimeFlg;
         m_moveWeaponFlg = m_movement.Getm_weaponFlg;
         m_moveAttackAnimeFlg = m_movement.Getm_attackAnimeFlg;
-        m_moveSubAttackAnimeFlg = m_movement.Getm_subAttackAnimeFlg;
         m_moveSecondSwordAttackAnimeFlg = m_movement.Getm_secondSwordAttackAnimeFlg;
         m_moveDamageAnimeFlg = m_movement.Getm_damageAnimeFlg;
         m_moveBlownAwayAnimeFlg = m_movement.Getm_blownAwayAnimeFlg;
@@ -112,6 +113,7 @@ public class CharacterManager : MonoBehaviour
         m_moveDeathFlg = m_movement.Getm_deathFlg;
         m_moveSwordMoveFlg = m_movement.Getm_swordMoveFlg;
         m_moveSecondSwordAttackFlg = m_movement.Getm_secondSwordAttackFlg;
+        m_moveJoyFlg = m_movement.Getm_joyFlg;
         m_moveJoyAnimeFlg = m_movement.Getm_joyAnimeFlg;
     }
 
@@ -119,6 +121,11 @@ public class CharacterManager : MonoBehaviour
     {
         m_swordHitFlg = m_sword.Getm_hitFlg;
         m_swordDeflectedFlg = m_sword.Getm_deflectedFlg;
+    }
+
+    private void ThrowBombFlgSet()
+    {
+        m_bombThrowCheckFlg = m_throwBomb.Getm_bombThrowCheckFlg;
     }
 
     public void SetHit(int _damage, bool _knockBack, bool _down, bool _pushup)
@@ -141,10 +148,6 @@ public class CharacterManager : MonoBehaviour
     public bool Getm_attackAnimeFlg
     {
         get { return m_moveAttackAnimeFlg; }
-    }
-    public bool Getm_subAttackAnimeFlg
-    {
-        get { return m_moveSubAttackAnimeFlg; }
     }
     public bool Getm_secondSwordAttackAnimeFlg
     {
@@ -181,6 +184,11 @@ public class CharacterManager : MonoBehaviour
         get { return m_moveSecondSwordAttackFlg; }
     }
 
+    public bool Getm_joyFlg
+    {
+        get { return m_moveJoyFlg; }
+    }
+
     public bool Getm_joyAnimeFlg
     {
         get { return m_moveJoyAnimeFlg; }
@@ -194,5 +202,9 @@ public class CharacterManager : MonoBehaviour
     public bool Getm_deflectedFlg
     {
         get { return m_swordDeflectedFlg; }
+    }
+    public bool Getm_bombThrowCheckFlg
+    {
+        get { return m_bombThrowCheckFlg; }
     }
 }

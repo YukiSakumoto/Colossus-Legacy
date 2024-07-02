@@ -5679,6 +5679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b05b1c13e22ab4458a1bc7b67977835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_chargeImage: {fileID: 0}
   m_bombPrefab: {fileID: 5579394341268801993, guid: a5d507c274734f24b9d8cd7d8dd2e452, type: 3}
   m_bombHeight: 9
   m_speed: 300

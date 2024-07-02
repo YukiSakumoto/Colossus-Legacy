@@ -15,6 +15,7 @@ TagManager:
   - BoxFragment
   - GameManager
   - TreasureOpen
+  - Cave
   layers:
   - Default
   - TransparentFX

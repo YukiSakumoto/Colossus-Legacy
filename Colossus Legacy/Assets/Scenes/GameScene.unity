@@ -1817,6 +1817,63 @@ MonoBehaviour:
   m_damageKnockBackEnd: {fileID: 1498857658}
   m_deflected: {fileID: 1498857657}
   m_subExplosion: {fileID: 280906629}
+--- !u!1001 &899551809
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5862852921254589157, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_Name
+      value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 52.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352312820998941983, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 520f0a0b6b0b7d54cbee99682a397053, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,6 +2008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2025905942}
+  offset: {x: 0, y: 0, z: 0}
   prevRaycast: []
   raycastHitsList_: []
 --- !u!1 &1096992248
@@ -2352,100 +2410,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338206682}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1364044452
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1364044454}
-  - component: {fileID: 1364044453}
-  m_Layer: 0
-  m_Name: Point Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &1364044453
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364044452}
-  m_Enabled: 1
-  serializedVersion: 10
-  m_Type: 2
-  m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 80
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!4 &1364044454
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364044452}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.2, y: 14.79, z: -2.12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384393183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1405121687706938093, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
@@ -4114,6 +4078,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1475340053}
     m_Modifications:
+    - target: {fileID: 40931534759471698, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 174040210815328473, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 233412631201863042, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 259045715327996075, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 456089354932103940, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 590559997329519556, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 610702511918047367, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061890099743285713, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1193810905127893431, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368231937564436012, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457440506500671354, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533183584342667601, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013502160260584867, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
     - target: {fileID: 2219791986628857162, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -124.875854
@@ -4154,8 +4170,100 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3336602692600077540, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3401016288208915151, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3606686903990393625, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4043793442151521095, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4243880756684116428, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645556576296276928, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4841848353728689826, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5097341190487741078, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144130551643334325, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
     - target: {fileID: 5818657465628996110, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
       propertyPath: m_Name
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864545799177442102, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6112434174705395259, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315802102364410464, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374689451352755721, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6823590677795573599, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6958360305900471763, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7261600860060972225, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521763121700052211, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913418964757015038, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7973511456319806885, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349778651277082763, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927782110582213757, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991793851090594056, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013883636341644587, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
+      propertyPath: m_TagString
       value: Cave
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4443,9 +4551,185 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1475340053}
     m_Modifications:
+    - target: {fileID: 155786367291672751, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 690497187266973046, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 856796042722283870, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1194377675652889742, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205532312280498412, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 1360604131557085801, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2026343042632375902, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2395290868667083387, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2531524295809029941, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744459453866222615, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 2758815488320360008, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3431810912726403618, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3703012929417024369, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861027353334364559, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3863501184254585554, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980224029427063293, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047373664518951026, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4131764839417186301, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150038294959296006, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4388393251339656981, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072908638341704886, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201970652106846517, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209332872727235501, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481252601099709778, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5503342460482667783, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569917426084254164, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723463349259816776, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942455777878372956, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958127008320156053, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962365689080856130, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074494587408896809, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104799529812577332, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178816011054127013, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258190828818476654, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498176689668737451, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
     - target: {fileID: 6750864680929313740, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_Name
       value: Ruins Map_Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6814806783192426115, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017493965476761470, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7130808221068867554, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246110232841808981, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7574621874371920497, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578398384987982108, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773692541153815009, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798501695255606416, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8219139644546532544, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
       objectReference: {fileID: 0}
     - target: {fileID: 8307543567755553536, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4486,6 +4770,30 @@ PrefabInstance:
     - target: {fileID: 8307543567755553536, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459567730642340019, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8626780866403111020, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8752795936205917921, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148434347967854897, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157169594327730157, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
+      objectReference: {fileID: 0}
+    - target: {fileID: 9221207482447523416, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+      propertyPath: m_TagString
+      value: Cave
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4601,5 +4909,5 @@ SceneRoots:
   - {fileID: 801781024}
   - {fileID: 1955129791}
   - {fileID: 1679584704}
-  - {fileID: 1364044454}
   - {fileID: 295124932}
+  - {fileID: 899551809}

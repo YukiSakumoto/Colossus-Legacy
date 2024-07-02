@@ -273,7 +273,7 @@ public class CharacterMovement : MonoBehaviour
             // サブ攻撃。マウスの右クリックで爆弾を投げる。
             if (m_manager.Getm_bombThrowCheckFlg)
             {
-                if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
+                if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg)
                 {
                     m_weaponAttackCoolTime = m_subAttackCoolSetTime;
                     m_weaponAttackCoolTimeCheckFlg = true;

@@ -27,8 +27,8 @@ TagManager:
   - Fragment
   - Terrain
   - PostProcessing
-  - 
-  - 
+  - IgnorePlayer
+  - Player
   - 
   - 
   - 

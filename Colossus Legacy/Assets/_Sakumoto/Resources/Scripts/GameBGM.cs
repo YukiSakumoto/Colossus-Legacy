@@ -22,7 +22,7 @@ public class GameBGM : Singleton<GameBGM>
         Battle,
         Win
     }
-    private BGMState m_nowState = BGMState.Before;
+    private BGMState m_nowState = BGMState.None;
     private BGMState m_nextState = BGMState.None;
 
 

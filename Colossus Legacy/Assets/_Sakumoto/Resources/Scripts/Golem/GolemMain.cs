@@ -8,8 +8,6 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
 {
-    //~GolemMain() { Reset(); }
-
     [SerializeField] private GameObject m_armors;
     private Dissolve m_armorDissolves;
     private SkinMesh m_armorSkinMesh;
@@ -76,7 +74,9 @@ public class GolemMain : Golem
         attackManager = GetComponent<AttackManager>();
 
         // エフェクトを取得する。
+        m_effectHandle.Stop();
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
+        Debug.Log("エフェクトストップ");
 
         m_initVec = m_forward;
         m_initRot.eulerAngles = m_initVec;
@@ -210,6 +210,9 @@ public class GolemMain : Golem
             else
             {
                 if (m_stop) return;
+
+                m_nowAttackName = "BigLaser";
+
                 BigLaserEffect();
                 m_sound.PlayLaserCharge();
                 Invoke("LaserShotSound", 2.0f);
@@ -220,12 +223,6 @@ public class GolemMain : Golem
                 m_isLaser = true;
             }
         }
-    }
-
-
-    private void Reset()
-    {
-        //m_effectHandle.Stop();
     }
 
 

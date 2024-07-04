@@ -61,5 +61,7 @@ public class GameManagerGameScene : MonoBehaviour
         m_fade = fadeObj.GetComponent<Fade>();
 
         m_fade.StartCoroutine(m_fade.FadeIn());
+
+        GameEvent.Instance.Reset();
     }
 }

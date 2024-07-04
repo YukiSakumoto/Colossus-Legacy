@@ -29,6 +29,7 @@ public class CharacterManager : MonoBehaviour
     private bool m_moveDeathFlg = false;
     private bool m_moveSwordMoveFlg = false;
     private bool m_moveSecondSwordAttackFlg = false;
+    private bool m_moveJoyFlg = false;
     private bool m_moveJoyAnimeFlg = false;
     private bool m_swordHitFlg = false;
     private bool m_swordDeflectedFlg = false;
@@ -112,6 +113,7 @@ public class CharacterManager : MonoBehaviour
         m_moveDeathFlg = m_movement.Getm_deathFlg;
         m_moveSwordMoveFlg = m_movement.Getm_swordMoveFlg;
         m_moveSecondSwordAttackFlg = m_movement.Getm_secondSwordAttackFlg;
+        m_moveJoyFlg = m_movement.Getm_joyFlg;
         m_moveJoyAnimeFlg = m_movement.Getm_joyAnimeFlg;
     }
 
@@ -180,6 +182,11 @@ public class CharacterManager : MonoBehaviour
     public bool Getm_secondSwordAttackFlg
     {
         get { return m_moveSecondSwordAttackFlg; }
+    }
+
+    public bool Getm_joyFlg
+    {
+        get { return m_moveJoyFlg; }
     }
 
     public bool Getm_joyAnimeFlg

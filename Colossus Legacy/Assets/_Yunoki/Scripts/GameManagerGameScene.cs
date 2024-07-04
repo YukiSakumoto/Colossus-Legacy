@@ -25,7 +25,7 @@ public class GameManagerGameScene : MonoBehaviour
             Destroy(gameObject);
         }
 
-        SceneReset();
+        //SceneReset();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

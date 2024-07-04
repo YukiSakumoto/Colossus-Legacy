@@ -56,17 +56,30 @@ public class GameStatusManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        SceneReset();
+        //SceneReset();
     }
 
     private void SceneReset()
     {
-        GameObject golemObj = GameObject.Find("Golem");
-        GameObject characterObj = GameObject.Find("HumanMale_Character");
-        if (!golemObj || !characterObj) { return; }
+        // 現在のシーンを取得
+        Scene currentScene = SceneManager.GetActiveScene();
 
-        m_golem = golemObj.GetComponent<Golem>();
-        m_characterManager = characterObj.GetComponent<CharacterManager>();
+        // シーンの名前を取得
+        string sceneName = currentScene.name;
+
+        if (sceneName == "GameScene" || sceneName == "Training Scene")
+        {
+            GameObject characterObj = GameObject.Find("HumanMale_Character");
+            if (!characterObj) { return; }
+            m_characterManager = characterObj.GetComponent<CharacterManager>();
+
+            if (sceneName == "GameScene")
+            {
+                GameObject golemObj = GameObject.Find("Golem");
+                if (!golemObj) { return; }
+                m_golem = golemObj.GetComponent<Golem>();
+            }
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

@@ -37,7 +37,7 @@ public class GameBGM : Singleton<GameBGM>
 
     void Start()
     {
-        m_BGM = GetComponent<AudioSource>();
+        if (!m_BGM) { Debug.LogError("BGM ñ¢ê›íË"); }
         m_BGM.volume = 0.0f;
     }
 

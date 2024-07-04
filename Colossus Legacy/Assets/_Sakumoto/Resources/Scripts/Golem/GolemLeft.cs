@@ -9,15 +9,20 @@ using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Timeline;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemLeft : Golem
 {
     public int m_nowAttackId = -1;
     private int m_nextAttackId = -1;
 
-    public GameObject m_hand;
+    // 突き上げ攻撃用
+    [SerializeField] private GameObject m_hand;
     private GameObject m_instantiateObj;
     private float m_protrusionNowTime = 0.0f;
+    [SerializeField] private GameObject m_attackArea;
+    private GameObject m_attackAreaIns;
+    bool m_handColEnable = true;
 
     private Vector3 _forward = Vector3.forward;
 
@@ -79,13 +84,22 @@ public class GolemLeft : Golem
         if (m_instantiateObj)
         {
             m_protrusionNowTime += Time.deltaTime;
-            if (m_protrusionNowTime <= 0.17f + 0.5f && m_protrusionNowTime >= 0.5f)
+            if (m_protrusionNowTime <= 0.17f)
             {
                 Vector3 pos = m_instantiateObj.transform.position;
                 pos.y += 35.0f * Time.deltaTime;
                 m_instantiateObj.transform.position = pos;
             }
-            else if (m_protrusionNowTime >= 0.83f + 0.5f)
+            else if (m_protrusionNowTime > 0.17f && m_protrusionNowTime < 0.83f)
+            {
+                if (m_handColEnable)
+                {
+                    Collider collider = m_instantiateObj.GetComponentInChildren<Collider>();
+                    collider.enabled = false;
+                    m_handColEnable = false;
+                }
+            }
+            else
             {
                 Vector3 pos = m_instantiateObj.transform.position;
                 pos.y -= 35.0f * Time.deltaTime;
@@ -129,17 +143,38 @@ public class GolemLeft : Golem
     }
 
 
+    private void AttackAreaHandOn()
+    {
+        Vector3 targetPos = m_target.transform.position;
+        targetPos.y -= 4.0f;
+
+        Quaternion rot = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+        m_attackAreaIns = Instantiate(m_attackArea, targetPos, rot, this.transform);
+
+        m_handColEnable = true;
+    }
+
+
     private void ProtrusionActionOn()
     {
         m_protrusionNowTime = 0.0f;
 
-        Vector3 targetPos = m_target.transform.position;
-        targetPos.y -= 7.0f;
+        Vector3 targetPos;
+        if (m_attackAreaIns)
+        {
+            targetPos = m_attackAreaIns.transform.position;
+            targetPos.y -= 3.0f;
+        }
+        else
+        {
+            targetPos = m_target.transform.position;
+            targetPos.y -= 7.0f;
+        }
 
         Quaternion rot = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 
         if (!m_hand) { Debug.Log("ハンドがないよ"); return; }
-        m_instantiateObj = Instantiate(m_hand, targetPos, rot, this.transform);
+        m_instantiateObj = Instantiate(m_hand, targetPos - new Vector3(0.0f, 0.0f, 0.6f), rot, this.transform);
     }
 
 
@@ -147,6 +182,7 @@ public class GolemLeft : Golem
     {
         if (!m_instantiateObj) { Debug.Log("ハンドがないよ"); return; }
         Destroy(m_instantiateObj);
+        Destroy(m_attackAreaIns);
     }
 
 

@@ -24,6 +24,8 @@ public class GameEvent : Singleton<GameEvent>
     {
         m_nowEvent = GameEventState.BattleBefore;
         m_changeEvent = GameEventState.None;
+
+        GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Before, 1.0f);
     }
 
     void Update()
@@ -45,6 +47,11 @@ public class GameEvent : Singleton<GameEvent>
                 else if (m_changeEvent == GameEventState.PlayerWin)
                 {
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Win, 1.5f);
+                }
+
+                else if (m_changeEvent == GameEventState.PlayerDead)
+                {
+                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 1.0f);
                 }
 
                 // 現在のイベントを変更
@@ -91,5 +98,12 @@ public class GameEvent : Singleton<GameEvent>
         // 現在のシーンを取得
         if (m_nowScene != SceneManager.GetSceneByName(_name)) { return false; }
         return true;
+    }
+
+
+    // リセット
+    public void Reset()
+    {
+        Start();
     }
 }

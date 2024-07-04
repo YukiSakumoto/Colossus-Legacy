@@ -35,6 +35,7 @@ public class Golem : MonoBehaviour
     private GolemLeft m_golemLeft;      // 左腕
     private GolemRight m_golemRight;    // 右腕
     private GolemMain m_golemMain;      // 本体
+    protected string m_nowAttackName = "";   // 各パーツの現在の攻撃名
 
     // ターゲットへの角度・距離指定用
     [SerializeField] protected GameObject m_myself;     // 自分
@@ -94,9 +95,9 @@ public class Golem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1)) { DamageAction(50); m_golemLeft.m_alive = false; }
-        if (Input.GetKeyDown(KeyCode.F2)) { DamageAction(50); m_golemRight.m_alive = false; }
-        if (Input.GetKeyDown(KeyCode.F3)) { DamageAction(50); m_golemMain.m_alive = false; }
+        if (Input.GetKeyDown(KeyCode.F1)) { DamageAction(50); m_golemLeft.m_alive = false; m_golemRight.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
+        if (Input.GetKeyDown(KeyCode.F2)) { DamageAction(50); m_golemRight.m_alive = false; m_golemLeft.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
+        if (Input.GetKeyDown(KeyCode.F3)) { DamageAction(50); m_golemMain.m_alive = false; m_golemRight.m_alive = false; m_golemMain.m_alive = false; }
 
         // HP 減少処理
         HpDown();
@@ -338,7 +339,7 @@ public class Golem : MonoBehaviour
     }
 
 
-    public int AttackSet(float _dist, int _id = -1)
+    protected int AttackSet(float _dist, int _id = -1)
     {
         int resultId = -1;
 
@@ -474,5 +475,11 @@ public class Golem : MonoBehaviour
     protected void CameraQuakingLong()
     {
         m_camera.StartShake(1.0f, 0.75f, 10.0f);
+    }
+
+
+    public string GetNowAttackName()
+    {
+        return m_nowAttackName;
     }
 }

@@ -516,6 +516,7 @@ public class CharacterMovement : MonoBehaviour
             else // ‘Ì—Í‚ª0ˆÈ‰º‚É‚È‚Á‚½ê‡‚É€–S‚µ‚Ä“®‚«‚à~‚ß‚é
             {
                 m_deathFlg = true;
+                GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.PlayerDead);
                 Debug.Log("ålŒö€–S");
             }
         }

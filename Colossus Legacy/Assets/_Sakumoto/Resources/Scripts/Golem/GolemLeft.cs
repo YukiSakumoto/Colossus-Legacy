@@ -75,6 +75,7 @@ public class GolemLeft : Golem
 
         SmoothAngleChanger(m_targetRot, m_nowRot);
 
+        // 拳の生成
         if (m_instantiateObj)
         {
             m_protrusionNowTime += Time.deltaTime;
@@ -92,9 +93,14 @@ public class GolemLeft : Golem
             }
         }
 
+        // 停止中 or ダメージ中ならリターン
         if (m_stop || m_damageFlg) { return; }
 
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
+        if (m_nowAttackId != -1)
+        {
+            m_nowAttackName = attackManager.GetAttackName(); 
+        }
 
         if (m_nowAttackId == m_nextAttackId)
         {

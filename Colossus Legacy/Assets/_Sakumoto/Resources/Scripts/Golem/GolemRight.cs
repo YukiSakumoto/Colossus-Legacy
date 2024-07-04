@@ -97,6 +97,10 @@ public class GolemRight : Golem
         if (m_stop || m_damageFlg) { return; }
 
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
+        if (m_nowAttackId != -1)
+        {
+            m_nowAttackName = attackManager.GetAttackName();
+        }
 
         if (m_nowAttackId == m_nextAttackId)
         {

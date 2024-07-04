@@ -16,6 +16,8 @@ TagManager:
   - GameManager
   - TreasureOpen
   - Cave
+  - KeyDown
+  - KeyUp
   layers:
   - Default
   - TransparentFX

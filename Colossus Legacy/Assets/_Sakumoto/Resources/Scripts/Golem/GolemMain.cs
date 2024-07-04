@@ -76,7 +76,6 @@ public class GolemMain : Golem
         // エフェクトを取得する。
         m_effectHandle.Stop();
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
-        Debug.Log("エフェクトストップ");
 
         m_initVec = m_forward;
         m_initRot.eulerAngles = m_initVec;

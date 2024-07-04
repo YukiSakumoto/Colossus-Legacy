@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameEvent : Singleton<GameEvent>
+public class GameEvent : MonoBehaviour
 {
+    public static GameEvent Instance { get; private set; }
+
     public enum GameEventState
     {
         None,
@@ -22,10 +24,17 @@ public class GameEvent : Singleton<GameEvent>
 
     void Start()
     {
-        m_nowEvent = GameEventState.BattleBefore;
-        m_changeEvent = GameEventState.None;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
-        GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Before, 1.0f);
+        Reset();
     }
 
     void Update()
@@ -104,6 +113,13 @@ public class GameEvent : Singleton<GameEvent>
     // ƒŠƒZƒbƒg
     public void Reset()
     {
-        Start();
+        m_nowScene = SceneManager.GetActiveScene();
+        m_nowEvent = GameEventState.BattleBefore;
+        m_changeEvent = GameEventState.None;
+
+        if (IsScene("GameScene"))
+        {
+            GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Before);
+        }
     }
 }

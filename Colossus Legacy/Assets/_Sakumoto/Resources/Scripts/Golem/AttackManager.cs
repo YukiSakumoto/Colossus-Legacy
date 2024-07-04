@@ -264,4 +264,14 @@ public class AttackManager : MonoBehaviour
             return m_coolDown;
         }
     }
+
+
+    public string GetAttackName()
+    {
+        if (m_nowId != -1)
+        {
+            return m_attackLists[SearchAttackId(m_nowId)].m_name;
+        }
+        return "";
+    }
 }

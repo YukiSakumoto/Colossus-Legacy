@@ -74,7 +74,6 @@ public class GolemMain : Golem
         attackManager = GetComponent<AttackManager>();
 
         // エフェクトを取得する。
-        m_effectHandle.Stop();
         m_effect = Resources.Load<EffekseerEffectAsset>("BigLaser");
 
         m_initVec = m_forward;
@@ -272,4 +271,9 @@ public class GolemMain : Golem
         m_camera.StartShake(10.0f, 1.0f, 30.0f);
     }
 
+
+    private void OnDestroy()
+    {
+        m_effectHandle.Stop();
+    }
 }

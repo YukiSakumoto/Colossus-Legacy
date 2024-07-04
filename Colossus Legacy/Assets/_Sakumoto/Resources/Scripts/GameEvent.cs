@@ -47,8 +47,13 @@ public class GameEvent : MonoBehaviour
             // イベント切り替えの処理
             if (m_changeEvent != GameEventState.None && m_nowEvent != m_changeEvent)
             {
+                // ゴーレム戦の前なら
+                if (m_changeEvent == GameEventState.BattleBefore)
+                {
+                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Before);
+                }
                 // バトルイベントに切り替わったら
-                if (m_changeEvent == GameEventState.Battle)
+                else if (m_changeEvent == GameEventState.Battle)
                 {
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Battle, 0.5f);
                 }
@@ -57,7 +62,7 @@ public class GameEvent : MonoBehaviour
                 {
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Win, 1.5f);
                 }
-
+                // プレイヤーが死亡したら
                 else if (m_changeEvent == GameEventState.PlayerDead)
                 {
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 1.0f);
@@ -114,7 +119,7 @@ public class GameEvent : MonoBehaviour
     public void Reset()
     {
         m_nowScene = SceneManager.GetActiveScene();
-        m_nowEvent = GameEventState.BattleBefore;
+        m_nowEvent = GameEventState.None;
         m_changeEvent = GameEventState.None;
 
         if (IsScene("GameScene"))

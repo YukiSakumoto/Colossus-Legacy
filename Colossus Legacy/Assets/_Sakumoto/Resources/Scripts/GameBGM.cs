@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameBGM : Singleton<GameBGM>
 {
-    [SerializeField] private AudioSource m_BGM;
+    private AudioSource m_BGM;
 
     [SerializeField] private AudioClip m_beforeBGM;
     [SerializeField] private AudioClip m_battleBGM;
@@ -22,7 +22,7 @@ public class GameBGM : Singleton<GameBGM>
         Battle,
         Win
     }
-    private BGMState m_nowState = BGMState.None;
+    [SerializeField] private BGMState m_nowState = BGMState.None;
     private BGMState m_nextState = BGMState.None;
 
 
@@ -37,7 +37,7 @@ public class GameBGM : Singleton<GameBGM>
 
     void Start()
     {
-        if (!m_BGM) { Debug.LogError("BGM ñ¢ê›íË"); }
+        m_BGM = GetComponent<AudioSource>();
         m_BGM.volume = 0.0f;
     }
 
@@ -99,7 +99,7 @@ public class GameBGM : Singleton<GameBGM>
 
     public void ChangeBGMState(BGMState _state, float _fadeTime = 1.0f)
     {
-        if (m_nowState == _state && m_nextState == _state) { return; }
+        if (m_nowState == _state || m_nextState == _state) { return; }
 
         m_nextState = _state;
         m_fadeTime = _fadeTime;

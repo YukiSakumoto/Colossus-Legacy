@@ -50,7 +50,7 @@ public class Golem : MonoBehaviour
 
     // HP 処理
     [SerializeField] private int m_maxHp = 100;     // 最大体力
-    [SerializeField] private int m_hp;                               // 現在の体力
+    [SerializeField] private int m_hp;              // 現在の体力
     [SerializeField] private Image m_hpGage;        // HPUI
     private float m_damageRatio = 1.0f;             // ダメージの減少値
 
@@ -79,6 +79,8 @@ public class Golem : MonoBehaviour
 
     void Start()
     {
+        GameEvent.Instance.Reset();
+
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
 

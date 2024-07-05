@@ -1482,7 +1482,7 @@ GameObject:
   - component: {fileID: 473748216}
   m_Layer: 0
   m_Name: ManuExitTexture
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3095,7 +3095,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 5a7f2d91be10ede4fb9134141f9ccc20, type: 3}
+      - m_Target: {fileID: 11500000, guid: 8fda544260b356f4b9f51a08601f5e99, type: 3}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
@@ -3316,6 +3316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470233664}
+  - component: {fileID: 1470233665}
   m_Layer: 0
   m_Name: SE
   m_TagString: Untagged
@@ -3340,6 +3341,21 @@ Transform:
   - {fileID: 1328404297}
   m_Father: {fileID: 874988473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470233665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470233663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fda544260b356f4b9f51a08601f5e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_buttonTag: Button
+  m_point: {fileID: 1328404298}
+  m_click: {fileID: 39668108}
 --- !u!1 &1477817709
 GameObject:
   m_ObjectHideFlags: 0

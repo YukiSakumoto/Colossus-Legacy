@@ -9,7 +9,7 @@ public class TitleButtonSE : MonoBehaviour
     [SerializeField] string m_buttonTag = "Button";
     [SerializeField] AudioSource m_point;
     [SerializeField] AudioSource m_click;
-    Slider m_sliderValue;
+    [SerializeField] Slider m_sliderValue;
     TitleSceneManager m_titleSceneManagerClass;
 
     private float m_soundVolume = 0.5f;
@@ -29,7 +29,12 @@ public class TitleButtonSE : MonoBehaviour
             Debug.LogError("TitleButton: clickSound is Null");
         }
 
-        m_sliderValue = GameObject.Find("Slider").GetComponent<Slider>();
+        //m_sliderValue = GameObject.Find("Slider").GetComponent<Slider>();
+        if (!m_sliderValue)
+        {
+            Debug.LogError("TitleButton: slider is Null");
+        }
+
         m_titleSceneManagerClass = GameObject.Find("EventSystem").GetComponent<TitleSceneManager>();
 
         m_SEPointVolume = m_point.volume;

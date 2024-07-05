@@ -3356,6 +3356,7 @@ MonoBehaviour:
   m_buttonTag: Button
   m_point: {fileID: 1328404298}
   m_click: {fileID: 39668108}
+  m_sliderValue: {fileID: 703734237}
 --- !u!1 &1477817709
 GameObject:
   m_ObjectHideFlags: 0

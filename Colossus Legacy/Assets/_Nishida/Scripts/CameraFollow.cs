@@ -62,7 +62,8 @@ public class CameraFollow : MonoBehaviour
             // ゴレーム戦スタート
             if (target.position.z >= -30.0f)
             {
-                if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.BattleBefore)
+                if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.None ||
+                    GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.BattleBefore)
                 {
                     GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.Battle);
                 }

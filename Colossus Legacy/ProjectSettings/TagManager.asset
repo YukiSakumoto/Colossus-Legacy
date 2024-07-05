@@ -18,6 +18,7 @@ TagManager:
   - Cave
   - KeyDown
   - KeyUp
+  - Button
   layers:
   - Default
   - TransparentFX

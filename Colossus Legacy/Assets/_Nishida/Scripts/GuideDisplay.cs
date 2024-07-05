@@ -23,12 +23,10 @@ public class GuideDisplay : MonoBehaviour
         foreach (GameObject obj in objectsDownTag)
         {
             obj.SetActive(true);
-            Debug.Log("Down表示");
         }
         foreach (GameObject obj in objectsUpTag)
         {
             obj.SetActive(false);
-            Debug.Log("Up非表示");
         }
     }
 
@@ -60,12 +58,10 @@ public class GuideDisplay : MonoBehaviour
             foreach (GameObject obj in objectsDownTag)
             {
                 obj.SetActive(true);
-                Debug.Log("Down表示");
             }
             foreach (GameObject obj in objectsUpTag)
             {
                 obj.SetActive(false);
-                Debug.Log("Up非表示");
             }
         }
         else
@@ -73,12 +69,10 @@ public class GuideDisplay : MonoBehaviour
             foreach (GameObject obj in objectsUpTag)
             {
                 obj.SetActive(true);
-                Debug.Log("Up表示");
             }
             foreach (GameObject obj in objectsDownTag)
             {
                 obj.SetActive(false);
-                Debug.Log("Down非表示");
             }
         }
     }

@@ -8,6 +8,12 @@ public class UI : MonoBehaviour
     [SerializeField] private CanvasGroup m_canvas;
 
 
+    private void Start()
+    {
+        m_canvas.alpha = 0.0f;
+    }
+
+
     void Update()
     {
         if (!m_canvas) { return; }

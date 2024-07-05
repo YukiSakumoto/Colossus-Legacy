@@ -165,14 +165,14 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!m_joyFlg)
+        if (!m_joyFlg && !m_deathFlg)
         {
             // 武器チェンジ時の処理
             if (Input.GetKey(KeyCode.F))
             {
                 if (!m_weaponChangeCoolTimeCheckFlg) // 武器チェンジが連続で発生しないようフラグで管理
                 {
-                    if (!m_swordMotionFlg && !m_secondSwordMotionFlg && !m_bowMotionFlg && !m_subAttackMotionFlg && !m_deathFlg) // 攻撃中と死後は武器チェンジ出来ないようにする
+                    if (!m_swordMotionFlg && !m_secondSwordMotionFlg && !m_bowMotionFlg && !m_subAttackMotionFlg) // 攻撃中は武器チェンジ出来ないようにする
                     {
                         if (!m_weaponFlg) // 弓に変更
                         {

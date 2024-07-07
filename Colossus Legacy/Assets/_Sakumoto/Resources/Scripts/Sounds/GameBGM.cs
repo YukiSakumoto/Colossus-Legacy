@@ -56,7 +56,6 @@ public class GameBGM : Singleton<GameBGM>
         {
             if (FadeIn())
             {
-                Debug.Log("???");
                 m_fade = BGMFade.Keep;
             }
         }

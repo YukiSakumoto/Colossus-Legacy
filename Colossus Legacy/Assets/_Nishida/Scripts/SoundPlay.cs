@@ -16,8 +16,11 @@ public class SoundPlay : MonoBehaviour
     [SerializeField] private AudioSource m_damageHeavy;
     [SerializeField] private AudioSource m_damageKnockBackStart;
     [SerializeField] private AudioSource m_damageKnockBackEnd;
+    [SerializeField] private AudioSource m_damageCrush;
     [SerializeField] private AudioSource m_deflected;
     [SerializeField] private AudioSource m_subExplosion;
+    [SerializeField] private AudioSource m_treasureOpenBegin;
+    [SerializeField] private AudioSource m_treasureOpening;
 
     private float m_soundVolume = 0;
 
@@ -33,11 +36,14 @@ public class SoundPlay : MonoBehaviour
         m_death.volume *= m_soundVolume;
         m_damageSmall.volume *= m_soundVolume;
         m_damageMiddle.volume *= m_soundVolume;
-        m_damageHeavy.volume *= m_soundVolume;
+        m_damageHeavy.volume *= m_soundVolume * 2f;
         m_damageKnockBackStart.volume *= m_soundVolume;
         m_damageKnockBackEnd.volume *= m_soundVolume;
+        m_damageCrush.volume *= m_soundVolume;
         m_deflected.volume *= m_soundVolume;
         m_subExplosion.volume *= m_soundVolume;
+        m_treasureOpenBegin.volume *= m_soundVolume;
+        m_treasureOpening.volume *= m_soundVolume;
     }   
 
     public void SoundSwordSwing()
@@ -95,6 +101,11 @@ public class SoundPlay : MonoBehaviour
         m_damageKnockBackEnd.Play();
     }
 
+    public void SoundDamageCrush()
+    {
+        m_damageCrush.Play();
+    }
+
     public void SoundDeflected()
     {
         m_deflected.Play();
@@ -103,5 +114,15 @@ public class SoundPlay : MonoBehaviour
     public void SoundSubExplosion()
     {
         m_subExplosion.Play();
+    }
+
+    public void SoundTreasureOpenBegin()
+    {
+        m_treasureOpenBegin.Play();
+    }
+
+    public void SoundTreasureOpening()
+    {
+        m_treasureOpening.Play();
     }
 }

@@ -9,6 +9,7 @@ public class GameStatusManager : MonoBehaviour
 
     Golem m_golem;
     CharacterManager m_characterManager;
+    SoundPlay m_soundPlay;
 
     int m_golemDamage = 0;
     int m_characterDamage = 0;
@@ -72,6 +73,10 @@ public class GameStatusManager : MonoBehaviour
             GameObject characterObj = GameObject.Find("HumanMale_Character");
             if (!characterObj) { return; }
             m_characterManager = characterObj.GetComponent<CharacterManager>();
+
+            GameObject soundObj = GameObject.Find("Audio");
+            if (!soundObj) { return; }
+            m_soundPlay = soundObj.GetComponent<SoundPlay>();
 
             if (sceneName == "GameScene")
             {
@@ -141,6 +146,7 @@ public class GameStatusManager : MonoBehaviour
         m_characterPushUpFlg = true;
         m_characterDamage = (int)PlayerDamage.small;
         Debug.Log("GameStatusManager: DamagePlayerPushUP");
+        m_soundPlay.SoundDamageKnockBackStart();
     }
 
     public void DamagePlayerDown() // è„Ç©ÇÁâüÇµí◊Ç∑ånÇÃçUåÇ
@@ -151,6 +157,7 @@ public class GameStatusManager : MonoBehaviour
         m_characterPushUpFlg = false;
         m_characterDamage = (int)PlayerDamage.medium;
         Debug.Log("GameStatusManager: DamagePlayerDown");
+        m_soundPlay.SoundDamageCrush();
     }
 
     public void DamagePlayerPressHand() // çáè∂çUåÇ
@@ -159,8 +166,9 @@ public class GameStatusManager : MonoBehaviour
         m_characterKnockBackFlg = false;
         m_characterDownFlg = false;
         m_characterPushUpFlg = false;
-        m_characterDamage = (int)PlayerDamage.big;
+        m_characterDamage = (int)PlayerDamage.death;
         Debug.Log("GameStatusManager: DamagePlayerPressHand");
+        m_soundPlay.SoundDamageHeavy();
     }
 
     public void DamagePlayerBeam() // ÉrÅ[ÉÄçUåÇ
@@ -169,7 +177,7 @@ public class GameStatusManager : MonoBehaviour
         m_characterKnockBackFlg = true;
         m_characterDownFlg = false;
         m_characterPushUpFlg = false;
-        m_characterDamage = (int)PlayerDamage.death;
+        m_characterDamage = (int)PlayerDamage.big;
         Debug.Log("GameStatusManager: DamagePlayerBeam");
     }
 

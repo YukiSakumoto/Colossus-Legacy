@@ -64,7 +64,7 @@ public class GameManagerGameScene : MonoBehaviour
 
     public void GameSecneFin()
     {
-        m_fade.StartCoroutine(m_fade.FadeOut(false));
+        m_fade.StartCoroutine(m_fade.FadeOut("TitleScene_3D"));
         this.enabled = false;
         //if (gameObject != null)
         //{

@@ -30,7 +30,7 @@ public class Fade : MonoBehaviour
         fadePanel.color = endColor;
         fadePanel.enabled = false;
     }
-    public IEnumerator FadeOut(bool _sameScene = true)
+    public IEnumerator FadeOut(string _sceneName = "")
     {
         Debug.Log("FadeOut");
 
@@ -51,7 +51,7 @@ public class Fade : MonoBehaviour
 
         fadePanel.color = endColor;
 
-        if (_sameScene) { SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
-        else { SceneManager.LoadScene("TitleScene"); }
+        if (_sceneName == "") { SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+        else { SceneManager.LoadScene(_sceneName); }
     }
 }

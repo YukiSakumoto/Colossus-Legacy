@@ -70,7 +70,7 @@ public class GameEvent : MonoBehaviour
                 }
                 else if (m_changeEvent == GameEventState.GameFin)
                 {
-                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 4.0f);
+                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 3.0f);
                     GameManagerGameScene.Instance.GameSecneFin();
                 }
 

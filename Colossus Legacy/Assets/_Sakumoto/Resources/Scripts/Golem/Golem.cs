@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+using UnityEditorInternal;
 #endif
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
-using UnityEditorInternal;
 
 public class Golem : MonoBehaviour
 {

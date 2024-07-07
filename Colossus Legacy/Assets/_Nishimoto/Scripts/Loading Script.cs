@@ -27,6 +27,10 @@ public class LoadScene : MonoBehaviour
 
         // シーンを非同期でロードする
         async = SceneManager.LoadSceneAsync(sceneName);
+        if (sceneName == "GameScene")
+        {
+            GameManagerGameScene.Instance.GameSceneStart();
+        }
 
         // ロードが完了するまで待機する
         while (!async.isDone)

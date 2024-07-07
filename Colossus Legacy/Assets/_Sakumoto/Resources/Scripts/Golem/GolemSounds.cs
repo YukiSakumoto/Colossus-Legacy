@@ -16,42 +16,42 @@ public class GolemSounds : MonoBehaviour
 
     public void PlaySwing()
     {
-        audioSource.volume = 0.5f;
+        audioSource.volume = GameManager.Instance.soundVolume;
         audioSource.PlayOneShot(m_swingSE);
     }
 
 
     public void PlayGolemMove()
     {
-        audioSource.volume = 0.5f;
+        audioSource.volume = GameManager.Instance.soundVolume;
         audioSource.PlayOneShot(m_golemMoveSE);
     }
 
 
     public void PlayStone()
     {
-        audioSource.volume = 0.5f;
+        audioSource.volume = GameManager.Instance.soundVolume;
         audioSource.PlayOneShot(m_stone);
     }
 
 
     public void PlayLaserCharge()
     {
-        audioSource.volume = 0.5f;
+        audioSource.volume = GameManager.Instance.soundVolume;
         audioSource.PlayOneShot(m_laserCharge);
     }
 
 
     public void PlayLaserShot()
     {
-        audioSource.volume = 0.5f;
+        audioSource.volume = GameManager.Instance.soundVolume;
         audioSource.PlayOneShot(m_laserShot);
     }
 
 
     public void PlayLaserKeep()
     {
-        audioSource.volume = 0.1f;
+        audioSource.volume = GameManager.Instance.soundVolume / 2.0f;
         audioSource.PlayOneShot(m_laserKeep);
     }
 

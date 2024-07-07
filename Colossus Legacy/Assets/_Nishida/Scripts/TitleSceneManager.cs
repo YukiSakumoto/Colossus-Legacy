@@ -20,10 +20,10 @@ public class TitleSceneManager : MonoBehaviour
     OptionManuManager m_optionManuManagerClass;
     OptionManuExitButtonManager m_optionManuExitButtonManagerClass;
 
-    private float m_soundVolume = 0.5f;
+    //private float m_soundVolume = 0.5f;
 
     private bool m_optionManuFlg = false; // オプションメニューを開いているかの管理
-    private bool m_optionManuCheckFlg = false; // オプションメニューを開いたことがあるかの管理
+    //private bool m_optionManuCheckFlg = false; // オプションメニューを開いたことがあるかの管理
 
 
     // 追加 : 佐久本
@@ -120,11 +120,11 @@ public class TitleSceneManager : MonoBehaviour
     {
         if (m_startButtonManagerClass.Getm_startFlg) // Startが押されたらTraining Sceneをロードする
         {
-            if (m_optionManuCheckFlg) // オプションメニューを開いたことがあったら音量を設定する
-            {
-                m_soundVolume = m_optionManuManagerClass.Getm_soundValue;
-            }
-            GameManager.Instance.soundVolume = m_soundVolume;
+            //if (m_optionManuCheckFlg) // オプションメニューを開いたことがあったら音量を設定する
+            //{
+            //    //m_soundVolume = m_optionManuManagerClass.Getm_soundValue;
+            //}
+            //GameManager.Instance.soundVolume = m_soundVolume;
             SceneManager.LoadScene("Training Scene");
             Debug.Log("Startボタンが押されたよ");
             m_startButtonManagerClass.Setm_startFlg();
@@ -136,7 +136,7 @@ public class TitleSceneManager : MonoBehaviour
             m_optionButtonManagerClass.Setm_optionFlg();
             m_optionManuCanvas.gameObject.SetActive(true);
             m_optionManuFlg = true;
-            m_optionManuCheckFlg = true;
+            //m_optionManuCheckFlg = true;
         }
 
         if (m_creditButtonManagerClass.Getm_optionFlg) // Optionボタンが押されたらオプションメニューを開く

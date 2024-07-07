@@ -770,5 +770,6 @@ public class CharacterMovement : MonoBehaviour
     {
         m_joyFlg = true;
         m_joyAnimeFlg = true;
+        GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.TreasureGet);
     }
 }

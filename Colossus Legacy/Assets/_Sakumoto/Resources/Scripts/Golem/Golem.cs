@@ -99,7 +99,7 @@ public class Golem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1)) { DamageAction(50); m_golemLeft.m_alive = false; m_golemRight.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
         if (Input.GetKeyDown(KeyCode.F2)) { DamageAction(50); m_golemRight.m_alive = false; m_golemLeft.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
-        if (Input.GetKeyDown(KeyCode.F3)) { DamageAction(50); m_golemMain.m_alive = false; m_golemRight.m_alive = false; m_golemMain.m_alive = false; }
+        if (Input.GetKeyDown(KeyCode.F3)) { DamageAction(50); m_golemMain.m_alive = false; m_golemRight.m_alive = false; m_golemLeft.m_alive = false; }
 
         // HP å∏è≠èàóù
         HpDown();

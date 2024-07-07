@@ -16,7 +16,9 @@ public class SceneChanger : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("TitleScene");
+            GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.GameFin);
+            GameManagerGameScene.Instance.GameSecneFin();
+            //SceneManager.LoadScene("TitleScene");
         }
     }
 }

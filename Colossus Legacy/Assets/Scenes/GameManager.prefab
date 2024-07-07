@@ -58,7 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f02347cafb80744b8c4c1d1c583067e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSoundVolume: 0.5
+  MaxBGMVolume: 0.3
   soundVolume: 0.5
+  BGMVolume: 0.3
 --- !u!114 &8869243983657582882
 MonoBehaviour:
   m_ObjectHideFlags: 0

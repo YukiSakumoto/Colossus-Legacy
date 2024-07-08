@@ -5,8 +5,17 @@ using UnityEngine;
 public class OpenCollider : MonoBehaviour
 {
     [SerializeField] ChestOpen chest;
-    private void OnTriggerEnter(Collider other)
+    string m_targetTag = "Player";
+    bool m_openFlg = false;
+    private void OnTriggerEnter(Collider _other)
     {
-        chest.Open();
+        if (!m_openFlg)
+        {
+            if (_other.gameObject.CompareTag(m_targetTag))
+            {
+                chest.Open();
+                m_openFlg = true;
+            }
+        }
     }
 }

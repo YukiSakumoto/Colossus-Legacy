@@ -24,8 +24,6 @@ public class GameManagerGameScene : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        //SceneReset();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -61,7 +59,22 @@ public class GameManagerGameScene : MonoBehaviour
         m_fade = fadeObj.GetComponent<Fade>();
 
         m_fade.StartCoroutine(m_fade.FadeIn());
+    }
 
-        //GameEvent.Instance.Reset();
+
+    public void GameSecneFin()
+    {
+        m_fade.StartCoroutine(m_fade.FadeOut("TitleScene_3D"));
+        this.enabled = false;
+        //if (gameObject != null)
+        //{
+        //    Destroy(gameObject);
+        //}
+    }
+
+
+    public void GameSceneStart()
+    {
+        this.enabled = true;
     }
 }

@@ -6,7 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public float soundVolume = 0.5f;
+    [SerializeField] private float MaxSoundVolume = 0.5f;
+    [SerializeField] private float MaxBGMVolume = 0.3f;
+
+    public float soundVolume;
+    public float BGMVolume;
 
     private void Awake()
     {
@@ -21,5 +25,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        soundVolume = MaxSoundVolume;
+        BGMVolume = MaxBGMVolume;
+    }
+
+
+    public float GetMaxSoundVol() { return MaxSoundVolume; }
+    public float GetMaxBGMVol() { return MaxBGMVolume; }
 
 }

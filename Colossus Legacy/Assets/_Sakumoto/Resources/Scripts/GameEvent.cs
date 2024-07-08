@@ -15,6 +15,7 @@ public class GameEvent : MonoBehaviour
         PlayerDead,         // プレイヤーの死亡
         PlayerWin,          // ゴーレム討伐完了
         TreasureGet,        // 宝箱の獲得
+        GameFin,
     }
     public GameEventState m_nowEvent;
     private GameEventState m_changeEvent;
@@ -66,6 +67,11 @@ public class GameEvent : MonoBehaviour
                 else if (m_changeEvent == GameEventState.PlayerDead)
                 {
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 1.0f);
+                }
+                else if (m_changeEvent == GameEventState.GameFin)
+                {
+                    GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 3.0f);
+                    GameManagerGameScene.Instance.GameSecneFin();
                 }
 
                 // 現在のイベントを変更

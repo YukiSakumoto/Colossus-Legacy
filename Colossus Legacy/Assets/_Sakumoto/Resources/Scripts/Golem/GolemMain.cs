@@ -2,7 +2,9 @@ using Effekseer;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor.PackageManager.Requests;
+#endif
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI.Table;
 

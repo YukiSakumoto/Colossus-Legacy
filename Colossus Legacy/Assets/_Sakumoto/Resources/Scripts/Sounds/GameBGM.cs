@@ -49,6 +49,7 @@ public class GameBGM : Singleton<GameBGM>
         if (Input.GetKeyDown(KeyCode.F9)) { ChangeBGMState(BGMState.Battle); }
         if (Input.GetKeyDown(KeyCode.F10)) { ChangeBGMState(BGMState.Win); }
 
+        m_maxVol = GameManager.Instance.BGMVolume;
 
         // フェード処理
         if (m_fade == BGMFade.In)
@@ -75,6 +76,10 @@ public class GameBGM : Singleton<GameBGM>
                     m_fade = BGMFade.Keep;
                 }
             }
+        }
+        else if (m_fade == BGMFade.Keep)
+        {
+            if (m_BGM.volume != m_maxVol) { m_BGM.volume = m_maxVol; }
         }
 
 

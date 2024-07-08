@@ -37,6 +37,7 @@ public class TitleButtonSE : MonoBehaviour
 
         m_titleSceneManagerClass = GameObject.Find("EventSystem").GetComponent<TitleSceneManager>();
 
+        m_soundVolume = GameManager.Instance.soundVolume;
         m_SEPointVolume = m_point.volume;
         m_SEClickVolume = m_click.volume;
         m_point.volume = m_SEPointVolume * m_soundVolume;

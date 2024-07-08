@@ -484,4 +484,10 @@ public class Golem : MonoBehaviour
     {
         return m_nowAttackName;
     }
+
+    public int GetHp()
+    {
+        return m_hp;
+    }
+
 }

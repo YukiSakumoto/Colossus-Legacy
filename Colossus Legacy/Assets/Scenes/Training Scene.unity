@@ -23843,6 +23843,7 @@ MonoBehaviour:
   m_damageCrush: {fileID: 833465122}
   m_deflected: {fileID: 1533800592}
   m_subExplosion: {fileID: 1657233303}
+  m_footStep: {fileID: 1960791911}
   m_treasureOpenBegin: {fileID: 1444625831}
   m_treasureOpening: {fileID: 1333633864}
 --- !u!1001 &1043317891
@@ -60117,6 +60118,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &1960791911 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1292681662188222679, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
+  m_PrefabInstance: {fileID: 833465121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1962245338
 PrefabInstance:
   m_ObjectHideFlags: 0

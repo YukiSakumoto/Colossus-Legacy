@@ -2694,6 +2694,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1660195360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &590508571 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1292681662188222679, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
+  m_PrefabInstance: {fileID: 1498857655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &676486136 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4904981467060470473, guid: bf70d99b1a9953d4aafe78ee0f57e67d, type: 3}
@@ -3053,6 +3058,7 @@ MonoBehaviour:
   m_damageCrush: {fileID: 1098036830}
   m_deflected: {fileID: 1498857657}
   m_subExplosion: {fileID: 280906629}
+  m_footStep: {fileID: 590508571}
   m_treasureOpenBegin: {fileID: 310359665}
   m_treasureOpening: {fileID: 676486136}
 --- !u!1001 &899551809

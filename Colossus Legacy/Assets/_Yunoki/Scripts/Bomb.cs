@@ -97,7 +97,14 @@ public class Bomb : MonoBehaviour
         Instantiate(expParticle, transform.position, Quaternion.identity);
         m_rb.velocity = Vector3.zero;
         m_rb.angularVelocity = Vector3.zero;
-        m_playerSoundPlay.SoundSubExplosion();
+        if (!m_playerSoundPlay)
+        {
+            Debug.LogError("Bomb: PlayerSoundPlay is Null");
+        }
+        else
+        {
+            m_playerSoundPlay.SoundSubExplosion();
+        }
     }
 
     private void OnTriggerEnter(Collider _other)

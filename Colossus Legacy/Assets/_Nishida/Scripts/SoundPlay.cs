@@ -19,6 +19,7 @@ public class SoundPlay : MonoBehaviour
     [SerializeField] private AudioSource m_damageCrush;
     [SerializeField] private AudioSource m_deflected;
     [SerializeField] private AudioSource m_subExplosion;
+    [SerializeField] private AudioSource m_footStep;
     [SerializeField] private AudioSource m_treasureOpenBegin;
     [SerializeField] private AudioSource m_treasureOpening;
 
@@ -42,6 +43,7 @@ public class SoundPlay : MonoBehaviour
         m_damageCrush.volume *= m_soundVolume;
         m_deflected.volume *= m_soundVolume;
         m_subExplosion.volume *= m_soundVolume;
+        m_footStep.volume *= m_soundVolume;
         m_treasureOpenBegin.volume *= m_soundVolume;
         m_treasureOpening.volume *= m_soundVolume;
     }   
@@ -114,6 +116,11 @@ public class SoundPlay : MonoBehaviour
     public void SoundSubExplosion()
     {
         m_subExplosion.Play();
+    }
+
+    public void SoundFootStep()
+    {
+        m_footStep.Play();
     }
 
     public void SoundTreasureOpenBegin()

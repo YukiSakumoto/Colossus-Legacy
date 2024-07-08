@@ -83,4 +83,9 @@ public class PlayerSoundPlay : MonoBehaviour
     {
         m_soundPlayClass.SoundSubExplosion();
     }
+
+    public void SoundFootStep()
+    {
+        m_soundPlayClass.SoundFootStep();
+    }
 }

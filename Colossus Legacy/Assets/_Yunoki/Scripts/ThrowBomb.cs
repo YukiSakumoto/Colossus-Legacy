@@ -203,7 +203,23 @@ public class ThrowBomb : MonoBehaviour
                     bombRb.AddForce(transform.forward * m_speed * m_chargePower);
                     bombClass.SetTime(m_bombExpTime);
                     bombClass.m_gameStatusManager = m_gameStatusManager;
+                    if(!m_gameStatusManager)
+                    {
+                        Debug.LogError("ThrowBomb: GameStatusManager is Null");
+                    }
+                    if(!bombClass.m_gameStatusManager)
+                    {
+                        Debug.LogError("ThrowBomb: bombClassGameStatusManager is Null");
+                    }
                     bombClass.m_playerSoundPlay = m_playerSoundPlay;
+                    if (!m_playerSoundPlay)
+                    {
+                        Debug.LogError("ThrowBomb: PlayerSoundPlay is Null");
+                    }
+                    if (!bombClass.m_playerSoundPlay)
+                    {
+                        Debug.LogError("ThrowBomb: bombClassPlayerSoundPlay is Null");
+                    }
                     Destroy(bomb, m_bombExpTime + bombExpTimeAdd);
                     cnt = m_bombChargeTime;
                     m_chargePower = 0f;

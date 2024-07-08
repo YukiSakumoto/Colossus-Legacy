@@ -92,7 +92,8 @@ public class ThrowBomb : MonoBehaviour
         m_ratio = m_chargeTime / m_chargeMaxTime;
         m_chargeImage.fillAmount = m_ratio;
 
-        if (!m_characterManager.Getm_joyFlg && !m_characterManager.Getm_deathFlg)
+        if (!m_characterManager.Getm_joyFlg && !m_characterManager.Getm_deathFlg &&
+            !m_characterManager.Getm_damageMotionFlg && !m_characterManager.Getm_damageBlownAwayStiffnessFlg)
         {
             if (!m_bombThrowFlg)
             {

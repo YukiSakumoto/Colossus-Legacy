@@ -197,114 +197,117 @@ public class CharacterMovement : MonoBehaviour
             // モーション重複の管理系処理
             MotionProcessing();
 
-            // マウス左クリックで装備している武器で攻撃。使った武器によって硬直時間が異なる。
-            if (Input.GetMouseButtonDown(0))
+            if (!m_damageMotionFlg)
             {
-                if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
+                // マウス左クリックで装備している武器で攻撃。使った武器によって硬直時間が異なる。
+                if (Input.GetMouseButtonDown(0))
                 {
-                    m_attackAnimeFlg = true;
-                    if (!m_weaponFlg) // 剣で攻撃
+                    if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg) // 回避行動及び攻撃のモーション中は攻撃できない
                     {
-                        m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
-                        m_weaponAttackCoolTimeCheckFlg = true;
-                        m_swordMotionFlg = true;
-                        m_swordMoveFlg = true;
-                        m_swordMotionFlg = true;
-                        m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
-                        m_swordMoveTime = m_swordMoveSetTime;
-                    }
-                    else // 弓で攻撃
-                    {
-                        m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
-                        m_bowShotTime = m_bowShotSetTime;
-                        m_weaponAttackCoolTimeCheckFlg = true;
-                        m_bowMotionFlg = true;
-                        m_bowShotFlg = true;
-                    }
-                }
-            }
-
-            // 剣を振った時に前に進む処理
-            if (m_swordMoveFlg)
-            {
-                if (m_swordMoveStiffnessTime < m_swordMoveStiffnessSetTime)
-                {
-                    // モーション中にもう一度クリックすると2段攻撃
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        m_secondSwordAttackAnimeFlg = true;
-                        m_secondSwordAttackFlg = true;
-                        m_secondSwordMotionFlg = true;
-                    }
-                }
-
-                m_swordMoveStiffnessTime -= Time.deltaTime;
-                if (m_swordMoveStiffnessTime < 0)
-                {
-                    m_swordMoveTime -= Time.deltaTime;
-                    if (m_swordMoveTime < 0 || m_manager.Getm_hitFlg)
-                    {
-                        m_swordMoveFlg = false;
-                        if (m_secondSwordAttackFlg) // 2段攻撃を行う用の変数設定
+                        m_attackAnimeFlg = true;
+                        if (!m_weaponFlg) // 剣で攻撃
                         {
-                            m_swordMoveStiffnessTime = m_swordSecondMoveStiffnessSetTime;
-                            m_swordMoveTime = m_swordSecondMoveSetTime;
+                            m_weaponAttackCoolTime = m_swordAttackCoolSetTime;
+                            m_weaponAttackCoolTimeCheckFlg = true;
+                            m_swordMotionFlg = true;
+                            m_swordMoveFlg = true;
+                            m_swordMotionFlg = true;
+                            m_swordMoveStiffnessTime = m_swordMoveStiffnessSetTime;
+                            m_swordMoveTime = m_swordMoveSetTime;
+                        }
+                        else // 弓で攻撃
+                        {
+                            m_weaponAttackCoolTime = m_bowAttackCoolSetTime;
+                            m_bowShotTime = m_bowShotSetTime;
+                            m_weaponAttackCoolTimeCheckFlg = true;
+                            m_bowMotionFlg = true;
+                            m_bowShotFlg = true;
                         }
                     }
                 }
-            }
-            else
-            {
-                // 2段攻撃を行う時のみ派生
-                if (m_secondSwordAttackFlg)
+
+                // 剣を振った時に前に進む処理
+                if (m_swordMoveFlg)
                 {
+                    if (m_swordMoveStiffnessTime < m_swordMoveStiffnessSetTime)
+                    {
+                        // モーション中にもう一度クリックすると2段攻撃
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            m_secondSwordAttackAnimeFlg = true;
+                            m_secondSwordAttackFlg = true;
+                            m_secondSwordMotionFlg = true;
+                        }
+                    }
+
                     m_swordMoveStiffnessTime -= Time.deltaTime;
                     if (m_swordMoveStiffnessTime < 0)
                     {
                         m_swordMoveTime -= Time.deltaTime;
                         if (m_swordMoveTime < 0 || m_manager.Getm_hitFlg)
                         {
-                            m_secondSwordAttackFlg = false;
+                            m_swordMoveFlg = false;
+                            if (m_secondSwordAttackFlg) // 2段攻撃を行う用の変数設定
+                            {
+                                m_swordMoveStiffnessTime = m_swordSecondMoveStiffnessSetTime;
+                                m_swordMoveTime = m_swordSecondMoveSetTime;
+                            }
                         }
                     }
                 }
-            }
-
-            // サブ攻撃。マウスの右クリックで爆弾を投げる。
-            if (m_manager.Getm_bombThrowCheckFlg)
-            {
-                if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg)
+                else
                 {
-                    m_weaponAttackCoolTime = m_subAttackCoolSetTime;
-                    m_weaponAttackCoolTimeCheckFlg = true;
-                    m_subAttackMotionFlg = true;
-                }
-            }
-
-            // 回避行動
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg)
-                {
-                    if (!m_rollFinishCheckFlg)
+                    // 2段攻撃を行う時のみ派生
+                    if (m_secondSwordAttackFlg)
                     {
-                        m_rollCoolTime = m_rollCoolSetTime; // 回避行動中の時間設定
-                        m_rollStiffnessTime = m_rollStiffnessSetTime; // 回避行動後の硬直時間設定
-                        m_rollCoolTimeCheckFlg = true;
-                        m_rollFinishCheckFlg = true;
-                        m_rollAnimeFlg = true;
-                        // 回避行動をするたびに段々スピードが下がる
-                        if (m_rollTiredCount < m_rollTiredCountMax)
+                        m_swordMoveStiffnessTime -= Time.deltaTime;
+                        if (m_swordMoveStiffnessTime < 0)
                         {
-                            m_rollTiredCount++; // 減衰の量の増加
+                            m_swordMoveTime -= Time.deltaTime;
+                            if (m_swordMoveTime < 0 || m_manager.Getm_hitFlg)
+                            {
+                                m_secondSwordAttackFlg = false;
+                            }
                         }
-                        else
+                    }
+                }
+
+                // サブ攻撃。マウスの右クリックで爆弾を投げる。
+                if (m_manager.Getm_bombThrowCheckFlg)
+                {
+                    if (!m_rollFinishCheckFlg && !m_weaponAttackCoolTimeCheckFlg)
+                    {
+                        m_weaponAttackCoolTime = m_subAttackCoolSetTime;
+                        m_weaponAttackCoolTimeCheckFlg = true;
+                        m_subAttackMotionFlg = true;
+                    }
+                }
+
+                // 回避行動
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg)
+                    {
+                        if (!m_rollFinishCheckFlg)
                         {
-                            // 回避行動の減衰回数の限界
-                            m_rollTiredCount = m_rollTiredCountMax;
+                            m_rollCoolTime = m_rollCoolSetTime; // 回避行動中の時間設定
+                            m_rollStiffnessTime = m_rollStiffnessSetTime; // 回避行動後の硬直時間設定
+                            m_rollCoolTimeCheckFlg = true;
+                            m_rollFinishCheckFlg = true;
+                            m_rollAnimeFlg = true;
+                            // 回避行動をするたびに段々スピードが下がる
+                            if (m_rollTiredCount < m_rollTiredCountMax)
+                            {
+                                m_rollTiredCount++; // 減衰の量の増加
+                            }
+                            else
+                            {
+                                // 回避行動の減衰回数の限界
+                                m_rollTiredCount = m_rollTiredCountMax;
+                            }
+                            m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase; // 減衰の回復にかかる時間設定 
+                            m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
                         }
-                        m_rollTiredDecreaseTime = m_rollTiredDecreaseTimeBase; // 減衰の回復にかかる時間設定 
-                        m_rollTiredDecrease = m_rollTiredDecreaseBase * m_rollTiredCount; // 減衰量計算
                     }
                 }
             }
@@ -764,6 +767,16 @@ public class CharacterMovement : MonoBehaviour
     public bool Getm_joyAnimeFlg
     {
         get { return m_joyAnimeFlg; }
+    }
+
+    public bool Getm_damageMotionFlg
+    {
+        get { return m_damageMotionFlg; }
+    }
+
+    public bool Getm_damageBlownAwayStiffnessFlg
+    {
+        get { return m_damageBlownAwayStiffnessFlg; }
     }
 
     void Setm_joyFlg()

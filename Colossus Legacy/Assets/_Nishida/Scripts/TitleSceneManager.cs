@@ -11,6 +11,7 @@ public class TitleSceneManager : MonoBehaviour
     [SerializeField] private GameObject m_exitButtonObj;
     [SerializeField] private GameObject m_optionManuObj;
     [SerializeField] private GameObject m_optionManuExitButtonObj;
+    [SerializeField] private GameObject m_titleFadeObj;
 
     [SerializeField] private Canvas m_optionManuCanvas;
 
@@ -19,10 +20,12 @@ public class TitleSceneManager : MonoBehaviour
     ExitButtonManager m_exitButtonManagerClass;
     OptionManuManager m_optionManuManagerClass;
     OptionManuExitButtonManager m_optionManuExitButtonManagerClass;
+    TitleFade m_titleFadeClass;
 
     //private float m_soundVolume = 0.5f;
 
     private bool m_optionManuFlg = false; // オプションメニューを開いているかの管理
+    private bool m_hiddenCheckFlg = false;
     //private bool m_optionManuCheckFlg = false; // オプションメニューを開いたことがあるかの管理
 
 
@@ -82,7 +85,7 @@ public class TitleSceneManager : MonoBehaviour
         {
             //m_optionManuCanvas = m_optionManuObj.GetComponent<Canvas>();
             m_optionManuManagerClass = m_optionManuObj.GetComponent<OptionManuManager>();
-            m_optionManuCanvas.gameObject.SetActive(false);
+
         }
 
         if (!m_creditManuObj)
@@ -93,7 +96,6 @@ public class TitleSceneManager : MonoBehaviour
         {
             //m_optionManuCanvas = m_optionManuObj.GetComponent<Canvas>();
             //m_optionManuManagerClass = m_optionManuObj.GetComponent<OptionManuManager>();
-            m_creditCanvas.gameObject.SetActive(false);
         }
 
         if (!m_optionManuExitButtonObj)
@@ -103,6 +105,15 @@ public class TitleSceneManager : MonoBehaviour
         else
         {
             m_optionManuExitButtonManagerClass = m_optionManuExitButtonObj.GetComponent<OptionManuExitButtonManager>();
+        }
+
+        if(!m_titleFadeObj)
+        {
+            Debug.LogError("TitleSceneManager: TitleFade is Null");
+        }
+        else
+        {
+            m_titleFadeClass = m_titleFadeObj.GetComponent<TitleFade>();
         }
 
         if (!m_creditExitButtonObj)
@@ -118,6 +129,13 @@ public class TitleSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!m_hiddenCheckFlg && m_titleFadeClass.Getm_hiddenFlg)
+        {
+            m_hiddenCheckFlg = true;
+            m_optionManuCanvas.gameObject.SetActive(false);
+            m_creditCanvas.gameObject.SetActive(false);
+        }
+
         if (m_startButtonManagerClass.Getm_startFlg) // Startが押されたらTraining Sceneをロードする
         {
             //if (m_optionManuCheckFlg) // オプションメニューを開いたことがあったら音量を設定する

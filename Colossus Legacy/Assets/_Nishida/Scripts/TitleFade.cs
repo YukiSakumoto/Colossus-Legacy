@@ -15,6 +15,7 @@ public class TitleFade : MonoBehaviour
     private const float m_alphaMax = 1f;
     public float m_logoAlpha;
     private float m_time;
+    bool m_hiddenFlg = false;
     Color m_logoColor;
     
     // Start is called before the first frame update
@@ -35,6 +36,7 @@ public class TitleFade : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 m_time = m_titleDisplayTime;
+                m_hiddenFlg = true;
             }
 
             m_time += Time.deltaTime;
@@ -57,6 +59,8 @@ public class TitleFade : MonoBehaviour
             else if (m_time < m_hiddenEndTime)
             {
                 m_logoAlpha -= Time.deltaTime;
+                m_hiddenFlg = true;
+
                 if (m_logoAlpha <= 0f)
                 {
                     m_logoAlpha = 0f;
@@ -70,5 +74,10 @@ public class TitleFade : MonoBehaviour
             m_backGround.enabled = false;
             m_logo.enabled = false;
         }
+    }
+
+    public bool Getm_hiddenFlg
+    {
+        get { return m_hiddenFlg; }
     }
 }

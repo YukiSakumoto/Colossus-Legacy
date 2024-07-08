@@ -1331,8 +1331,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1950451171217382048, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.082
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950451171217382048, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.9749
+      value: 0.5106
       objectReference: {fileID: 0}
     - target: {fileID: 2187669305642150296, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_Pitch
@@ -1371,8 +1375,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2536358170368138787}
     - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_coolTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_dissolveSpeed
       value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342375645577077596, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_laserCollider.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3171588739228483726, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_Layer
@@ -1405,6 +1417,14 @@ PrefabInstance:
     - target: {fileID: 5132882640241085371, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5415654739331361737, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5415654739331361737, guid: 299c7482de910d145947aee8583916eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.3
       objectReference: {fileID: 0}
     - target: {fileID: 5577586502777373059, guid: 299c7482de910d145947aee8583916eb, type: 3}
       propertyPath: m_Layer

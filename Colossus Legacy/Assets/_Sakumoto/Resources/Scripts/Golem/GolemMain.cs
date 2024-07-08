@@ -1,11 +1,13 @@
 using Effekseer;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor.PackageManager.Requests;
 #endif
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI.Table;
 
 public class GolemMain : Golem
@@ -30,10 +32,14 @@ public class GolemMain : Golem
     public float m_shotTime = 10.0f;
     public float m_coolTime = 10.0f;
 
+    [SerializeField] private float m_endTime = 1.5f;
+    private float m_scaleTime = 0.0f;
+
     private float m_laserTime = 2.0f;
     private bool m_isLaser = false;
+    private bool m_laserCol = false;
 
-    [SerializeField] private float m_shrinkSpeed = 0.1f;
+    //[SerializeField] private float m_shrinkSpeed = 0.1f;
 
 
     [SerializeField] private List<Collider> m_laserCollider;
@@ -59,6 +65,9 @@ public class GolemMain : Golem
 
     // サウンド
     GolemSounds m_sound;
+
+    [SerializeField] float m_bodyRotTime = 0.0f;
+
 
 
     void Start()
@@ -107,8 +116,6 @@ public class GolemMain : Golem
         // ====================================
         if (m_trackingFlg)
         {
-            if (!m_target || !m_headTrans) { return; }
-
             // ターゲットへの向きベクトル計算
             Vector3 dir = m_target.transform.position - m_headTrans.position;
             // ターゲットの方向への回転
@@ -147,6 +154,8 @@ public class GolemMain : Golem
 
         m_effectHandle = EffekseerSystem.PlayEffect(m_effect, m_effectPos);
         m_effectHandle.SetRotation(m_effectRot);
+
+        m_scaleTime = m_endTime;
     }
 
 
@@ -154,18 +163,27 @@ public class GolemMain : Golem
     {
         bool result = false;
 
-        m_effectScale -= Vector3.one * m_shrinkSpeed * Time.deltaTime;
+        if (m_scaleTime > 0) { m_scaleTime -= Time.deltaTime; }
+
+        float ratio = (1.0f - (m_endTime - m_scaleTime ) / m_endTime);
+        Vector3 scale = new Vector3(ratio, ratio, ratio);
+
+        m_effectScale = scale;
         m_effectHandle.SetScale(m_effectScale);
 
-        for (int i = 0; i < m_laserCollider.Count; i++)
+        if (m_laserCol)
         {
-            m_laserCollider[i].enabled = false;
+            for (int i = 0; i < m_laserCollider.Count; i++)
+            {
+                m_laserCollider[i].enabled = false;
+            }
+            m_laserCol = false;
         }
 
-        if (m_effectScale.x <= 0.01f)
+        if (m_scaleTime <= 0.0f)
         {
-            m_effectScale = Vector3.one;
             m_effectHandle.Stop();
+            m_effectScale = Vector3.one;
 
             WeakOn();
 
@@ -180,7 +198,7 @@ public class GolemMain : Golem
     {
         ArmorDestroy();
         m_laserTime -= Time.deltaTime;
-        if (m_isLaser)
+        if (m_isLaser && !m_laserCol)
         {
             if (m_laserTime < m_shotTime - 2.2f)
             {
@@ -188,6 +206,7 @@ public class GolemMain : Golem
                 {
                     m_laserCollider[i].enabled = true;
                 }
+                m_laserCol = true;
             }
         }
 
@@ -204,6 +223,8 @@ public class GolemMain : Golem
                 {
                     m_laserTime = m_coolTime;
                     m_isLaser = false;
+
+                    m_bodyRotTime = 0.0f;
                 }
             }
             // ビームを放つ！
@@ -221,6 +242,19 @@ public class GolemMain : Golem
 
                 m_laserTime = m_shotTime;
                 m_isLaser = true;
+
+                m_bodyRotTime = -2.0f;
+            }
+        }
+        else
+        {
+            if (m_isLaser)
+            {
+                BodyRotation(m_target.transform);
+            }
+            else
+            {
+                BodyInit();
             }
         }
     }
@@ -255,7 +289,6 @@ public class GolemMain : Golem
     private void TrackingOff()
     {
         m_trackingFlg = false;
-        m_headTrans.rotation = m_initRot;
     }
 
 
@@ -277,5 +310,57 @@ public class GolemMain : Golem
     private void OnDestroy()
     {
         m_effectHandle.Stop();
+    }
+
+
+    private void BodyRotation(Transform _target)
+    {
+        if (m_bodyRotTime < 0) { m_bodyRotTime += Time.deltaTime; return; }
+
+        Quaternion beforeRot = new();
+        beforeRot.eulerAngles = Vector3.forward;
+
+        Quaternion afterRot = beforeRot;
+        if (_target.position.x > this.transform.position.x)
+        {
+            afterRot.eulerAngles -= new Vector3(0.0f, 60.0f, 0.0f);
+        }
+        else
+        {
+            afterRot.eulerAngles += new Vector3(0.0f, 60.0f, 0.0f);
+        }
+
+        float timeRatio = 0.0f;
+        timeRatio = m_bodyRotTime / 10.0f;
+
+        this.transform.rotation = Quaternion.Lerp(beforeRot, afterRot, timeRatio);
+        this.transform.rotation *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
+        m_effectRot = Quaternion.Lerp(beforeRot, afterRot, timeRatio);
+        m_effectHandle.SetRotation(m_effectRot);
+        m_effectHandle.SetLocation(m_laserTransform.position);
+
+        m_bodyRotTime += Time.deltaTime;
+    }
+
+
+    private void BodyInit()
+    {
+
+        if (m_bodyRotTime < 0) { m_bodyRotTime += Time.deltaTime; return; }
+
+        Quaternion beforeRot = this.transform.rotation;
+        beforeRot *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
+        Quaternion afterRot = beforeRot;
+        afterRot.eulerAngles = Vector3.forward;
+
+        float timeRatio = 0.0f;
+        timeRatio = m_bodyRotTime / m_coolTime;
+
+        this.transform.rotation = Quaternion.Lerp(beforeRot, afterRot, timeRatio);
+        this.transform.rotation *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
+        m_bodyRotTime += Time.deltaTime;
     }
 }

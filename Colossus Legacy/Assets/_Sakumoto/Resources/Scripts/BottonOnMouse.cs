@@ -15,7 +15,7 @@ public class BottonOnMouse : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Color afterColor = Color.white;
 
 
-    void Start()
+    private void OnEnable()
     {
         button = GetComponent<Image>();
         text = GetComponentInChildren<TextMeshProUGUI>();

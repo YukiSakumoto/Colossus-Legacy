@@ -196,8 +196,8 @@ public class ThrowBomb : MonoBehaviour
                     initialPosition.x += initialPosAddX;
                     initialPosition.y += initialPosAddY;
                     initialPosition.z += initialPosAddZ;
-                    Bomb bombClass = m_bombPrefab.GetComponent<Bomb>();
                     GameObject bomb = Instantiate(m_bombPrefab, initialPosition, Quaternion.identity);
+                    Bomb bombClass = bomb.GetComponent<Bomb>();
                     Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
                     bombRb.AddForce(transform.up * m_bombHeight * m_chargePower, ForceMode.Impulse);
                     bombRb.AddForce(transform.forward * m_speed * m_chargePower);

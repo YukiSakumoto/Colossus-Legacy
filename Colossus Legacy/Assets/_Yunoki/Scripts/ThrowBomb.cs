@@ -27,6 +27,7 @@ public class ThrowBomb : MonoBehaviour
     private bool m_bombThrowCheckFlg = false;
 
     private CharacterManager m_characterManager;
+    private PlayerSoundPlay m_playerSoundPlay;
     private GameStatusManager m_gameStatusManager;
     private float cnt = 0;
 
@@ -48,6 +49,11 @@ public class ThrowBomb : MonoBehaviour
         }
 
         m_characterManager = GameObject.FindWithTag("Player").GetComponent<CharacterManager>();
+        m_playerSoundPlay = GameObject.FindWithTag("Player").GetComponent<PlayerSoundPlay>();
+        if(!m_playerSoundPlay)
+        {
+            Debug.LogError("ThrowBomb: PlayerSoundPlay is Null");
+        }
         m_gameStatusManager = GameObject.FindWithTag("GameManager").GetComponent<GameStatusManager>();
     }
 
@@ -196,6 +202,7 @@ public class ThrowBomb : MonoBehaviour
                     bombRb.AddForce(transform.forward * m_speed * m_chargePower);
                     bombClass.SetTime(m_bombExpTime);
                     bombClass.m_gameStatusManager = m_gameStatusManager;
+                    bombClass.m_playerSoundPlay = m_playerSoundPlay;
                     Destroy(bomb, m_bombExpTime + bombExpTimeAdd);
                     cnt = m_bombChargeTime;
                     m_chargePower = 0f;

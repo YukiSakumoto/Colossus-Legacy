@@ -2181,6 +2181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreasureChest
       objectReference: {fileID: 0}
+    - target: {fileID: 9006784164429449795, guid: bb38169d1ce828f489b5d153243add70, type: 3}
+      propertyPath: m_soundPlay
+      value: 
+      objectReference: {fileID: 801781025}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

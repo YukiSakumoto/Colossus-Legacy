@@ -16,6 +16,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] float GroundPos = 0.2f;
 
     public GameStatusManager m_gameStatusManager;
+    public PlayerSoundPlay m_playerSoundPlay;
 
     private string m_characterTag = "Player";
     private string m_golemTag = "EnemyWeak";
@@ -92,10 +93,11 @@ public class Bomb : MonoBehaviour
         m_capsuleCollider.enabled = true;
         m_meshRenderer.enabled = false;
         m_bombFlg = true;
+        m_meshRenderer.enabled = false;
         Instantiate(expParticle, transform.position, Quaternion.identity);
         m_rb.velocity = Vector3.zero;
         m_rb.angularVelocity = Vector3.zero;
-        m_meshRenderer.enabled = false;
+        m_playerSoundPlay.SoundSubExplosion();
     }
 
     private void OnTriggerEnter(Collider _other)

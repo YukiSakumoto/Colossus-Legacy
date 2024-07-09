@@ -3547,23 +3547,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"Particle
-      Activate","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Warp
-      Point Activate","value":{"$content":1,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Warp
-      Particle Voltex","value":{"$content":2,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Warp
-      Particle Flash","value":{"$content":3,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Golem
-      Obj","value":{"$content":4,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"BanEntry","value":{"$content":5,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"Golem
+      Obj","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"BanEntry","value":{"$content":1,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
     - {fileID: 274763812}
     - {fileID: 756562928}
 --- !u!4 &160428241
@@ -15685,11 +15673,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9.0719385, y: 4.315627, z: 3.1138997}
   m_Center: {x: -0.23506403, y: 0.24741268, z: 0.03617829}
---- !u!1 &1484082183 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f6c9ea0909787284582026f0068e3170, type: 3}
-  m_PrefabInstance: {fileID: 1772324873}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1492822074 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7654329724158800715, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
@@ -18001,32 +17984,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7.4950995, y: 3.8381166, z: 3.5224752}
   m_Center: {x: -0.20740847, y: 0.018917322, z: 0.07446678}
---- !u!1 &1703899556 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6112434174705395259, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
-  m_PrefabInstance: {fileID: 3871124442838271178}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1703899561
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703899556}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.1883156, y: 20.818817, z: 21.099693}
-  m_Center: {x: 13.81089, y: 0.00000006524044, z: 0.0000024494261}
 --- !u!1 &1709309697 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7684260605711143213, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
@@ -18793,9 +18750,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f6c9ea0909787284582026f0068e3170, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1772324877}
     - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: f6c9ea0909787284582026f0068e3170, type: 3}
       insertIndex: -1
       addedObject: {fileID: 905648850}
@@ -18850,28 +18804,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f6c9ea0909787284582026f0068e3170, type: 3}
   m_PrefabInstance: {fileID: 1772324873}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1772324877
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1484082183}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 855131390749405241, guid: f6c9ea0909787284582026f0068e3170, type: 3}
 --- !u!1 &1772422709 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6104799529812577332, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
@@ -28411,9 +28343,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1533183584342667601, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 215557112}
-    - targetCorrespondingSourceObject: {fileID: 6112434174705395259, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1703899561}
     - targetCorrespondingSourceObject: {fileID: 6374689451352755721, guid: 726788f199b0b2b41b1f36b33289dcd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 277910487}

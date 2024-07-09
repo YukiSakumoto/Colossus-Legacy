@@ -766,6 +766,11 @@ public class CharacterMovement : MonoBehaviour
         get { return m_joyAnimeFlg; }
     }
 
+    public int GetLife()
+    {
+        return m_playerLife;
+    }
+
     void Setm_joyFlg()
     {
         m_joyFlg = true;

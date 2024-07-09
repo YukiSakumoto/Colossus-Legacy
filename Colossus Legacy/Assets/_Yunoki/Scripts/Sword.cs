@@ -14,6 +14,10 @@ public class Sword : MonoBehaviour
     [SerializeField] CharacterManager m_manager;
     private GameStatusManager m_gameStatusManager;
 
+    private float m_notHitTime = 0f;
+    private const float m_notHitSetTime = 0.2f;
+    private bool m_swordEnableFlg = false;
+    private bool m_swordFirstFlg = false;
     private bool m_hitFlg = false;
     private bool m_deflectedFlg = false;
     private bool m_judgeEndFlg = false;
@@ -47,6 +51,23 @@ public class Sword : MonoBehaviour
             SwordAttackOff();
             m_judgeEndFlg = false;
         }
+
+        if(m_swordEnableFlg)
+        {
+            if (m_notHitTime <= 0f)
+            {
+                m_meshCollider.enabled = true;
+            }
+        }
+        else
+        {
+            m_meshCollider.enabled = false;
+        }
+
+        if (m_notHitTime > 0f) 
+        {
+            m_notHitTime -= Time.deltaTime;
+        }
     }
 
     void LateUpdate()
@@ -65,7 +86,6 @@ public class Sword : MonoBehaviour
                 if (_other.gameObject.CompareTag(m_targetWeakTag))
                 {
                     m_gameStatusManager.DamageGolemSword();
-                    //Destroy(_other.gameObject);
                     Debug.Log("ヒット！剣が敵の弱点に当たったげな");
                     m_hitFlg = true;
                     SwordAttackOff();
@@ -73,7 +93,6 @@ public class Sword : MonoBehaviour
                 }
                 else if (_other.gameObject.CompareTag(m_targetBodyTag))
                 {
-                    //Destroy(_other.gameObject);
                     Debug.Log("弾かれ！剣が弾かれてダメージが入らへん");
                     m_deflectedFlg = true;
                     SwordAttackOff();
@@ -81,16 +100,24 @@ public class Sword : MonoBehaviour
                 }
             }
         }
+    
     }
 
     private void SwordAttackOn()
     {
-        m_meshCollider.enabled = true;
+        m_swordEnableFlg = true;
+        if (!m_swordFirstFlg)
+        {
+            m_swordFirstFlg = true;
+            m_notHitTime = m_notHitSetTime;
+        }
     }
 
     private void SwordAttackOff()
     {
-        m_meshCollider.enabled = false;
+        m_swordEnableFlg = false;
+        m_swordFirstFlg = false;
+        m_notHitTime = 0f;
     }
 
     public bool Getm_hitFlg

@@ -25,6 +25,9 @@ public class GolemLeft : Golem
 
     [SerializeField] private GameObject m_attackAreaHand;
     [SerializeField] private GameObject m_attackAreaPalms;
+    [SerializeField] private GameObject m_attackAreaSwing;
+
+    [SerializeField] private Transform m_areaSwing;
 
 
     private Vector3 _forward = Vector3.forward;
@@ -161,11 +164,17 @@ public class GolemLeft : Golem
     private void AttackAreaPalms()
     {
         Vector3 targetPos = this.transform.position;
-        targetPos.y += 4.0f;
-        //targetPos.y -= 3.0f;
+        targetPos.y -= 3.0f;
         targetPos.z -= 12.5f;
 
         m_attackAreaIns = Instantiate(m_attackAreaPalms, targetPos, new Quaternion(), this.transform);
+    }
+
+    private void AttackAreaSwing()
+    {
+        Vector3 targetPos = m_areaSwing.position;
+
+        m_attackAreaIns = Instantiate(m_attackAreaSwing, targetPos, new Quaternion(), this.transform);
     }
 
     private void DestroyAttackArea()

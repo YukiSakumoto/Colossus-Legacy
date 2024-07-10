@@ -12611,6 +12611,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 505901830}
+  - component: {fileID: 505901832}
+  - component: {fileID: 505901831}
   m_Layer: 0
   m_Name: WASD
   m_TagString: Untagged
@@ -12645,6 +12647,42 @@ Transform:
   - {fileID: 1124688513}
   m_Father: {fileID: 1809029624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &505901831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505901829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e567b2ed600652c4490e6df71b258f78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleCollider: {fileID: 505901832}
+--- !u!136 &505901832
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505901829}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 7.73566
+  m_Height: 15.47132
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &514708716 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4441409350201363944, guid: 5b2e2e07e5984dd41b3ad7d26faa64c1, type: 3}

@@ -41,10 +41,13 @@ public class GolemMain : Golem
 
     //[SerializeField] private float m_shrinkSpeed = 0.1f;
 
-
     [SerializeField] private List<Collider> m_laserCollider;
     [SerializeField] private Transform m_laserTransform;
-    
+
+    private GameObject m_attackAreaIns;
+    [SerializeField] private GameObject m_attackAreaLaser;
+    [SerializeField] private Transform m_areaLaser;
+
 
     // ================================
     // ƒ^[ƒQƒbƒg‚Ö‚Ì‰ñ“]•â³Œn
@@ -161,6 +164,7 @@ public class GolemMain : Golem
 
     private bool EndEffect()
     {
+        DestroyAttackArea();
         bool result = false;
 
         if (m_scaleTime > 0) { m_scaleTime -= Time.deltaTime; }
@@ -244,6 +248,8 @@ public class GolemMain : Golem
                 m_isLaser = true;
 
                 m_bodyRotTime = -2.0f;
+
+                AttackAreaLaser();
             }
         }
         else
@@ -362,5 +368,21 @@ public class GolemMain : Golem
         this.transform.rotation *= Quaternion.Euler(0.0f, 180.0f, 0.0f);
 
         m_bodyRotTime += Time.deltaTime;
+    }
+
+
+    private void AttackAreaLaser()
+    {
+        Vector3 targetPos = m_areaLaser.position;
+
+        m_attackAreaIns = Instantiate(m_attackAreaLaser, targetPos, new Quaternion(), this.transform);
+    }
+
+    private void DestroyAttackArea()
+    {
+        if (m_attackAreaIns)
+        {
+            Destroy(m_attackAreaIns);
+        }
     }
 }

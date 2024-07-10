@@ -28496,6 +28496,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.6666667
+    functionName: AttackAreaRampage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 3
     functionName: AttackOn
     data: 
@@ -28610,6 +28617,13 @@ AnimationClip:
     messageOptions: 0
   - time: 7.7
     functionName: AttackOff
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 7.7
+    functionName: DestroyAttackArea
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

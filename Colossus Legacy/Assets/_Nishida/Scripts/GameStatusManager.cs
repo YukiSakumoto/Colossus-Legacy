@@ -32,9 +32,9 @@ public class GameStatusManager : MonoBehaviour
 
     enum GolemDamage // ゴーレムが受けるダメージ量
     {
-        Sword = 50, // 剣ダメージ
-        Arrow = 20, // 矢ダメージ
-        Bomb = 50,  // 爆弾ダメージ
+        Sword = 20, // 剣ダメージ
+        Arrow = 10, // 矢ダメージ
+        Bomb = 20,  // 爆弾ダメージ
     }
 
     enum Recovery // 回復量

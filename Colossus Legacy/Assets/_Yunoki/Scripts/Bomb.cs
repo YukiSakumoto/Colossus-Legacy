@@ -11,6 +11,7 @@ public class Bomb : MonoBehaviour
     //[SerializeField] GameObject character;
     [SerializeField] MeshCollider m_meshCollider;
     [SerializeField] CapsuleCollider m_capsuleCollider;
+    [SerializeField] CapsuleCollider m_checkCollider;
     [SerializeField] MeshRenderer m_meshRenderer;
 
     [SerializeField] float GroundPos = 0.2f;
@@ -26,6 +27,7 @@ public class Bomb : MonoBehaviour
     private Vector3 pos;
 
     private float m_bombTime = 3f;
+    private float m_destroyTime = 0.5f;
 
     private bool m_bombFlg = false;
 
@@ -81,9 +83,20 @@ public class Bomb : MonoBehaviour
     private void FixedUpdate()
     {
         m_bombTime -= Time.deltaTime;
-        if(m_bombTime <= 0 && !m_bombFlg)
+        if(m_bombTime <= 0)
         {
-            BombAttack();
+            if (!m_bombFlg)
+            {
+                BombAttack();
+            }
+            else
+            {
+                m_destroyTime -= Time.deltaTime;
+                if(m_destroyTime <= 0f)
+                {
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 
@@ -91,13 +104,20 @@ public class Bomb : MonoBehaviour
     {
         m_meshCollider.enabled = false;
         m_capsuleCollider.enabled = true;
+        m_checkCollider.enabled = false;
         m_meshRenderer.enabled = false;
         m_bombFlg = true;
-        m_meshRenderer.enabled = false;
         Instantiate(expParticle, transform.position, Quaternion.identity);
         m_rb.velocity = Vector3.zero;
         m_rb.angularVelocity = Vector3.zero;
-        m_playerSoundPlay.SoundSubExplosion();
+        if (!m_playerSoundPlay)
+        {
+            Debug.LogError("Bomb: PlayerSoundPlay is Null");
+        }
+        else
+        {
+            m_playerSoundPlay.SoundSubExplosion();
+        }
     }
 
     private void OnTriggerEnter(Collider _other)
@@ -126,6 +146,21 @@ public class Bomb : MonoBehaviour
                 else
                 {
                     m_gameStatusManager.DamageGolemBomb();
+                }
+            }
+        }
+        else
+        {
+            Transform targetTransform = _other.transform;
+            if (targetTransform.gameObject.CompareTag(m_golemTag))
+            {
+                if (!m_gameStatusManager)
+                {
+                    Debug.Log("Bomb: GameStatusManager is Null");
+                }
+                else
+                {
+                    m_bombTime = 0f;
                 }
             }
         }

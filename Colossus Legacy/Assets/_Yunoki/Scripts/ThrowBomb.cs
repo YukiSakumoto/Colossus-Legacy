@@ -92,7 +92,8 @@ public class ThrowBomb : MonoBehaviour
         m_ratio = m_chargeTime / m_chargeMaxTime;
         m_chargeImage.fillAmount = m_ratio;
 
-        if (!m_characterManager.Getm_joyFlg && !m_characterManager.Getm_deathFlg)
+        if (!m_characterManager.Getm_joyFlg && !m_characterManager.Getm_deathFlg &&
+            !m_characterManager.Getm_damageMotionFlg && !m_characterManager.Getm_damageBlownAwayStiffnessFlg)
         {
             if (!m_bombThrowFlg)
             {
@@ -195,14 +196,30 @@ public class ThrowBomb : MonoBehaviour
                     initialPosition.x += initialPosAddX;
                     initialPosition.y += initialPosAddY;
                     initialPosition.z += initialPosAddZ;
-                    Bomb bombClass = m_bombPrefab.GetComponent<Bomb>();
                     GameObject bomb = Instantiate(m_bombPrefab, initialPosition, Quaternion.identity);
+                    Bomb bombClass = bomb.GetComponent<Bomb>();
                     Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
                     bombRb.AddForce(transform.up * m_bombHeight * m_chargePower, ForceMode.Impulse);
                     bombRb.AddForce(transform.forward * m_speed * m_chargePower);
                     bombClass.SetTime(m_bombExpTime);
                     bombClass.m_gameStatusManager = m_gameStatusManager;
+                    if(!m_gameStatusManager)
+                    {
+                        Debug.LogError("ThrowBomb: GameStatusManager is Null");
+                    }
+                    if(!bombClass.m_gameStatusManager)
+                    {
+                        Debug.LogError("ThrowBomb: bombClassGameStatusManager is Null");
+                    }
                     bombClass.m_playerSoundPlay = m_playerSoundPlay;
+                    if (!m_playerSoundPlay)
+                    {
+                        Debug.LogError("ThrowBomb: PlayerSoundPlay is Null");
+                    }
+                    if (!bombClass.m_playerSoundPlay)
+                    {
+                        Debug.LogError("ThrowBomb: bombClassPlayerSoundPlay is Null");
+                    }
                     Destroy(bomb, m_bombExpTime + bombExpTimeAdd);
                     cnt = m_bombChargeTime;
                     m_chargePower = 0f;

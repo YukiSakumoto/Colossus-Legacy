@@ -31,6 +31,8 @@ public class CharacterManager : MonoBehaviour
     private bool m_moveSecondSwordAttackFlg = false;
     private bool m_moveJoyFlg = false;
     private bool m_moveJoyAnimeFlg = false;
+    private bool m_moveDamageMotionFlg = false;
+    private bool m_moveDamageBlownAwayStiffnessFlg = false;
     private bool m_swordHitFlg = false;
     private bool m_swordDeflectedFlg = false;
     private bool m_bombThrowCheckFlg = false;
@@ -115,6 +117,8 @@ public class CharacterManager : MonoBehaviour
         m_moveSecondSwordAttackFlg = m_movement.Getm_secondSwordAttackFlg;
         m_moveJoyFlg = m_movement.Getm_joyFlg;
         m_moveJoyAnimeFlg = m_movement.Getm_joyAnimeFlg;
+        m_moveDamageMotionFlg = m_movement.Getm_damageMotionFlg;
+        m_moveDamageBlownAwayStiffnessFlg = m_movement.Getm_damageBlownAwayStiffnessFlg;
     }
 
     private void SwordFlgSet()
@@ -192,6 +196,16 @@ public class CharacterManager : MonoBehaviour
     public bool Getm_joyAnimeFlg
     {
         get { return m_moveJoyAnimeFlg; }
+    }
+
+    public bool Getm_damageMotionFlg
+    {
+        get { return m_moveDamageMotionFlg; }
+    }
+
+    public bool Getm_damageBlownAwayStiffnessFlg
+    {
+        get { return m_moveDamageBlownAwayStiffnessFlg; }
     }
 
     public bool Getm_hitFlg

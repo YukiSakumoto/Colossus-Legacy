@@ -177,7 +177,7 @@ public class GameStatusManager : MonoBehaviour
         m_characterKnockBackFlg = true;
         m_characterDownFlg = false;
         m_characterPushUpFlg = false;
-        m_characterDamage = (int)PlayerDamage.big;
+        m_characterDamage = (int)PlayerDamage.death;
         Debug.Log("GameStatusManager: DamagePlayerBeam");
     }
 

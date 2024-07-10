@@ -36294,6 +36294,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.8333333
+    functionName: AttackAreaPalms
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.5
     functionName: WeakOn
     data: 
@@ -36338,6 +36345,13 @@ AnimationClip:
     messageOptions: 0
   - time: 6
     functionName: CameraQuakingLong
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 6
+    functionName: DestroyAttackArea
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

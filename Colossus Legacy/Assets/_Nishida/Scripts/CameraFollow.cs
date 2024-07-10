@@ -33,6 +33,7 @@ public class CameraFollow : MonoBehaviour
             if (target.position.z >= 28.0f)
             {
                 if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.TreasureGet ||
+                    GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.Score ||
                     GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.GameFin)
                 {
                     nowRotDeg = ChangeOffset(nowRotDeg, new Vector3(20.0f, 0.0f, 0.0f), ref time, 0.2f);

@@ -15,12 +15,16 @@ public class GameEvent : MonoBehaviour
         PlayerDead,         // プレイヤーの死亡
         PlayerWin,          // ゴーレム討伐完了
         TreasureGet,        // 宝箱の獲得
-        GameFin,
+        Score,              // スコア表示
+        GameFin,            // ゲーム終了
     }
     public GameEventState m_nowEvent;
     private GameEventState m_changeEvent;
 
     private Scene m_nowScene;
+
+    public float m_clearTime = 0.0f;
+    public int m_deathCount = 0;
 
 
     void Start()
@@ -45,6 +49,14 @@ public class GameEvent : MonoBehaviour
 
         if (IsScene("GameScene"))
         {
+            // イベント中の更新処理
+            if (m_nowEvent == GameEventState.BattleBefore || m_nowEvent == GameEventState.Battle ||
+                m_nowEvent == GameEventState.PlayerDead )
+            {
+                m_clearTime += Time.deltaTime;
+            }
+
+
             // イベント切り替えの処理
             if (m_changeEvent != GameEventState.None && m_nowEvent != m_changeEvent)
             {
@@ -66,6 +78,7 @@ public class GameEvent : MonoBehaviour
                 // プレイヤーが死亡したら
                 else if (m_changeEvent == GameEventState.PlayerDead)
                 {
+                    m_deathCount++;
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 1.0f);
                 }
                 else if (m_changeEvent == GameEventState.GameFin)
@@ -130,7 +143,14 @@ public class GameEvent : MonoBehaviour
 
         if (IsScene("GameScene"))
         {
-            GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Before);
+            ChangeEvent(GameEventState.BattleBefore);
         }
+    }
+
+
+    public void ResetScore()
+    {
+        m_clearTime = 0.0f;
+        m_deathCount = 0;
     }
 }

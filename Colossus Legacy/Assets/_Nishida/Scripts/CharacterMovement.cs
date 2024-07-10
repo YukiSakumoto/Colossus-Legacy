@@ -766,6 +766,16 @@ public class CharacterMovement : MonoBehaviour
         get { return m_joyAnimeFlg; }
     }
 
+    public bool Getm_damageMotionFlg
+    {
+        get { return m_damageMotionFlg; }
+    }
+
+    public bool Getm_damageBlownAwayStiffnessFlg
+    {
+        get { return m_damageBlownAwayStiffnessFlg; }
+    }
+
     public int GetLife()
     {
         return m_playerLife;

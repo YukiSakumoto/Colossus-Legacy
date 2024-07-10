@@ -195,11 +195,11 @@ public class StageClear : MonoBehaviour
         if (m_state == ScoreState.ClearTime || m_state == ScoreState.DeathCnt ||
             m_state == ScoreState.PlayerHp)
         {
-            Invoke(nameof(SoundScore), 0.2f);
+            Invoke(nameof(SoundScore), 0.25f);
         }
         else if (m_state == ScoreState.TotalScore)
         {
-            Invoke(nameof(SoundTotal), 0.5f);
+            Invoke(nameof(SoundTotal), 0.55f);
         }
     }
 
@@ -211,5 +211,6 @@ public class StageClear : MonoBehaviour
     private void SoundTotal()
     {
         m_audio.PlayOneShot(m_totalClip);
+        Invoke(nameof(SoundScore), 0.15f);
     }
 }

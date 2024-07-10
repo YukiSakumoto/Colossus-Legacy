@@ -20,9 +20,12 @@ public class GolemLeft : Golem
     [SerializeField] private GameObject m_hand;
     private GameObject m_instantiateObj;
     private float m_protrusionNowTime = 0.0f;
-    [SerializeField] private GameObject m_attackArea;
     private GameObject m_attackAreaIns;
     bool m_handColEnable = true;
+
+    [SerializeField] private GameObject m_attackAreaHand;
+    [SerializeField] private GameObject m_attackAreaPalms;
+
 
     private Vector3 _forward = Vector3.forward;
 
@@ -149,9 +152,25 @@ public class GolemLeft : Golem
         targetPos.y -= 4.0f;
 
         Quaternion rot = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
-        m_attackAreaIns = Instantiate(m_attackArea, targetPos, rot, this.transform);
+        m_attackAreaIns = Instantiate(m_attackAreaHand, targetPos, rot, this.transform);
 
         m_handColEnable = true;
+    }
+
+
+    private void AttackAreaPalms()
+    {
+        Vector3 targetPos = this.transform.position;
+        targetPos.y += 4.0f;
+        //targetPos.y -= 3.0f;
+        targetPos.z -= 12.5f;
+
+        m_attackAreaIns = Instantiate(m_attackAreaPalms, targetPos, new Quaternion(), this.transform);
+    }
+
+    private void DestroyAttackArea()
+    {
+        Destroy(m_attackAreaIns);
     }
 
 
@@ -182,7 +201,7 @@ public class GolemLeft : Golem
     {
         if (!m_instantiateObj) { Debug.Log("ƒnƒ“ƒh‚ª‚È‚¢‚æ"); return; }
         Destroy(m_instantiateObj);
-        Destroy(m_attackAreaIns);
+        DestroyAttackArea();
     }
 
 

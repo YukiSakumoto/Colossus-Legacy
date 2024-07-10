@@ -3357,6 +3357,7 @@ MonoBehaviour:
   m_damageCrush: {fileID: 1098036830}
   m_deflected: {fileID: 1498857657}
   m_subExplosion: {fileID: 280906629}
+  m_footStep: {fileID: 1117523964}
   m_treasureOpenBegin: {fileID: 310359665}
   m_treasureOpening: {fileID: 676486136}
 --- !u!1 &858880440 stripped
@@ -3400,7 +3401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &873440877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4313,6 +4314,11 @@ AudioSource:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8113273065195126248, guid: b26d8f69e76f40b4bace197e8b29865c, type: 3}
   m_PrefabInstance: {fileID: 139930057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1117523964 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1292681662188222679, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
+  m_PrefabInstance: {fileID: 1498857655}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1178184103
 GameObject:

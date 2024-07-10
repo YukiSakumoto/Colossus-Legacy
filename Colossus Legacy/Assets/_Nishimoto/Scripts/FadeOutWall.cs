@@ -19,7 +19,7 @@ public class FadeOutWall : MonoBehaviour
         col.a = 1.0f;
         gameObjectMaterial.color = col;
         render = GetComponent<SpriteRenderer>();
-        boolean = true;
+        boolean =false;
     }
 
     // Update is called once per frame
@@ -28,6 +28,8 @@ public class FadeOutWall : MonoBehaviour
     }
     public void PlayFadeOut()
     {
+        if (boolean == false) { return; }
+
         time += Time.deltaTime;
         if (time < fadeTime)
         {
@@ -43,8 +45,8 @@ public class FadeOutWall : MonoBehaviour
         }
     }
 
-    public bool GetBool()
+    public void SetBool(bool _bool)
     {
-        return boolean;
+         boolean = _bool;
     }
 }

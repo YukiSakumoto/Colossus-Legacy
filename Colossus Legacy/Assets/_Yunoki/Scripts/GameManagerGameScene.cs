@@ -76,5 +76,6 @@ public class GameManagerGameScene : MonoBehaviour
     public void GameSceneStart()
     {
         this.enabled = true;
+        GameEvent.Instance.ResetScore();
     }
 }

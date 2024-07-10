@@ -12,6 +12,7 @@ public class CameraRoll : MonoBehaviour
     void Update()
     {
         if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.TreasureGet ||
+            GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.Score ||
             GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.GameFin)
         {
             transform.RotateAround
@@ -20,7 +21,7 @@ public class CameraRoll : MonoBehaviour
             m_finTime -= Time.deltaTime;
             if (m_finTime <= 0.0f)
             {
-                GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.GameFin);
+                GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.Score);
             }
         }
     }

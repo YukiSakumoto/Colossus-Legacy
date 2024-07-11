@@ -279,7 +279,6 @@ public class Golem : MonoBehaviour
             }
             else if (m_palmsFlg && m_golemLeft.m_attackWait && m_golemRight.m_attackWait)
             {
-                Debug.Log("‚±‚ê‚¤‚²‚¢‚Ä‚é‚æ");
                 m_palmsFlg = false;
 
                 m_golemLeft.AttackStart();
@@ -293,14 +292,12 @@ public class Golem : MonoBehaviour
     {
         if (m_damageCnt == 1)
         {
-            Debug.Log("ˆê‰ñ–Ú");
             m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
 
             m_golemRight.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
         }
         else if (m_damageCnt == 2)
         {
-            Debug.Log("“ñ‰ñ–Ú");
             m_golemLeft.attackManager.DeleteAttack(1);
             m_golemLeft.attackManager.DeleteAttack(3);
             m_golemLeft.attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);

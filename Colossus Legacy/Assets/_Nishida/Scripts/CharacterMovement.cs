@@ -284,7 +284,7 @@ public class CharacterMovement : MonoBehaviour
             // âÒîçsìÆ
             if (Input.GetKey(KeyCode.Space))
             {
-                if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg)
+                if (!m_bowShotFlg && !m_deathFlg && !m_bowMotionFlg && !m_subAttackMotionFlg && !m_damageMotionFlg && !m_damageBlownAwayStiffnessFlg)
                 {
                     if (!m_rollFinishCheckFlg)
                     {

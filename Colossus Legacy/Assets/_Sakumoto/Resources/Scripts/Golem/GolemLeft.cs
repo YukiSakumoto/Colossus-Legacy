@@ -123,7 +123,6 @@ public class GolemLeft : Golem
         // 次の攻撃がセットされているとき、待機状態になるかを識別
         if (!m_attackWait)
         {
-            Debug.Log("思惑通り←");
             AttackWait();
         }
 
@@ -145,7 +144,6 @@ public class GolemLeft : Golem
     {
         if (m_nowAttackId == 0)
         {
-            Debug.Log("思惑通りww");
             m_stop = true;
             m_attackWait = true;
         }

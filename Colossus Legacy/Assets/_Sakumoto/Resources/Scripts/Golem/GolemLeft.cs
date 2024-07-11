@@ -60,10 +60,9 @@ public class GolemLeft : Golem
 
         attackManager = GetComponent<AttackManager>(); 
 
-        attackManager.AddAttack(0, "SwingDown", new Vector2(0.0f, 22.0f), 1.0f);
+        attackManager.AddAttack(0, "Palms", new Vector2(0.0f, 15.0f), 1.0f, true);
         attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 3.0f);
-        attackManager.AddAttack(2, "Palms", new Vector2(0.0f, 15.0f), 1.0f, true);
-        attackManager.AddAttack(3, "Protrusion", new Vector2(22.0f, 55.0f), 1.0f);
+        attackManager.AddAttack(2, "Protrusion", new Vector2(22.0f, 55.0f), 1.5f);
 
         // 初期角度の保存
         m_initRot = this.transform.rotation;
@@ -118,12 +117,23 @@ public class GolemLeft : Golem
         // 停止中 or ダメージ中ならリターン
         if (m_stop || m_damageFlg) { return; }
 
+        // 攻撃をセット
         m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
-        if (m_nowAttackId != -1)
+
+        // 次の攻撃がセットされているとき、待機状態になるかを識別
+        if (!m_attackWait)
         {
-            m_nowAttackName = attackManager.GetAttackName(); 
+            Debug.Log("思惑通り←");
+            AttackWait();
         }
 
+        // 攻撃状態なら攻撃名を取得
+        if (m_nowAttackId != -1)
+        {
+            m_nowAttackName = attackManager.GetAttackName();
+        }
+
+        // 次にセットした攻撃が現在の攻撃なら次のセットを破壊
         if (m_nowAttackId == m_nextAttackId)
         {
             m_nextAttackId = -1;
@@ -133,8 +143,9 @@ public class GolemLeft : Golem
 
     public bool AttackWait()
     {
-        if (m_nowAttackId == 2)
+        if (m_nowAttackId == 0)
         {
+            Debug.Log("思惑通りww");
             m_stop = true;
             m_attackWait = true;
         }
@@ -146,6 +157,7 @@ public class GolemLeft : Golem
     public void AttackStart()
     {
         m_stop = false;
+        m_attackWait = false;
         m_nextAttackId = -1;
         attackManager.AttackStart();
     }

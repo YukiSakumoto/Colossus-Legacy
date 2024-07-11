@@ -500,7 +500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1870926336220903938, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -57.57
+      value: -57.6
       objectReference: {fileID: 0}
     - target: {fileID: 1870926336220903938, guid: ed910a40ff00f5c4e91b452d5d477897, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2448,10 +2448,6 @@ PrefabInstance:
     - target: {fileID: 1076863203911872200, guid: bb38169d1ce828f489b5d153243add70, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5155138183925916872, guid: bb38169d1ce828f489b5d153243add70, type: 3}
-      propertyPath: m_TagString
-      value: TreasureOpen
       objectReference: {fileID: 0}
     - target: {fileID: 5216113133188033109, guid: bb38169d1ce828f489b5d153243add70, type: 3}
       propertyPath: m_Name

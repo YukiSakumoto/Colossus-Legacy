@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 2826863571678847828}
   m_Layer: 0
   m_Name: open
-  m_TagString: Untagged
+  m_TagString: TreasureOpen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,8 +157,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.61342764, y: 0.73869026, z: 0.8780548}
-  m_Center: {x: -0.016954958, y: 0.4520597, z: 0.23921195}
+  m_Size: {x: 0.61342764, y: 0.73869026, z: 0.3722396}
+  m_Center: {x: -0.016954958, y: 0.4520597, z: 0.49211955}
 --- !u!114 &2826863571678847828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf718629efe477243a9e20a9b9af9a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_soundPlay: {fileID: 0}
 --- !u!65 &4261152573452732229
 BoxCollider:
   m_ObjectHideFlags: 0

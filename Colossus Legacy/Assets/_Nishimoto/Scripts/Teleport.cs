@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    [SerializeField] GameObject obj;
+    GameObject obj;
+    [SerializeField] GameObject Player;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +16,13 @@ public class Teleport : MonoBehaviour
     void Update()
     {
         
+    }
+    public void SetTagCollision(GameObject _obj)
+    {
+        obj = _obj;
+    }
+    public void TeleportNext()
+    {
+        Player.transform.position = obj.transform.position;
     }
 }

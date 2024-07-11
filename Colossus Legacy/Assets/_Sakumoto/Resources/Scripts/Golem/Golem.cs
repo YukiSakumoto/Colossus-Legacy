@@ -188,8 +188,6 @@ public class Golem : MonoBehaviour
                 if (m_golemRight.m_damageFlg)
                 {
                     DamageAction(m_golemRight.m_damagePoint);
-                    if (m_hpState != HpState.Max) { m_golemRight.m_alive = false; }
-
                     if (m_hpState != HpState.Max)
                     {
                         if (m_hpState == HpState.Half)

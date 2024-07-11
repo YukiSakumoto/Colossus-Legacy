@@ -160,7 +160,17 @@ public class Golem : MonoBehaviour
                 if (m_golemLeft.m_damageFlg)
                 {
                     DamageAction(m_golemLeft.m_damagePoint);
-                    if (m_hpState != HpState.Max) { m_golemLeft.m_alive = false; }
+                    if (m_hpState != HpState.Max)
+                    {
+                        if (m_hpState == HpState.Half)
+                        {
+                            if (m_golemRight) { m_golemLeft.m_alive = false; }
+                        }
+                        else if (m_hpState == HpState.Crisis)
+                        {
+                            m_golemLeft.m_alive = false;
+                        }
+                    }
                     return;
                 }
             }
@@ -170,6 +180,18 @@ public class Golem : MonoBehaviour
                 {
                     DamageAction(m_golemRight.m_damagePoint);
                     if (m_hpState != HpState.Max) { m_golemRight.m_alive = false; }
+
+                    if (m_hpState != HpState.Max)
+                    {
+                        if (m_hpState == HpState.Half)
+                        {
+                            if (m_golemLeft) { m_golemRight.m_alive = false; }
+                        }
+                        else if (m_hpState == HpState.Crisis)
+                        {
+                            m_golemRight.m_alive = false;
+                        }
+                    }
                     return;
                 }
             }

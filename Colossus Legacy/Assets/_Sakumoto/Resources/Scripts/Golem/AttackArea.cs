@@ -15,7 +15,7 @@ public class AttackArea : MonoBehaviour
         mr = GetComponent<MeshRenderer>();
     }
 
-    void Update()
+    protected void Update()
     {
         float alpha = m_minAlpha + (Mathf.Sin(Time.time * m_speed) * 0.5f + 0.5f) * (m_maxAlpha - m_minAlpha);
         mr.material.color = 

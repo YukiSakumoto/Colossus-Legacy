@@ -164,7 +164,7 @@ public class StageClear : MonoBehaviour
 
         int score = (int)clearTime + deathCnt + life;
         string scoreRank = "F";
-        if (score >= 18000) { scoreRank = "SS"; }
+        if (score >= 16500) { scoreRank = "SS"; }
         else if (score >= 15000) { scoreRank = "S"; }
         else if (score >= 12000) { scoreRank = "A"; }
         else if (score >= 9000) { scoreRank = "B"; }

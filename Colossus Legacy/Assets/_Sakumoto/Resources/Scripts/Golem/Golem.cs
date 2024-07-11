@@ -46,7 +46,10 @@ public class Golem : MonoBehaviour
 
     // 攻撃管理用
     [SerializeField] protected bool m_stop = false;          // 各パーツの処理を止めるフラグ
-    protected bool m_attackWait = false;    // 攻撃待機状態フラグ
+    [SerializeField] protected bool m_attackWait = false;    // 攻撃待機状態フラグ
+    private bool m_palmsFlg = false;
+    private int m_damageCnt = 0;
+
 
     // HP 処理
     [SerializeField] private int m_maxHp = 100;     // 最大体力
@@ -93,6 +96,7 @@ public class Golem : MonoBehaviour
         m_golemMain = GameObject.Find("Golem_Main").GetComponent<GolemMain>();
 
         m_hp = m_maxHp;
+        m_damageCnt = 0;
     }
 
     void Update()
@@ -171,6 +175,11 @@ public class Golem : MonoBehaviour
                             m_golemLeft.m_alive = false;
                         }
                     }
+                    // 攻撃を追加
+                    else
+                    {
+                        ChangeAttackState();
+                    }
                     return;
                 }
             }
@@ -179,8 +188,6 @@ public class Golem : MonoBehaviour
                 if (m_golemRight.m_damageFlg)
                 {
                     DamageAction(m_golemRight.m_damagePoint);
-                    if (m_hpState != HpState.Max) { m_golemRight.m_alive = false; }
-
                     if (m_hpState != HpState.Max)
                     {
                         if (m_hpState == HpState.Half)
@@ -191,6 +198,10 @@ public class Golem : MonoBehaviour
                         {
                             m_golemRight.m_alive = false;
                         }
+                    }
+                    else
+                    {
+                        ChangeAttackState();
                     }
                     return;
                 }
@@ -251,28 +262,48 @@ public class Golem : MonoBehaviour
         // ===============================================
         if (m_golemLeft && m_golemRight)
         {
-            if (m_golemLeft.AttackWait())
+            if (!m_palmsFlg)
             {
-                if (m_golemLeft.m_nowAttackId == 2)
+                if (m_golemLeft.m_nowAttackId == 0 && m_golemRight.m_nowAttackId != 0)
                 {
-                    m_golemRight.AttackWait();
-                    m_golemRight.SetNextAttackId(2);
+                    m_palmsFlg = true;
+                    m_golemRight.SetNextAttackId(0);
+                }
+                else if (m_golemRight.m_nowAttackId == 0 && m_golemLeft.m_nowAttackId != 0)
+                {
+                    m_palmsFlg = true;
+                    m_golemLeft.SetNextAttackId(0);
                 }
             }
-            if (m_golemRight.AttackWait())
+            else if (m_palmsFlg && m_golemLeft.m_attackWait && m_golemRight.m_attackWait)
             {
-                if (m_golemRight.m_nowAttackId == 2)
-                {
-                    m_golemLeft.AttackWait();
-                    m_golemLeft.SetNextAttackId(2);
-                }
-            }
+                m_palmsFlg = false;
 
-            if (m_golemLeft.m_attackWait && m_golemRight.m_attackWait)
-            {
                 m_golemLeft.AttackStart();
                 m_golemRight.AttackStart();
             }
+        }
+    }
+
+
+    private void ChangeAttackState()
+    {
+        if (m_damageCnt == 1)
+        {
+            m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
+
+            m_golemRight.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
+        }
+        else if (m_damageCnt == 2)
+        {
+            m_golemLeft.attackManager.DeleteAttack(1);
+            m_golemLeft.attackManager.DeleteAttack(3);
+            m_golemLeft.attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
+            m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
+
+            m_golemRight.attackManager.DeleteAttack(1);
+            m_golemRight.attackManager.DeleteAttack(2);
+            m_golemRight.attackManager.AddAttack(1, "Protrusion", new Vector2(0.0f, 55.0f), 0.2f);
         }
     }
 
@@ -296,6 +327,11 @@ public class Golem : MonoBehaviour
             if (m_hp <= m_maxHp / 2.0f)
             {
                 m_hpState = HpState.Half;
+                m_damageCnt = 0;
+            }
+            else
+            {
+                m_damageCnt++;
             }
         }
         else if (m_hpState == HpState.Half)
@@ -371,7 +407,7 @@ public class Golem : MonoBehaviour
         {
             resultId = attackManager.Action(_dist);
         }
-        else
+        else if (_id == 0)
         {
             resultId = attackManager.Action(_dist, _id);
         }

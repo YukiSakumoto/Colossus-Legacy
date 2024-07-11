@@ -11,7 +11,7 @@ public class Bomb : MonoBehaviour
     //[SerializeField] GameObject character;
     [SerializeField] MeshCollider m_meshCollider;
     [SerializeField] CapsuleCollider m_capsuleCollider;
-    [SerializeField] CapsuleCollider m_checkCollider;
+    [SerializeField] BoxCollider m_checkCollider;
     [SerializeField] MeshRenderer m_meshRenderer;
 
     [SerializeField] float GroundPos = 0.2f;
@@ -56,7 +56,16 @@ public class Bomb : MonoBehaviour
             m_capsuleCollider.enabled = false;
         }
 
-        if(!m_meshRenderer)
+        if (!m_checkCollider)
+        {
+            Debug.Log("CheckCollider is Null");
+        }
+        else
+        {
+            m_checkCollider.enabled = true;
+        }
+
+        if (!m_meshRenderer)
         {
             Debug.Log("MeshRenderer is Null");
         }

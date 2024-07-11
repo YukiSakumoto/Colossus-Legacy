@@ -156,13 +156,14 @@ public class AttackManager : MonoBehaviour
     public int Action(float _dist, int _id)
     {
         // 待機状態なら現在の攻撃IDを返してリターン
-        if (m_attackLists[SearchAttackId(m_nowId)].m_waitFlg) { return m_nowId; }
+        //if (!_startFlg) { return m_nowId; }
 
         // クールダウンがまだなら早期リターン
         if (!m_canAttack) { return m_nowId; }
 
         // 指定した攻撃が範囲外ならリターン
-        if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist || m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
+        if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist ||
+            m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
 
         m_nowId = _id;
         m_coolDown = m_attackLists[SearchAttackId(m_nowId)].m_coolDown;
@@ -183,16 +184,16 @@ public class AttackManager : MonoBehaviour
     public void AttackStart()
     {
         m_isAttackAnimation = true;
-        m_animator.SetBool(m_attackLists[SearchAttackId(m_nowId)].m_name, m_isAttackAnimation);
+        m_animator.SetBool(m_attackLists[SearchAttackId(m_nowId)].m_name, true);
     }
 
 
     // アニメーションの終了（他スクリプトのアニメーションから呼び出し）
     public void AnimationFin()
     {
-        if (m_nowId < 0) { return; }
+        if (m_nowId < -1) { return; }
         m_isAttackAnimation = false;
-        m_animator.SetBool(m_attackLists[SearchAttackId(m_nowId)].m_name, m_isAttackAnimation);
+        m_animator.SetBool(m_attackLists[SearchAttackId(m_nowId)].m_name, false);
         m_nowId = -1;
     }
 

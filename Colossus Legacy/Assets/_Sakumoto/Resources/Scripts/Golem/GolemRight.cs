@@ -157,8 +157,19 @@ public class GolemRight : Golem
     {
         if (m_nowAttackId == 0)
         {
-            m_stop = true;
-            m_attackWait = true;
+            if (m_attackCnt < m_palmsMinCnt)
+            {
+                m_palmsFlg = false;
+                m_stop = false;
+                m_attackWait = false;
+                m_nowAttackId = -1;
+            }
+            else
+            {
+                m_palmsFlg = true;
+                m_stop = true;
+                m_attackWait = true;
+            }
         }
 
         return m_attackWait;

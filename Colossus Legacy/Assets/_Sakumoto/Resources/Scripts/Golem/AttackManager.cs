@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -162,8 +163,8 @@ public class AttackManager : MonoBehaviour
         if (!m_canAttack) { return m_nowId; }
 
         // 指定した攻撃が範囲外ならリターン
-        if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist ||
-            m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
+        //if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist ||
+        //    m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
 
         m_nowId = _id;
         m_coolDown = m_attackLists[SearchAttackId(m_nowId)].m_coolDown;
@@ -274,5 +275,26 @@ public class AttackManager : MonoBehaviour
             return m_attackLists[SearchAttackId(m_nowId)].m_name;
         }
         return "";
+    }
+
+
+    public bool IsAttackRange(int _id, float _targetDist)
+    {
+        if (m_attackLists[SearchAttackId(_id)].m_dist.x < _targetDist ||
+            m_attackLists[SearchAttackId(_id)].m_dist.y > _targetDist) { return false; }
+
+        return true;
+    }
+
+
+    public List<int> GetAttackIdList()
+    {
+        List<int> idList = new List<int>();
+        for (int i = 0; i < m_attackLists.Count; i++)
+        {
+            idList.Add(m_attackLists[SearchAttackId(i)].m_id);
+        }
+
+        return idList;
     }
 }

@@ -13,7 +13,7 @@ using static UnityEngine.GraphicsBuffer;
 public class GolemRight : Golem
 {
     public int m_nowAttackId = -1;
-    private int m_nextAttackId = -1;
+    [SerializeField] private int m_nextAttackId = -1;
 
     [SerializeField] private GameObject m_hand;
     private GameObject m_instantiateObj;
@@ -66,12 +66,8 @@ public class GolemRight : Golem
         m_initRot = this.transform.rotation;
         m_targetRot = this.transform.rotation;
 
-        // 腕の初期ベクトルを保存
-        if (m_myShoulder && m_myHand)
-        {
-            //m_initVec = m_myHand.transform.position - m_myShoulder.transform.position;
-            //m_initVec = Vector3.ProjectOnPlane(m_initVec, Vector3.up);
-        }
+        m_attackCnt = 0;
+        m_palmsMinCnt = 3;
     }
 
 
@@ -115,7 +111,27 @@ public class GolemRight : Golem
         if (m_stop || m_damageFlg) { return; }
 
         // 攻撃をセット
-        m_nowAttackId = AttackSet(DistanceToTarget(), m_nextAttackId);
+        int attackId;
+        if (m_attackCnt > m_palmsMinCnt || m_palmsFlg)
+        {
+            attackId = AttackSet(DistanceToTarget(), m_nextAttackId);
+        }
+        else
+        {
+            if (m_nowAttackId != -1)
+            {
+                List<int> list = attackManager.GetAttackIdList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == 0) { list.Remove(i); break; }
+                }
+                m_nextAttackId = list[Random.Range(0, list.Count)];
+                if (attackManager.IsAttackRange(m_nextAttackId, DistanceToTarget())) { m_nextAttackId = -1; }
+            }
+            attackId = AttackSet(DistanceToTarget(), m_nextAttackId);
+            if (m_nowAttackId != attackId) { m_attackCnt++; }
+        }
+        m_nowAttackId = attackId;
 
         // 次の攻撃がセットされているとき、待機状態になるかを識別
         if (!m_attackWait)
@@ -237,11 +253,18 @@ public class GolemRight : Golem
     {
         m_nowRot = this.transform.rotation;
 
+        // 攻撃ポイントまでの距離
+        float attackPointDist, targetDist;
+
         // 自身の方向ベクトル
         Vector3 myVec = m_myHand.transform.position - m_myShoulder.transform.position;
+        attackPointDist = myVec.magnitude;
+        myVec = myVec.normalized;
 
         // ターゲットへの方向ベクトル
         Vector3 targetVec = m_target.transform.position - m_myShoulder.transform.position;
+        targetDist = targetVec.magnitude;
+        targetVec = targetVec.normalized;
 
         // ベクトルを平面（Y軸回転）に投影
         myVec = Vector3.ProjectOnPlane(myVec, Vector3.up);
@@ -250,14 +273,14 @@ public class GolemRight : Golem
         // 2つのベクトルから角度算出
         float deg = Vector3.SignedAngle(myVec, targetVec, Vector3.up);
 
-        ////// 初期位置から角度を算出（角度制御用）
-        //float initDeg = Vector3.SignedAngle(m_initVec, targetVec, Vector3.up);
 
-        //// 初期位置から特定の値まで開かないようにする
-        //if (initDeg < m_limitDeg)
-        //{
-        //    deg = m_limitDeg - (initDeg - deg);
-        //}
+        // ターゲットとの距離に応じてさらに角度を補正
+        if (attackPointDist > targetDist)
+        {
+            float dist = attackPointDist - targetDist;
+            deg -= dist * 3.0f;
+        }
+
 
         // 角度から回転情報を取得
         m_targetRot.eulerAngles += new Vector3(0.0f, deg, 0.0f);

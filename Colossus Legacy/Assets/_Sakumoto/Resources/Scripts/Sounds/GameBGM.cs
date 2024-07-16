@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GameBGM : Singleton<GameBGM>
 {
     private AudioSource m_BGM;
+
+    [SerializeField] private AudioClip m_nowClip;
 
     [SerializeField] private AudioClip m_beforeBGM;
     [SerializeField] private AudioClip m_battleBGM;
@@ -87,17 +91,31 @@ public class GameBGM : Singleton<GameBGM>
         if (m_nowState == BGMState.Before)
         {
             m_BGM.PlayOneShot(m_beforeBGM);
+            m_nowClip = m_beforeBGM;
             m_nowState = BGMState.None;
         }
         else if (m_nowState == BGMState.Battle)
         {
             m_BGM.PlayOneShot(m_battleBGM);
+            m_nowClip = m_battleBGM;
             m_nowState = BGMState.None;
         }
         else if (m_nowState == BGMState.Win)
         {
             m_BGM.PlayOneShot(m_winBGM);
+            m_nowClip = m_winBGM;
             m_nowState = BGMState.None;
+        }
+        else if (m_nowState == BGMState.Stop)
+        {
+            m_nowClip = null;
+        }
+
+        
+        // âπäyÇ™é~Ç‹Ç¡ÇƒÇ¢ÇΩÇÁÇ‡Ç§àÍìxçƒê∂
+        if (!m_BGM.isPlaying)
+        {
+            if (m_nowClip) { m_BGM.PlayOneShot(m_nowClip); }
         }
     }
 

@@ -29,6 +29,7 @@ public class GolemLeft : Golem
     [SerializeField] private GameObject m_attackAreaRampage;
 
     [SerializeField] private Transform m_areaSwing;
+    [SerializeField] private Transform m_areaPalms;
     [SerializeField] private Transform m_areaRampage;
 
 
@@ -60,7 +61,7 @@ public class GolemLeft : Golem
 
         attackManager = GetComponent<AttackManager>(); 
 
-        attackManager.AddAttack(0, "Palms", new Vector2(0.0f, 15.0f), 1.0f, true);
+        attackManager.AddAttack(0, "Palms", new Vector2(0.0f, 20.0f), 1.0f, true);
         attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 3.0f);
         attackManager.AddAttack(2, "Protrusion", new Vector2(22.0f, 55.0f), 1.5f);
 
@@ -118,7 +119,22 @@ public class GolemLeft : Golem
 
         // UŒ‚‚ðƒZƒbƒg
         int attackId = -1;
-        if (m_attackCnt >= m_palmsMinCnt || m_palmsFlg)
+        if (m_palmsFlg)
+        {
+            attackId = AttackSet(DistanceToTarget(), 0);
+            if (attackId == -1)
+            {
+                List<int> list = attackManager.GetAttackIdList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == 0) { list.Remove(i); break; }
+                }
+                m_nextAttackId = list[Random.Range(0, list.Count)];
+
+                if (!attackManager.IsAttackRange(m_nextAttackId, DistanceToTarget())) { m_nextAttackId = -1; }
+            }
+        }
+        else if (m_attackCnt >= m_palmsMinCnt)
         {
             attackId = AttackSet(DistanceToTarget(), m_nextAttackId);
         }
@@ -168,19 +184,9 @@ public class GolemLeft : Golem
     {
         if (m_nowAttackId == 0)
         {
-            if (m_attackCnt < m_palmsMinCnt)
-            {
-                m_palmsFlg = false;
-                m_stop = false;
-                m_attackWait = false;
-                m_nowAttackId = -1;
-            }
-            else
-            {
-                m_palmsFlg = true;
-                m_stop = true;
-                m_attackWait = true;
-            }
+            m_palmsFlg = true;
+            m_stop = true;
+            m_attackWait = true;
         }
 
         return m_attackWait;
@@ -210,9 +216,7 @@ public class GolemLeft : Golem
 
     private void AttackAreaPalms()
     {
-        Vector3 targetPos = this.transform.position;
-        targetPos.y -= 3.0f;
-        targetPos.z -= 11.5f;
+        Vector3 targetPos = m_areaPalms.position;
 
         m_attackAreaIns = Instantiate(m_attackAreaPalms, targetPos, new Quaternion(), this.transform);
     }

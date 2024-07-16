@@ -275,12 +275,14 @@ public class Golem : MonoBehaviour
                     m_palmsFlg = true;
                     m_golemRight.SetNextAttackId(0);
                     m_golemRight.m_palmsFlg = true;
+                    Debug.Log("‚Ý‚¬‚Ä‚Í" + m_golemRight.m_palmsFlg);
                 }
                 else if (m_golemRight.m_nowAttackId == 0 && m_golemLeft.m_nowAttackId != 0)
                 {
                     m_palmsFlg = true;
                     m_golemLeft.SetNextAttackId(0);
                     m_golemLeft.m_palmsFlg = true;
+                    Debug.Log("‚Ð‚¾‚è‚Ä‚Í" + m_golemRight.m_palmsFlg);
                 }
                 else
                 {
@@ -294,10 +296,17 @@ public class Golem : MonoBehaviour
                 m_golemLeft.m_palmsFlg = false;
                 m_golemRight.m_palmsFlg = false;
 
-                m_golemLeft.AttackStart();
-                m_golemRight.AttackStart();
+                PalmsStart();
+                Invoke(nameof(PalmsStart), 0.75f);
             }
         }
+    }
+
+
+    private void PalmsStart()
+    {
+        m_golemLeft.AttackStart();
+        m_golemRight.AttackStart();
     }
 
 
@@ -341,12 +350,33 @@ public class Golem : MonoBehaviour
                 m_golemRight.attackManager.SetAttackSpeed(m_golemRight.m_attackSpeed);
             }
         }
-        else
+        else if (m_hpState == HpState.Half)
         {
-            if (m_damageCnt == 1)
+            if (m_damageCnt == 0)
             {
-                m_golemLeft.m_attackSpeed = 1.5f;
-                m_golemRight.m_attackSpeed = 1.5f;
+                if (m_golemLeft)
+                {
+                    m_golemLeft.m_attackSpeed = 1.0f;
+                    m_golemLeft.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+                if (m_golemRight)
+                {
+                    m_golemRight.m_attackSpeed = 1.0f;
+                    m_golemRight.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+            }
+            else if (m_damageCnt == 1)
+            {
+                if (m_golemLeft)
+                {
+                    m_golemLeft.m_attackSpeed = 1.5f;
+                    m_golemLeft.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+                if (m_golemRight)
+                {
+                    m_golemRight.m_attackSpeed = 1.5f;
+                    m_golemRight.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
             }
         }
     }
@@ -373,7 +403,7 @@ public class Golem : MonoBehaviour
                 m_hpState = HpState.Half;
                 m_damageCnt = 0;
                 m_attackSpeed = 1.0f;
-                attackManager.SetAttackSpeed(m_attackSpeed);
+                if (attackManager) { attackManager.SetAttackSpeed(m_attackSpeed); }
             }
             else
             {
@@ -389,7 +419,7 @@ public class Golem : MonoBehaviour
                 m_time = 3.0f;
                 m_damageCnt = 0;
                 m_attackSpeed = 1.0f;
-                attackManager.SetAttackSpeed(m_attackSpeed);
+                if (attackManager) { attackManager.SetAttackSpeed(m_attackSpeed); }
             }
             else
             {

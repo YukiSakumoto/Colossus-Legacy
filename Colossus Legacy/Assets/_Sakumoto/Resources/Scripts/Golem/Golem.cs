@@ -124,6 +124,12 @@ public class Golem : MonoBehaviour
             m_secondSpeed = 1.4f;
             m_ranpageSpeed = 1.5f;
         }
+        else if (GameManager.Instance.m_difficulty == GameManager.Difficulty.SuperHard)
+        {
+            m_firstSpeed = 1.3f;
+            m_secondSpeed = 1.5f;
+            m_ranpageSpeed = 2.0f;
+        }
     }
 
     void Update()
@@ -340,13 +346,13 @@ public class Golem : MonoBehaviour
             {
                 m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
                 m_golemLeft.m_attackCnt = 0;
-                m_golemLeft.m_palmsMinCnt = 4;
+                m_golemLeft.m_palmsMinCnt = 3;
                 m_golemLeft.m_attackSpeed = m_firstSpeed;
                 m_golemLeft.attackManager.SetAttackSpeed(m_golemLeft.m_attackSpeed);
 
                 m_golemRight.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
                 m_golemRight.m_attackCnt = 0;
-                m_golemRight.m_palmsMinCnt = 4;
+                m_golemRight.m_palmsMinCnt = 3;
                 m_golemRight.m_attackSpeed = m_firstSpeed;
                 m_golemRight.attackManager.SetAttackSpeed(m_golemRight.m_attackSpeed);
             }

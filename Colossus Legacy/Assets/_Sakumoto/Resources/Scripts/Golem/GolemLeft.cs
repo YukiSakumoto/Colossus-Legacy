@@ -71,6 +71,8 @@ public class GolemLeft : Golem
 
         m_attackCnt = 0;
         m_palmsMinCnt = 3;
+
+        m_attackSpeed = 1.0f;
     }
 
 
@@ -115,14 +117,14 @@ public class GolemLeft : Golem
         if (m_stop || m_damageFlg) { return; }
 
         // UŒ‚‚ðƒZƒbƒg
-        int attackId;
-        if (m_attackCnt > m_palmsMinCnt || m_palmsFlg)
+        int attackId = -1;
+        if (m_attackCnt >= m_palmsMinCnt || m_palmsFlg)
         {
             attackId = AttackSet(DistanceToTarget(), m_nextAttackId);
         }
         else
         {
-            if (m_nowAttackId != -1)
+            if (m_nowAttackId != -1 || (m_nowAttackId == -1 && m_nextAttackId == -1))
             {
                 List<int> list = attackManager.GetAttackIdList();
                 for (int i = 0; i < list.Count; i++)
@@ -130,10 +132,15 @@ public class GolemLeft : Golem
                     if (list[i] == 0) { list.Remove(i); break; }
                 }
                 m_nextAttackId = list[Random.Range(0, list.Count)];
-                if (attackManager.IsAttackRange(m_nextAttackId, DistanceToTarget())) { m_nextAttackId = -1; }
+
+                if (!attackManager.IsAttackRange(m_nextAttackId, DistanceToTarget())) { m_nextAttackId = -1; }
             }
-            attackId = AttackSet(DistanceToTarget(), m_nextAttackId);
-            if (m_nowAttackId != attackId) { m_attackCnt++; }
+            if (m_nextAttackId != -1)
+            {
+                if (attackManager.IsAttackRange(m_nextAttackId, DistanceToTarget()))
+                    attackId = AttackSet(DistanceToTarget(), m_nextAttackId);
+                else { m_nextAttackId = -1; }
+            }
         }
         m_nowAttackId = attackId;
 

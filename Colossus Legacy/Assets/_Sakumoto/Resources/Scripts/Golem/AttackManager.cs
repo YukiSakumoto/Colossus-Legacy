@@ -21,10 +21,10 @@ public class AttackManager : MonoBehaviour
     public Animator m_animator;
     private bool m_isAttackAnimation = false;
 
-    private int m_nowId = -1;
-    private bool m_canAttack = false;   // 攻撃可能状態か
+    [SerializeField] private int m_nowId = -1;
+    [SerializeField] private bool m_canAttack = false;   // 攻撃可能状態か
     [SerializeField] private float m_coolDown = 0.0f;    // 次の攻撃までのクールダウン時間（秒数）
-    private List<AttackData> m_attackLists = new List<AttackData>();
+    [SerializeField] private List<AttackData> m_attackLists = new List<AttackData>();
 
 
     void Start()
@@ -163,8 +163,8 @@ public class AttackManager : MonoBehaviour
         if (!m_canAttack) { return m_nowId; }
 
         // 指定した攻撃が範囲外ならリターン
-        //if (m_attackLists[SearchAttackId(m_nowId)].m_dist.x < _dist ||
-        //    m_attackLists[SearchAttackId(m_nowId)].m_dist.y > _dist) { return -1; }
+        if (m_attackLists[SearchAttackId(_id)].m_dist.x < _dist ||
+            m_attackLists[SearchAttackId(_id)].m_dist.y > _dist) { Debug.Log("うにんにん"); return -1; }
 
         m_nowId = _id;
         m_coolDown = m_attackLists[SearchAttackId(m_nowId)].m_coolDown;
@@ -277,6 +277,11 @@ public class AttackManager : MonoBehaviour
         return "";
     }
 
+    public string GetAttackName(int _id)
+    {
+        return m_attackLists[SearchAttackId(_id)].m_name;
+    }
+
 
     public bool IsAttackRange(int _id, float _targetDist)
     {
@@ -296,5 +301,18 @@ public class AttackManager : MonoBehaviour
         }
 
         return idList;
+    }
+
+
+    public Vector2 GetAttackDist(int _id)
+    {
+        return m_attackLists[SearchAttackId(_id)].m_dist;
+    }
+
+
+
+    public void SetAttackSpeed(float _val)
+    {
+        m_animator.SetFloat("AttackSpeed", _val);
     }
 }

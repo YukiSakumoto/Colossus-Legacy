@@ -114,8 +114,8 @@ Transform:
   m_GameObject: {fileID: 715775674327476512}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.97, y: 7.807, z: 6.274}
-  m_LocalScale: {x: 17.890625, y: 15.844126, z: 8.205278}
+  m_LocalPosition: {x: 2.97, y: 7.807, z: 7.671}
+  m_LocalScale: {x: 17.890625, y: 15.844126, z: 10.997371}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3988467738106686415}
@@ -1353,6 +1353,11 @@ MonoBehaviour:
   m_dist: 0
   m_text: {fileID: 0}
   m_stop: 0
+  m_attackWait: 0
+  m_palmsFlg: 0
+  m_attackSpeed: 1
+  m_attackCnt: 0
+  m_palmsMinCnt: 2
   m_maxHp: 100
   m_hp: 0
   m_hpGage: {fileID: 0}
@@ -1371,6 +1376,8 @@ MonoBehaviour:
   - {fileID: 1702331739679510859}
   - {fileID: 2567449031893780492}
   m_laserTransform: {fileID: 5415654739331361737}
+  m_attackAreaLaser: {fileID: 0}
+  m_areaLaser: {fileID: 0}
   m_headTrans: {fileID: 8711971622731589447}
   m_forward: {x: 0, y: 0, z: -1}
   m_bodyRotTime: 0
@@ -1387,6 +1394,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animator: {fileID: 8178446516137269408}
+  m_nowId: -1
+  m_canAttack: 0
   m_coolDown: 0
 --- !u!114 &9214766249609121947
 MonoBehaviour:

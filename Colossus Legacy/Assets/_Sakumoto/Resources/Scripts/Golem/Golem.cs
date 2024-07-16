@@ -18,6 +18,7 @@ public class Golem : MonoBehaviour
     protected AttackManager attackManager;                      // 攻撃管理スクリプト
     [SerializeField] private List<Collider> attackColliders;    // 攻撃判定
     [SerializeField] protected WeakPoint m_weakCollider;        // 弱点判定スクリプト
+    [SerializeField] protected LightWeak m_weakLight;
 
     // 生存管理
     private enum HpState
@@ -532,6 +533,7 @@ public class Golem : MonoBehaviour
         if (!m_weakCollider) { return; }
         Collider col = m_weakCollider.GetComponent<Collider>();
         col.enabled = true;
+        m_weakLight.enabled = true;
     }
 
 
@@ -541,6 +543,7 @@ public class Golem : MonoBehaviour
         if (!m_weakCollider) { return; }
         Collider col = m_weakCollider.GetComponent<Collider>();
         col.enabled = false;
+        m_weakLight.enabled = false;
     }
 
 

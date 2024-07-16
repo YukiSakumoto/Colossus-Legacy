@@ -55,6 +55,7 @@ public class GolemRight : Golem
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
         m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
+        m_weakLight.enabled = false;
 
         attackManager = GetComponent<AttackManager>();
 
@@ -67,7 +68,7 @@ public class GolemRight : Golem
         m_targetRot = this.transform.rotation;
 
         m_attackCnt = 0;
-        m_palmsMinCnt = 3;
+        m_palmsMinCnt = 1;
 
         m_attackSpeed = 1.0f;
     }

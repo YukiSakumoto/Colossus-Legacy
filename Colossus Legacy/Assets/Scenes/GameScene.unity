@@ -1773,7 +1773,7 @@ MonoBehaviour:
     - {fileID: 120201244}
     - {fileID: 1109869760}
     - {fileID: 1938760748}
-    - {fileID: 274763812}
+    - {fileID: 8219952747080129458}
     - {fileID: 756562928}
 --- !u!4 &160428241
 Transform:
@@ -2027,11 +2027,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3537709356157935800, guid: f6c9ea0909787284582026f0068e3170, type: 3}
---- !u!1 &274763812 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
-  m_PrefabInstance: {fileID: 8894306748364425969}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &280906629 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4838610377875313934, guid: f41bface37a53fd47afdb1552f10e546, type: 3}
@@ -6678,7 +6673,7 @@ PrefabInstance:
     - target: {fileID: 7700708251113683867, guid: bc981eed1b4000a4eaee3e63c3ab24c0, type: 3}
       propertyPath: g
       value: 
-      objectReference: {fileID: 274763812}
+      objectReference: {fileID: 8219952747080129458}
     - target: {fileID: 7700708251113683867, guid: bc981eed1b4000a4eaee3e63c3ab24c0, type: 3}
       propertyPath: fade
       value: 
@@ -27669,6 +27664,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 97969461}
   m_SourcePrefab: {fileID: 100100000, guid: 5e3970c7d904e3c4c81b6a67e2a49c79, type: 3}
+--- !u!1 &8219952747080129458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 683931030228963651, guid: 3388fb640bb3a6a469798472f1d251ea, type: 3}
+  m_PrefabInstance: {fileID: 8894306748364425969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8894306748364425969
 PrefabInstance:
   m_ObjectHideFlags: 0

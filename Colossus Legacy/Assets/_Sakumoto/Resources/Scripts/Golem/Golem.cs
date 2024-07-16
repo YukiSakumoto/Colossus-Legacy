@@ -48,9 +48,10 @@ public class Golem : MonoBehaviour
     [SerializeField] protected bool m_stop = false;          // 各パーツの処理を止めるフラグ
     [SerializeField] protected bool m_attackWait = false;    // 攻撃待機状態フラグ
     [SerializeField] protected bool m_palmsFlg = false;
-    private int m_damageCnt = 0;
+    [SerializeField] protected float m_attackSpeed = 1.0f;
 
     // 攻撃の回数
+    private int m_damageCnt = 0;
     [SerializeField] protected int m_attackCnt = 0;
     [SerializeField] protected int m_palmsMinCnt = 2;
 
@@ -197,6 +198,7 @@ public class Golem : MonoBehaviour
                         if (m_hpState == HpState.Half)
                         {
                             if (m_golemLeft) { m_golemRight.m_alive = false; }
+                            else { ChangeAttackState(); }
                         }
                         else if (m_hpState == HpState.Crisis)
                         {
@@ -273,12 +275,19 @@ public class Golem : MonoBehaviour
                     m_palmsFlg = true;
                     m_golemRight.SetNextAttackId(0);
                     m_golemRight.m_palmsFlg = true;
+                    Debug.Log("みぎては" + m_golemRight.m_palmsFlg);
                 }
                 else if (m_golemRight.m_nowAttackId == 0 && m_golemLeft.m_nowAttackId != 0)
                 {
                     m_palmsFlg = true;
                     m_golemLeft.SetNextAttackId(0);
                     m_golemLeft.m_palmsFlg = true;
+                    Debug.Log("ひだりては" + m_golemRight.m_palmsFlg);
+                }
+                else
+                {
+                    m_golemLeft.m_palmsFlg = false;
+                    m_golemRight.m_palmsFlg = false;
                 }
             }
             else if (m_palmsFlg && m_golemLeft.m_attackWait && m_golemRight.m_attackWait)
@@ -287,40 +296,88 @@ public class Golem : MonoBehaviour
                 m_golemLeft.m_palmsFlg = false;
                 m_golemRight.m_palmsFlg = false;
 
-                m_golemLeft.AttackStart();
-                m_golemRight.AttackStart();
+                PalmsStart();
+                Invoke(nameof(PalmsStart), 0.75f);
             }
         }
     }
 
 
+    private void PalmsStart()
+    {
+        m_golemLeft.AttackStart();
+        m_golemRight.AttackStart();
+    }
+
+
     private void ChangeAttackState()
     {
-        if (m_damageCnt == 1)
+        // 攻撃回数に応じて攻撃パターンを変化させる
+        if (m_hpState == HpState.Max)
         {
-            m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
-            m_golemLeft.m_attackCnt = 0;
-            m_golemLeft.m_palmsMinCnt = 4;
+            if (m_damageCnt == 1)
+            {
+                m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
+                m_golemLeft.m_attackCnt = 0;
+                m_golemLeft.m_palmsMinCnt = 4;
+                m_golemLeft.m_attackSpeed = 1.2f;
+                m_golemLeft.attackManager.SetAttackSpeed(m_golemLeft.m_attackSpeed);
 
-            m_golemRight.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
-            m_golemRight.m_attackCnt = 0;
-            m_golemRight.m_palmsMinCnt = 4;
+                m_golemRight.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
+                m_golemRight.m_attackCnt = 0;
+                m_golemRight.m_palmsMinCnt = 4;
+                m_golemRight.m_attackSpeed = 1.2f;
+                m_golemRight.attackManager.SetAttackSpeed(m_golemRight.m_attackSpeed);
+            }
+            else if (m_damageCnt == 2)
+            {
+                m_golemLeft.attackManager.DeleteAttack(1);
+                m_golemLeft.attackManager.DeleteAttack(3);
+                m_golemLeft.attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
+                m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
+                m_golemLeft.m_attackCnt = 0;
+                m_golemLeft.m_palmsMinCnt = 5;
+                m_golemLeft.m_attackSpeed = 1.4f;
+                m_golemLeft.attackManager.SetAttackSpeed(m_golemLeft.m_attackSpeed);
+
+                m_golemRight.attackManager.DeleteAttack(1);
+                m_golemRight.attackManager.DeleteAttack(2);
+                m_golemRight.attackManager.AddAttack(1, "Protrusion", new Vector2(0.0f, 55.0f), 0.2f);
+                m_golemRight.attackManager.AddAttack(2, "Protrusion", new Vector2(0.0f, 55.0f), 0.2f);
+                m_golemRight.m_attackCnt = 0;
+                m_golemRight.m_palmsMinCnt = 5;
+                m_golemRight.m_attackSpeed = 1.4f;
+                m_golemRight.attackManager.SetAttackSpeed(m_golemRight.m_attackSpeed);
+            }
         }
-        else if (m_damageCnt == 2)
+        else if (m_hpState == HpState.Half)
         {
-            m_golemLeft.attackManager.DeleteAttack(1);
-            m_golemLeft.attackManager.DeleteAttack(3);
-            m_golemLeft.attackManager.AddAttack(1, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
-            m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
-            m_golemLeft.m_attackCnt = 0;
-            m_golemLeft.m_palmsMinCnt = 5;
-
-            m_golemRight.attackManager.DeleteAttack(1);
-            m_golemRight.attackManager.DeleteAttack(2);
-            m_golemRight.attackManager.AddAttack(1, "Protrusion", new Vector2(0.0f, 55.0f), 0.2f);
-            m_golemRight.attackManager.AddAttack(2, "Protrusion", new Vector2(0.0f, 55.0f), 0.2f);
-            m_golemRight.m_attackCnt = 0;
-            m_golemRight.m_palmsMinCnt = 5;
+            if (m_damageCnt == 0)
+            {
+                if (m_golemLeft)
+                {
+                    m_golemLeft.m_attackSpeed = 1.0f;
+                    m_golemLeft.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+                if (m_golemRight)
+                {
+                    m_golemRight.m_attackSpeed = 1.0f;
+                    m_golemRight.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+            }
+            else if (m_damageCnt == 1)
+            {
+                if (m_golemLeft)
+                {
+                    m_golemLeft.m_attackSpeed = 1.5f;
+                    m_golemLeft.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+                if (m_golemRight)
+                {
+                    m_golemRight.m_attackSpeed = 1.5f;
+                    m_golemRight.attackManager.SetAttackSpeed(m_attackSpeed);
+                }
+            }
         }
     }
 
@@ -345,6 +402,8 @@ public class Golem : MonoBehaviour
             {
                 m_hpState = HpState.Half;
                 m_damageCnt = 0;
+                m_attackSpeed = 1.0f;
+                if (attackManager) { attackManager.SetAttackSpeed(m_attackSpeed); }
             }
             else
             {
@@ -358,6 +417,13 @@ public class Golem : MonoBehaviour
                 m_hp = 1;
                 m_hpState = HpState.Crisis;
                 m_time = 3.0f;
+                m_damageCnt = 0;
+                m_attackSpeed = 1.0f;
+                if (attackManager) { attackManager.SetAttackSpeed(m_attackSpeed); }
+            }
+            else
+            {
+                m_damageCnt++;
             }
         }
         else if (m_hpState == HpState.Crisis)
@@ -439,6 +505,7 @@ public class Golem : MonoBehaviour
         {
             attackColliders[i].enabled = true;
         }
+        m_attackCnt++;
     }
 
 

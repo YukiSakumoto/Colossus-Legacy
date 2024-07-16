@@ -60,6 +60,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSoundVolume: 0.5
   MaxBGMVolume: 0.3
+  cursorTexture: {fileID: 2800000, guid: 690733e47ec8a8f47afce0c9d63c3ac7, type: 3}
+  hotSpot: {x: 0, y: 0}
   soundVolume: 0.5
   BGMVolume: 0.3
 --- !u!114 &8869243983657582882
@@ -75,3 +77,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_nowEvent: 0
+  m_clearTime: 0
+  m_deathCount: 0

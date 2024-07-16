@@ -13,6 +13,10 @@ PrefabInstance:
       value: Arrow Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4865309214770636011, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865309214770636011, guid: 19f3efaafee24964ab053e089e345c3f, type: 3}
       propertyPath: m_TagString
       value: ArrowAttack
       objectReference: {fileID: 0}
@@ -140,3 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_targetTag: EnemyWeak
+  m_gameStatusManager: {fileID: 0}

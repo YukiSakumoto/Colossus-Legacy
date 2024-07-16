@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1845955007268882, guid: 67a684e320da6e7439421a07e3fa265c, type: 3}
+      propertyPath: m_TagString
+      value: BombAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 4563802948693442, guid: 67a684e320da6e7439421a07e3fa265c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

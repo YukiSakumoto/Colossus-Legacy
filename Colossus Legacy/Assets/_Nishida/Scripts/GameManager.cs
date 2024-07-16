@@ -16,6 +16,14 @@ public class GameManager : MonoBehaviour
     public float soundVolume;
     public float BGMVolume;
 
+    public enum Difficulty // “ï‚µ‚³
+    {
+        Easy = 0,
+        Hard = 1,
+        SuperHard = 2
+    }
+    private Difficulty m_difficulty = Difficulty.Easy;
+
     private void Awake()
     {
         if (Instance == null)
@@ -56,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     public float GetMaxSoundVol() { return MaxSoundVolume; }
     public float GetMaxBGMVol() { return MaxBGMVolume; }
+    public void SetDifficulty(Difficulty _difficulty) {  m_difficulty = _difficulty; }
 
     void SetCustomCursor()
     {

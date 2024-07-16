@@ -78,6 +78,7 @@ public class GolemMain : Golem
         m_skinMesh = GetComponent<SkinMesh>();
         m_dissolve = GetComponent<Dissolve>();
         m_camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraQuake>();
+        m_weakLight.enabled = false;
 
         if (m_armors)
         {

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_maxIntensity: 2
-  m_speed: 1
+  m_speed: 12
 --- !u!1 &584121411526820827
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +227,6 @@ MonoBehaviour:
   m_stop: 0
   m_attackWait: 0
   m_palmsFlg: 0
-  m_attackSpeed: 1
   m_attackCnt: 0
   m_palmsMinCnt: 2
   m_maxHp: 100

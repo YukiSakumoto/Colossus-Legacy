@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         Hard = 1,
         SuperHard = 2
     }
-    private Difficulty m_difficulty = Difficulty.Easy;
+    public Difficulty m_difficulty = Difficulty.Easy;
 
     private void Awake()
     {

@@ -49,7 +49,6 @@ public class Golem : MonoBehaviour
     [SerializeField] protected bool m_stop = false;          // 各パーツの処理を止めるフラグ
     [SerializeField] protected bool m_attackWait = false;    // 攻撃待機状態フラグ
     [SerializeField] protected bool m_palmsFlg = false;
-    [SerializeField] protected float m_attackSpeed = 1.0f;
 
     // 攻撃の回数
     private int m_damageCnt = 0;
@@ -69,6 +68,13 @@ public class Golem : MonoBehaviour
     [SerializeField] private float m_damageTime = 0.0f;     // 復活までの時間
     [SerializeField] public int m_damagePoint = 0;          // ダメージ量
     [SerializeField] private float m_time = 0.0f;           // 経過時間管理
+
+
+    // 難易度関連
+    protected float m_attackSpeed = 1.0f;
+    private float m_firstSpeed = 1.0f;
+    private float m_secondSpeed = 1.0f;
+    private float m_ranpageSpeed = 1.0f;
 
 
     // ======================
@@ -103,6 +109,21 @@ public class Golem : MonoBehaviour
 
         m_hp = m_maxHp;
         m_damageCnt = 0;
+
+
+        // 難易度
+        if (GameManager.Instance.m_difficulty == GameManager.Difficulty.Easy)
+        {
+            m_firstSpeed = 1.1f;
+            m_secondSpeed = 1.2f;
+            m_ranpageSpeed = 1.3f;
+        }
+        else if (GameManager.Instance.m_difficulty == GameManager.Difficulty.Hard)
+        {
+            m_firstSpeed = 1.2f;
+            m_secondSpeed = 1.4f;
+            m_ranpageSpeed = 1.5f;
+        }
     }
 
     void Update()
@@ -297,7 +318,6 @@ public class Golem : MonoBehaviour
                 m_golemLeft.m_palmsFlg = false;
                 m_golemRight.m_palmsFlg = false;
 
-                PalmsStart();
                 Invoke(nameof(PalmsStart), 0.75f);
             }
         }
@@ -321,13 +341,13 @@ public class Golem : MonoBehaviour
                 m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
                 m_golemLeft.m_attackCnt = 0;
                 m_golemLeft.m_palmsMinCnt = 4;
-                m_golemLeft.m_attackSpeed = 1.2f;
+                m_golemLeft.m_attackSpeed = m_firstSpeed;
                 m_golemLeft.attackManager.SetAttackSpeed(m_golemLeft.m_attackSpeed);
 
                 m_golemRight.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 1.5f);
                 m_golemRight.m_attackCnt = 0;
                 m_golemRight.m_palmsMinCnt = 4;
-                m_golemRight.m_attackSpeed = 1.2f;
+                m_golemRight.m_attackSpeed = m_firstSpeed;
                 m_golemRight.attackManager.SetAttackSpeed(m_golemRight.m_attackSpeed);
             }
             else if (m_damageCnt == 2)
@@ -338,7 +358,7 @@ public class Golem : MonoBehaviour
                 m_golemLeft.attackManager.AddAttack(3, "SwingDown", new Vector2(0.0f, 22.0f), 0.5f);
                 m_golemLeft.m_attackCnt = 0;
                 m_golemLeft.m_palmsMinCnt = 5;
-                m_golemLeft.m_attackSpeed = 1.4f;
+                m_golemLeft.m_attackSpeed = m_secondSpeed;
                 m_golemLeft.attackManager.SetAttackSpeed(m_golemLeft.m_attackSpeed);
 
                 m_golemRight.attackManager.DeleteAttack(1);
@@ -347,7 +367,7 @@ public class Golem : MonoBehaviour
                 m_golemRight.attackManager.AddAttack(2, "Protrusion", new Vector2(0.0f, 55.0f), 0.2f);
                 m_golemRight.m_attackCnt = 0;
                 m_golemRight.m_palmsMinCnt = 5;
-                m_golemRight.m_attackSpeed = 1.4f;
+                m_golemRight.m_attackSpeed = m_secondSpeed;
                 m_golemRight.attackManager.SetAttackSpeed(m_golemRight.m_attackSpeed);
             }
         }
@@ -370,12 +390,12 @@ public class Golem : MonoBehaviour
             {
                 if (m_golemLeft)
                 {
-                    m_golemLeft.m_attackSpeed = 1.5f;
+                    m_golemLeft.m_attackSpeed = m_ranpageSpeed;
                     m_golemLeft.attackManager.SetAttackSpeed(m_attackSpeed);
                 }
                 if (m_golemRight)
                 {
-                    m_golemRight.m_attackSpeed = 1.5f;
+                    m_golemRight.m_attackSpeed = m_ranpageSpeed;
                     m_golemRight.attackManager.SetAttackSpeed(m_attackSpeed);
                 }
             }

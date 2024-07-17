@@ -3215,7 +3215,7 @@ MonoBehaviour:
   m_fadeInTime: 1
   m_nextStateTime: 0.75
   m_scoreTime: 0.75
-  m_rankTime: 1.25
+  m_rankTime: 1
   m_returnTime: 0.5
   m_rankRotSpeed: 1
   m_state: 0

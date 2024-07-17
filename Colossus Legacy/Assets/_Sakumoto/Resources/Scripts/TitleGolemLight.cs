@@ -17,7 +17,7 @@ public class TitleGolemLight : MonoBehaviour
         float speed = sinA * sinB * sinC;
         speed = (speed + 1.0f) * 0.5f;
 
-        m_light.intensity = speed;
+        m_light.intensity = speed + 0.3f;
 
         Color col = new Color(1.0f, 0.9f, 0.95f, speed);
         m_title.color = col;

@@ -236,7 +236,10 @@ public class TitleSceneManager : MonoBehaviour
                 else
                 {
                     SceneManager.LoadScene("GameScene");
-                    GameManagerGameScene.Instance.GameSceneStart();
+                    if (GameManagerGameScene.Instance)
+                    {
+                        GameManagerGameScene.Instance.GameSceneStart();
+                    }
                 }
             }
             else if(m_tutorialManuManagerClass.Getm_exitFlg)

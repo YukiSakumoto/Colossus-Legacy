@@ -19,6 +19,7 @@ TagManager:
   - KeyDown
   - KeyUp
   - Button
+  - BombCollision
   layers:
   - Default
   - TransparentFX

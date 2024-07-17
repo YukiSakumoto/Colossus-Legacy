@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3396139144155364053, guid: e5103beec7d654322821e99b26fe2159, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: BombCollision
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

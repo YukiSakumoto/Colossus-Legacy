@@ -18,16 +18,18 @@ public class StageClear : MonoBehaviour
     [SerializeField] private RectTransform m_deathCnt;
     [SerializeField] private RectTransform m_playerHp;
     [SerializeField] private RectTransform m_totalScore;
+    [SerializeField] private RectTransform m_rank;
     [SerializeField] private Image m_returnTitle;
 
 
     private float m_deltaTime = 0.0f;
     [SerializeField] float m_fadeInTime = 1.0f;
     [SerializeField] float m_nextStateTime = 0.5f;
-    [SerializeField] float m_scoreTime = 2.0f;
+    [SerializeField] float m_scoreTime = 0.5f;
+    [SerializeField] float m_rankTime = 2.0f;
     [SerializeField] float m_returnTime = 0.5f;
 
-    [SerializeField] float m_totalScoreRotSpeed = 1.0f;
+    [SerializeField] float m_rankRotSpeed = 1.0f;
 
 
     private enum ScoreState
@@ -37,9 +39,10 @@ public class StageClear : MonoBehaviour
         DeathCnt,
         PlayerHp,
         TotalScore,
+        Rank,
         Fin
     }
-    private ScoreState m_state;
+    [SerializeField] private ScoreState m_state;
 
     private void OnEnable()
     {
@@ -80,10 +83,17 @@ public class StageClear : MonoBehaviour
             ratio = m_deltaTime / m_scoreTime;
             m_totalScore.localScale = new Vector3(ratio, ratio, ratio);
         }
-        else if (m_state == ScoreState.Fin)
+        else if (m_state == ScoreState.Rank)
         {
             m_totalScore.localScale = Vector3.one;
-            m_totalScore.Rotate(0.0f, m_totalScoreRotSpeed, 0.0f);
+
+            ratio = m_deltaTime / m_rankTime;
+            m_rank.localScale = new Vector3(ratio, ratio, ratio);
+        }
+        else if (m_state == ScoreState.Fin)
+        {
+            m_rank.localScale = Vector3.one;
+            m_rank.Rotate(0.0f, m_rankRotSpeed, 0.0f);
 
             Color color = m_returnTitle.color;
             ratio = m_deltaTime / m_returnTime;
@@ -122,6 +132,10 @@ public class StageClear : MonoBehaviour
         else if (m_state == ScoreState.TotalScore)
         {
             if (m_deltaTime > m_scoreTime) { NextState(); }
+        }
+        else if (m_state == ScoreState.Rank)
+        {
+            if (m_deltaTime > m_rankTime) { NextState(); }
         }
     }
 
@@ -171,8 +185,14 @@ public class StageClear : MonoBehaviour
         else if (score >= 6000) { scoreRank = "C"; }
         else if (score >= 3000) { scoreRank = "D"; }
 
+        score = 10000 * (score / 18000);
         m_totalScore.localScale = Vector3.zero;
         text = m_totalScore.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        text.text = score.ToString();
+
+
+        m_rank.localScale = Vector3.zero;
+        text = m_rank.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         text.text = scoreRank;
 
         Color color = m_returnTitle.color;
@@ -193,11 +213,11 @@ public class StageClear : MonoBehaviour
         m_deltaTime = 0.0f;
 
         if (m_state == ScoreState.ClearTime || m_state == ScoreState.DeathCnt ||
-            m_state == ScoreState.PlayerHp)
+            m_state == ScoreState.PlayerHp || m_state == ScoreState.TotalScore)
         {
             Invoke(nameof(SoundScore), 0.25f);
         }
-        else if (m_state == ScoreState.TotalScore)
+        else if (m_state == ScoreState.Rank)
         {
             Invoke(nameof(SoundTotal), 0.55f);
         }

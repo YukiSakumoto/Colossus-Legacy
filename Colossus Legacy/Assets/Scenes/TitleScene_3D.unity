@@ -4674,6 +4674,7 @@ MonoBehaviour:
   m_hardButton: {fileID: 1112431980}
   m_superhardButton: {fileID: 2137228123}
   m_exitButton: {fileID: 2087471624}
+  m_superhardObj: {fileID: 2137228120}
 --- !u!114 &608019570
 MonoBehaviour:
   m_ObjectHideFlags: 0

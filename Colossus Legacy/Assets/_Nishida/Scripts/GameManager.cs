@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("Clear"))
         {
+            Debug.Log("クリアデータを保存しました");
             clearFlg = true;
             int clearInt = 1;
             PlayerPrefs.SetInt("Clear",clearInt);

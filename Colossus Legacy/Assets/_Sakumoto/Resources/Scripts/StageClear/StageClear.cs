@@ -186,7 +186,7 @@ public class StageClear : MonoBehaviour
         else if (score >= 3000.0f) { scoreRank = "D"; }
 
         score = 9999.0f * (score / 18000.0f);
-        Debug.Log(score);
+        // Debug.Log(score);
         m_totalScore.localScale = Vector3.zero;
         text = m_totalScore.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         text.text = ((int)score).ToString();

@@ -147,7 +147,7 @@ public class Golem : MonoBehaviour
             {
                 foreach (Transform child in this.transform)
                 {
-                    Debug.Log("èIÇÌÇË");
+                    // Debug.Log("èIÇÌÇË");
                     //é©ï™ÇÃéqãüÇDestroyÇ∑ÇÈ
                     Destroy(child.gameObject);
                 }
@@ -304,14 +304,14 @@ public class Golem : MonoBehaviour
                     m_palmsFlg = true;
                     m_golemRight.SetNextAttackId(0);
                     m_golemRight.m_palmsFlg = true;
-                    Debug.Log("Ç›Ç¨ÇƒÇÕ" + m_golemRight.m_palmsFlg);
+                    // Debug.Log("Ç›Ç¨ÇƒÇÕ" + m_golemRight.m_palmsFlg);
                 }
                 else if (m_golemRight.m_nowAttackId == 0 && m_golemLeft.m_nowAttackId != 0)
                 {
                     m_palmsFlg = true;
                     m_golemLeft.SetNextAttackId(0);
                     m_golemLeft.m_palmsFlg = true;
-                    Debug.Log("Ç–ÇæÇËÇƒÇÕ" + m_golemRight.m_palmsFlg);
+                    // Debug.Log("Ç–ÇæÇËÇƒÇÕ" + m_golemRight.m_palmsFlg);
                 }
                 else
                 {

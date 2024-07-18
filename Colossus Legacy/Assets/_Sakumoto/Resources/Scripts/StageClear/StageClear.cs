@@ -176,19 +176,20 @@ public class StageClear : MonoBehaviour
         // 残りHP（最大 3000 ポイント）
         life *= 30;
 
-        int score = (int)clearTime + deathCnt + life;
+        float score = clearTime + (float)deathCnt + (float)life;
         string scoreRank = "F";
-        if (score >= 16500) { scoreRank = "SS"; }
-        else if (score >= 15000) { scoreRank = "S"; }
-        else if (score >= 12000) { scoreRank = "A"; }
-        else if (score >= 9000) { scoreRank = "B"; }
-        else if (score >= 6000) { scoreRank = "C"; }
-        else if (score >= 3000) { scoreRank = "D"; }
+        if (score >= 16500.0f) { scoreRank = "SS"; }
+        else if (score >= 15000.0f) { scoreRank = "S"; }
+        else if (score >= 12000.0f) { scoreRank = "A"; }
+        else if (score >= 9000.0f) { scoreRank = "B"; }
+        else if (score >= 6000.0f) { scoreRank = "C"; }
+        else if (score >= 3000.0f) { scoreRank = "D"; }
 
-        score = 10000 * (score / 18000);
+        score = 9999.0f * (score / 18000.0f);
+        Debug.Log(score);
         m_totalScore.localScale = Vector3.zero;
         text = m_totalScore.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        text.text = score.ToString();
+        text.text = ((int)score).ToString();
 
 
         m_rank.localScale = Vector3.zero;

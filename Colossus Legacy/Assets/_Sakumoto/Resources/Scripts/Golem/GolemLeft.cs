@@ -20,7 +20,6 @@ public class GolemLeft : Golem
     [SerializeField] private GameObject m_hand;
     private GameObject m_instantiateObj;
     private float m_protrusionNowTime = 0.0f;
-    private GameObject m_attackAreaIns;
     bool m_handColEnable = true;
 
     [SerializeField] private GameObject m_attackAreaHand;
@@ -234,14 +233,6 @@ public class GolemLeft : Golem
         Vector3 targetPos = m_areaRampage.position;
 
         m_attackAreaIns = Instantiate(m_attackAreaRampage, targetPos, new Quaternion(), this.transform);
-    }
-
-    private void DestroyAttackArea()
-    {
-        if (m_attackAreaIns)
-        {
-            Destroy(m_attackAreaIns);
-        }
     }
 
 

@@ -37,6 +37,7 @@ public class Golem : MonoBehaviour
     private GolemRight m_golemRight;    // 右腕
     private GolemMain m_golemMain;      // 本体
     protected string m_nowAttackName = "";   // 各パーツの現在の攻撃名
+    protected GameObject m_attackAreaIns;
 
     // ターゲットへの角度・距離指定用
     [SerializeField] protected GameObject m_myself;     // 自分
@@ -464,9 +465,25 @@ public class Golem : MonoBehaviour
         m_damageFlg = true;
 
         // ダメージアニメーションの再生
-        if (m_golemLeft) m_golemLeft.HitDamage();
-        if (m_golemRight) m_golemRight.HitDamage();
-        if (m_golemMain) m_golemMain.HitDamage();
+        if (m_golemLeft)
+        {
+            m_golemLeft.HitDamage();
+            m_golemLeft.ResetAttackSpeed();
+            if (m_golemRight) m_golemRight.ResetAttackSpeed();
+            m_golemLeft.DestroyAttackArea();
+        }
+        if (m_golemRight)
+        {
+            m_golemRight.HitDamage();
+            m_golemRight.ResetAttackSpeed();
+            if (m_golemLeft) m_golemLeft.ResetAttackSpeed();
+            m_golemRight.DestroyAttackArea();
+        }
+        if (m_golemMain)
+        {
+            m_golemMain.HitDamage();
+            m_golemMain.DestroyAttackArea();
+        }
     }
 
 
@@ -670,4 +687,18 @@ public class Golem : MonoBehaviour
         }
     }
 
+
+    protected void DestroyAttackArea()
+    {
+        if (m_attackAreaIns)
+        {
+            Destroy(m_attackAreaIns);
+        }
+    }
+
+
+    protected void ResetAttackSpeed()
+    {
+        m_attackSpeed = 1.0f;
+    }
 }

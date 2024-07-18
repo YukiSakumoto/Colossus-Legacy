@@ -229,7 +229,6 @@ public class TitleSceneManager : MonoBehaviour
                 m_tutorialManuCanvas.gameObject.SetActive(false);
                 m_tutorialManuCanvas.gameObject.SetActive(false);
                 m_tutorialManuFlg = false;
-                GameManager.Instance.SetclearFlg(); // âºÇ≈ÉNÉäÉAóp
                 if(m_tutorialManuManagerClass.Getm_tutorialChoiceFlg)
                 {
                     SceneManager.LoadScene("Training Scene");

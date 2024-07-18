@@ -35,20 +35,17 @@ public class StartManuManager : MonoBehaviour
             Debug.LogError("StartManuManager: hardButton is Null");
         }
 
-        if (GameManager.Instance.clearFlg && m_superhardObj)
+        if (m_superhardButton != null) 
         {
-            if (m_superhardButton != null)
+            m_superhardButton.onClick.AddListener(SuperHardButtonClick);
+            if (!GameManager.Instance.clearFlg || !m_superhardObj)
             {
-                m_superhardButton.onClick.AddListener(SuperHardButtonClick);
-            }
-            else
-            {
-                Debug.LogError("StartManuManager: superhardButton is Null");
+                m_superhardObj.SetActive(false);
             }
         }
         else
         {
-            m_superhardObj.SetActive(false);
+            Debug.LogError("StartManuManager: superhardButton is Null");
         }
 
         if (m_exitButton != null)

@@ -23,9 +23,6 @@ public class FadeOutWall : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
     public void PlayFadeOut()
     {
         if (boolean == false) { return; }
@@ -41,12 +38,16 @@ public class FadeOutWall : MonoBehaviour
         else
         {
             Destroy(gameobject);
-            boolean = false;
         }
     }
 
     public void SetBool(bool _bool)
     {
          boolean = _bool;
+    }
+
+    public bool GetBool()
+    {
+        return boolean;
     }
 }

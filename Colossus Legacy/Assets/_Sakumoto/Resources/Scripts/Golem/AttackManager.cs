@@ -164,7 +164,7 @@ public class AttackManager : MonoBehaviour
 
         // 指定した攻撃が範囲外ならリターン
         if (m_attackLists[SearchAttackId(_id)].m_dist.x < _dist ||
-            m_attackLists[SearchAttackId(_id)].m_dist.y > _dist) { Debug.Log("うにんにん"); return -1; }
+            m_attackLists[SearchAttackId(_id)].m_dist.y > _dist) { return -1; }
 
         m_nowId = _id;
         m_coolDown = m_attackLists[SearchAttackId(m_nowId)].m_coolDown;

@@ -120,12 +120,14 @@ public class GameStatusManager : MonoBehaviour
 
     public void DamageGolemSword()
     {
+        if (!m_golem) { return; }
         m_golemDamageFlg = true;
         m_golemDamage = (int)GolemDamage.Sword;
         Debug.Log("GameStatusManager: DamageGolemSword");
     }
     public void DamageGolemArrow()
     {
+        if (!m_golem) { return; }
         m_golemDamageFlg = true;
         m_golemDamage = (int)GolemDamage.Arrow;
         Debug.Log("GameStatusManager: DamageGolemArrow");
@@ -133,6 +135,7 @@ public class GameStatusManager : MonoBehaviour
 
     public void DamageGolemBomb()
     {
+        if (!m_golem) { return; }
         m_golemDamageFlg = true;
         m_golemDamage = (int)GolemDamage.Bomb;
         Debug.Log("GameStatusManager: DamageGolemBomb");

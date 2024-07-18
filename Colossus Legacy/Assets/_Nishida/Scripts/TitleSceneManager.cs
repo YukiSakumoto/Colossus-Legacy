@@ -14,10 +14,12 @@ public class TitleSceneManager : MonoBehaviour
     [SerializeField] private GameObject m_optionManuObj;
     [SerializeField] private GameObject m_optionManuExitButtonObj;
     [SerializeField] private GameObject m_titleFadeObj;
+    [SerializeField] private GameObject m_superHardObj;
 
     [SerializeField] private Canvas m_startManuCanvas;
     [SerializeField] private Canvas m_tutorialManuCanvas;
     [SerializeField] private Canvas m_optionManuCanvas;
+    [SerializeField] private Canvas m_superHardCanvas;
 
     StartButtonManager m_startButtonManagerClass;
     OptionButtonManager m_optionButtonManagerClass;
@@ -26,6 +28,7 @@ public class TitleSceneManager : MonoBehaviour
     TutorialManuManager m_tutorialManuManagerClass;
     OptionManuManager m_optionManuManagerClass;
     OptionManuExitButtonManager m_optionManuExitButtonManagerClass;
+    OptionManuExitButtonManager m_superhardExitClass;
     TitleFade m_titleFadeClass;
 
     //private float m_soundVolume = 0.5f;
@@ -139,6 +142,25 @@ public class TitleSceneManager : MonoBehaviour
         else
         {
             m_titleFadeClass = m_titleFadeObj.GetComponent<TitleFade>();
+        }
+
+        if(!m_superHardObj)
+        {
+            Debug.LogError("TitleSceneManager: SuperHard is Null");
+        }
+        else
+        {
+            m_superhardExitClass = m_superHardObj.GetComponent<OptionManuExitButtonManager>();
+        }
+
+        if(!GameManager.Instance.noticeFlg && GameManager.Instance.clearFlg)
+        {
+            GameManager.Instance.SetnoticeFlg();
+            m_superHardCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            m_superHardCanvas.gameObject.SetActive(false);
         }
 
         if (!m_creditExitButtonObj)
@@ -255,6 +277,12 @@ public class TitleSceneManager : MonoBehaviour
             m_optionManuExitButtonManagerClass.Setm_exitFlg();
             m_optionManuCanvas.gameObject.SetActive(false);
             m_optionManuFlg = false;
+        }
+
+        if (m_superhardExitClass.Getm_exitFlg)
+        {
+            m_superhardExitClass.Setm_exitFlg();
+            m_superHardCanvas.gameObject.SetActive(false);
         }
 
         //add: ’Ç‰Á

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public float BGMVolume;
 
     public bool clearFlg = false;
+    public bool noticeFlg = false;
 
     public enum Difficulty // “ï‚µ‚³
     {
@@ -28,6 +29,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (PlayerPrefs.HasKey("Clear"))
+        {
+            clearFlg = true;
+            noticeFlg = true;
+        }
+
         if (Instance == null)
         {
             Instance = this;
@@ -75,6 +82,17 @@ public class GameManager : MonoBehaviour
 
     public void SetclearFlg()
     {
-        clearFlg = true;
+        if (!PlayerPrefs.HasKey("Clear"))
+        {
+            clearFlg = true;
+            int clearInt = 1;
+            PlayerPrefs.SetInt("Clear",clearInt);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public void SetnoticeFlg()
+    {
+        noticeFlg = true;
     }
 }

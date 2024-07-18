@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: WorldController
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":75.19995,"y":142.326},"zoom":1.0,"elements":[{"coroutine":false,"defaultValues":{},"position":{"x":-204.0,"y":-144.0},"guid":"8599a7f6-685a-4f8c-b91a-e3c4ebfd11bc","$version":"A","$type":"Unity.VisualScripting.Start"},{"chainable":false,"parameterNames":[],"member":{"name":"AllDestroy","parameterTypes":[],"targetType":"DestroyArrow","targetTypeName":"DestroyArrow","$version":"A"},"defaultValues":{"target":null},"position":{"x":270.0,"y":24.0},"guid":"fbf327af-cb0c-41b3-bf7b-40f5ad73581e","$version":"A","$type":"Unity.VisualScripting.InvokeMember","$id":"11"},{"coroutine":true,"defaultValues":{"button":{"$content":"Left","$type":"Unity.VisualScripting.MouseButton"},"action":{"$content":"Down","$type":"Unity.VisualScripting.PressState"}},"position":{"x":-222.0,"y":26.0},"guid":"fab44b3b-f762-437f-a26d-c1e61a0c303e","$version":"A","$type":"Unity.VisualScripting.OnMouseInput","$id":"15"},{"defaultValues":{"seconds":{"$content":5.0,"$type":"System.Single"},"unscaledTime":{"$content":false,"$type":"System.Boolean"}},"position":{"x":19.0,"y":28.0},"guid":"6c6f5914-3ba9-4331-ba42-e20ec4412a44","$version":"A","$type":"Unity.VisualScripting.WaitForSecondsUnit","$id":"17"},{"sourceUnit":{"$ref":"17"},"sourceKey":"exit","destinationUnit":{"$ref":"11"},"destinationKey":"enter","guid":"f46291b1-6283-4c37-a02c-faf66ec51373","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"15"},"sourceKey":"trigger","destinationUnit":{"$ref":"17"},"destinationKey":"enter","guid":"8f0d6c23-bc9c-46f8-b75b-ccef42e641ef","$type":"Unity.VisualScripting.ControlConnection"}],"$version":"A"}}'
+    _objectReferences: []

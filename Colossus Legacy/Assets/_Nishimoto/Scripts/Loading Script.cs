@@ -4,6 +4,8 @@ using System.Collections;
 
 public class LoadScene : MonoBehaviour
 {
+
+    public bool IsLoad = false;
     // ロードするシーンの名前
     public string sceneName;
 
@@ -29,6 +31,7 @@ public class LoadScene : MonoBehaviour
         async = SceneManager.LoadSceneAsync(sceneName);
         if (sceneName == "GameScene")
         {
+            IsLoad = true;
             GameManagerGameScene.Instance.GameSceneStart();
         }
 
@@ -40,5 +43,9 @@ public class LoadScene : MonoBehaviour
 
         // ロード画面を非表示にする
         loadingUI.SetActive(false);
+    }
+    public bool IsSceneLoaded()
+    {
+        return IsLoad;
     }
 }

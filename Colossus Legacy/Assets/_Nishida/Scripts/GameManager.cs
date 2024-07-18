@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public float soundVolume;
     public float BGMVolume;
 
+    public bool clearFlg = false;
+
     public enum Difficulty // “ï‚µ‚³
     {
         Easy = 0,
@@ -69,5 +71,10 @@ public class GameManager : MonoBehaviour
     void SetCustomCursor()
     {
         Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
+    }
+
+    public void SetclearFlg()
+    {
+        clearFlg = true;
     }
 }

@@ -44,7 +44,6 @@ public class GolemMain : Golem
     [SerializeField] private List<Collider> m_laserCollider;
     [SerializeField] private Transform m_laserTransform;
 
-    private GameObject m_attackAreaIns;
     [SerializeField] private GameObject m_attackAreaLaser;
     [SerializeField] private Transform m_areaLaser;
 
@@ -377,13 +376,5 @@ public class GolemMain : Golem
         Vector3 targetPos = m_areaLaser.position;
 
         m_attackAreaIns = Instantiate(m_attackAreaLaser, targetPos, new Quaternion(), this.transform);
-    }
-
-    private void DestroyAttackArea()
-    {
-        if (m_attackAreaIns)
-        {
-            Destroy(m_attackAreaIns);
-        }
     }
 }

@@ -20,6 +20,7 @@ public class GameStatusManager : MonoBehaviour
     bool m_characterKnockBackFlg = false;
     bool m_characterDownFlg = false;
     bool m_characterPushUpFlg = false;
+    bool m_superhardFlg = false;
 
 
     enum PlayerDamage // 主人公が受けるダメージ量
@@ -80,6 +81,15 @@ public class GameStatusManager : MonoBehaviour
 
             if (sceneName == "GameScene")
             {
+                if(GameManager.Instance.m_difficulty != GameManager.Difficulty.SuperHard)
+                {
+                    m_superhardFlg = false;
+                }
+                else
+                {
+                    m_superhardFlg = true;
+                }
+
                 GameObject golemObj = GameObject.Find("Golem");
                 if (!golemObj) { return; }
                 m_golem = golemObj.GetComponent<Golem>();
@@ -147,7 +157,14 @@ public class GameStatusManager : MonoBehaviour
         m_characterKnockBackFlg = false;
         m_characterDownFlg = false;
         m_characterPushUpFlg = true;
-        m_characterDamage = (int)PlayerDamage.small;
+        if (!m_superhardFlg)
+        {
+            m_characterDamage = (int)PlayerDamage.small;
+        }
+        else
+        {
+            m_characterDamage = (int)PlayerDamage.death;
+        }
         Debug.Log("GameStatusManager: DamagePlayerPushUP");
         m_soundPlay.SoundDamageKnockBackStart();
     }
@@ -158,7 +175,14 @@ public class GameStatusManager : MonoBehaviour
         m_characterKnockBackFlg = false;
         m_characterDownFlg = true;
         m_characterPushUpFlg = false;
-        m_characterDamage = (int)PlayerDamage.medium;
+        if (!m_superhardFlg)
+        {
+            m_characterDamage = (int)PlayerDamage.medium;
+        }
+        else
+        {
+            m_characterDamage = (int)PlayerDamage.death;
+        }
         Debug.Log("GameStatusManager: DamagePlayerDown");
         m_soundPlay.SoundDamageCrush();
     }
@@ -190,7 +214,14 @@ public class GameStatusManager : MonoBehaviour
         m_characterKnockBackFlg = true;
         m_characterDownFlg = false;
         m_characterPushUpFlg = false;
-        m_characterDamage = (int)PlayerDamage.medium;
+        if (!m_superhardFlg)
+        {
+            m_characterDamage = (int)PlayerDamage.medium;
+        }
+        else
+        {
+            m_characterDamage = (int)PlayerDamage.death;
+        }
         Debug.Log("GameStatusManager: DamagePlayerBomb");
     }
 }

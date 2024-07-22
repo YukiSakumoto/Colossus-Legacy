@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor.Timeline.Actions;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -216,11 +218,11 @@ public class StageClear : MonoBehaviour
         if (m_state == ScoreState.ClearTime || m_state == ScoreState.DeathCnt ||
             m_state == ScoreState.PlayerHp || m_state == ScoreState.TotalScore)
         {
-            Invoke(nameof(SoundScore), 0.25f);
+            Invoke(nameof(SoundScore), 0.5f);
         }
         else if (m_state == ScoreState.Rank)
         {
-            Invoke(nameof(SoundTotal), 0.55f);
+            Invoke(nameof(SoundTotal), 0.8f);
         }
     }
 

@@ -85,7 +85,7 @@ public class GameEvent : MonoBehaviour
                 {
                     GameBGM.Instance.ChangeBGMState(GameBGM.BGMState.Stop, 3.0f);
                     GameManagerGameScene.Instance.GameSecneFin();
-                    GameManager.Instance.SetclearFlg(); // ゲームクリア判定
+                    GameManager.Instance.SetclearFlg(true); // ゲームクリア判定
                 }
 
                 // 現在のイベントを変更

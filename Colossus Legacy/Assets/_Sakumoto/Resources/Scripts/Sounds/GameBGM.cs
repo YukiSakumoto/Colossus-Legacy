@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
 using UnityEngine;
 
 public class GameBGM : Singleton<GameBGM>
@@ -48,10 +50,13 @@ public class GameBGM : Singleton<GameBGM>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F7)) { ChangeBGMState(BGMState.Stop); }
-        if (Input.GetKeyDown(KeyCode.F8)) { ChangeBGMState(BGMState.Before); }
-        if (Input.GetKeyDown(KeyCode.F9)) { ChangeBGMState(BGMState.Battle); }
-        if (Input.GetKeyDown(KeyCode.F10)) { ChangeBGMState(BGMState.Win); }
+        if (GameStatusManager.Instance.m_debugFlg)
+        {
+            if (Input.GetKeyDown(KeyCode.F7)) { ChangeBGMState(BGMState.Stop); }
+            if (Input.GetKeyDown(KeyCode.F8)) { ChangeBGMState(BGMState.Before); }
+            if (Input.GetKeyDown(KeyCode.F9)) { ChangeBGMState(BGMState.Battle); }
+            if (Input.GetKeyDown(KeyCode.F10)) { ChangeBGMState(BGMState.Win); }
+        }
 
         m_maxVol = GameManager.Instance.BGMVolume;
 

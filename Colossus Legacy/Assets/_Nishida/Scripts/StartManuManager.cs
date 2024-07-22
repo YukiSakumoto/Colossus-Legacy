@@ -15,7 +15,7 @@ public class StartManuManager : MonoBehaviour
     bool m_difficultyClickFlg = false;
     bool m_exitFlg = false;
 
-    void Start()
+    void OnEnable()
     {
         if(m_easyButton != null)
         {
@@ -38,7 +38,7 @@ public class StartManuManager : MonoBehaviour
         if (m_superhardButton != null) 
         {
             m_superhardButton.onClick.AddListener(SuperHardButtonClick);
-            if (!GameManager.Instance.clearFlg || !m_superhardObj)
+            if (!GameManager.Instance.clearFlg)
             {
                 m_superhardObj.SetActive(false);
             }
@@ -60,10 +60,11 @@ public class StartManuManager : MonoBehaviour
 
     private void Update()
     {
-        if (!m_cheatSuperHardFlg)
+        if (GameStatusManager.Instance.m_debugFlg)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                GameManager.Instance.SetclearFlg(true);
                 m_superhardObj.SetActive(true);
                 m_cheatSuperHardFlg = true;
             }

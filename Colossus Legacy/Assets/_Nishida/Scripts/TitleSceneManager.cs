@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -290,6 +291,18 @@ public class TitleSceneManager : MonoBehaviour
         {
             m_creditManuExitButtonManagerClass.Setm_exitFlg();
             m_creditCanvas.gameObject.SetActive(false);
+        }
+
+        if (GameStatusManager.Instance.m_debugFlg)
+        {
+            if (!GameManager.Instance.clearFlg)
+            {
+                m_superHardCanvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                //m_superHardCanvas.gameObject.SetActive(true);
+            }
         }
     }
 

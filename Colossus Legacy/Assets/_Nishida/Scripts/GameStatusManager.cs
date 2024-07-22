@@ -46,6 +46,9 @@ public class GameStatusManager : MonoBehaviour
         full = 100   // 完全回復
     }
 
+    // 発表用デバッグキーをONにするか
+    public bool m_debugFlg = false;
+
     void Start()
     {
         if (Instance == null)
@@ -122,7 +125,14 @@ public class GameStatusManager : MonoBehaviour
         
         if(m_characterDamageFlg)
         {
-            m_characterManager.SetHit(m_characterDamage, m_characterKnockBackFlg, m_characterDownFlg, m_characterPushUpFlg);
+            m_characterManager.SetHit(m_characterDamage, m_characterKnockBackFlg, m_characterDownFlg, m_characterPushUpFlg, m_debugFlg);
+            m_characterDamageFlg = false;
+            m_characterDamage = 0;
+        }
+
+        if (m_debugFlg && Input.GetKeyDown(KeyCode.Backspace))
+        {
+            m_characterManager.SetHit((int)PlayerDamage.death, m_characterKnockBackFlg, m_characterDownFlg, m_characterPushUpFlg);
             m_characterDamageFlg = false;
             m_characterDamage = 0;
         }

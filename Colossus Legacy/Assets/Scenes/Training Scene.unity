@@ -5533,6 +5533,7 @@ GameObject:
   - component: {fileID: 207418008}
   - component: {fileID: 207418010}
   - component: {fileID: 207418009}
+  - component: {fileID: 207418011}
   m_Layer: 5
   m_Name: TutorialSkip
   m_TagString: Untagged
@@ -5556,7 +5557,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -280, y: -210}
+  m_AnchoredPosition: {x: -280, y: -211.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &207418009
@@ -5581,8 +5582,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Tutorial Skip: Q'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b3979957c225a9843abf590b9b70ebbe, type: 2}
+  m_sharedMaterial: {fileID: 6568126586454246049, guid: b3979957c225a9843abf590b9b70ebbe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5612,7 +5613,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -5656,6 +5657,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207418007}
   m_CullTransparentMesh: 1
+--- !u!114 &207418011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207418007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb8c376688b963449af87b20a9059da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: {fileID: 207418009}
+  m_fadeFlg: 0
 --- !u!4 &207701005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9044046df91c73e42a69a68db65191c4, type: 3}

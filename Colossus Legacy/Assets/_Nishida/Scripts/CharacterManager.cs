@@ -132,9 +132,9 @@ public class CharacterManager : MonoBehaviour
         m_bombThrowCheckFlg = m_throwBomb.Getm_bombThrowCheckFlg;
     }
 
-    public void SetHit(int _damage, bool _knockBack, bool _down, bool _pushup)
+    public void SetHit(int _damage, bool _knockBack, bool _down, bool _pushup, bool _debugFlg = false)
     {
-        m_movement.Hit(_damage, _knockBack, _down, _pushup);
+        m_movement.Hit(_damage, _knockBack, _down, _pushup, _debugFlg);
     }
 
     public bool Getm_walkAnimeFlg

@@ -34,6 +34,11 @@ public class GameManager : MonoBehaviour
             clearFlg = true;
             noticeFlg = true;
         }
+        else
+        {
+            clearFlg = false;
+            noticeFlg = false;
+        }
 
         if (Instance == null)
         {
@@ -67,8 +72,8 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         SetCustomCursor();
-        soundVolume = MaxSoundVolume;
-        BGMVolume = MaxBGMVolume;
+        soundVolume = MaxSoundVolume / 3.0f;
+        BGMVolume = MaxBGMVolume / 3.0f;
     }
 
     public float GetMaxSoundVol() { return MaxSoundVolume; }
@@ -80,15 +85,29 @@ public class GameManager : MonoBehaviour
         Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
     }
 
-    public void SetclearFlg()
+    public void SetclearFlg(bool _flg)
     {
-        if (!PlayerPrefs.HasKey("Clear"))
+        if (_flg)
         {
-            Debug.Log("クリアデータを保存しました");
-            clearFlg = true;
-            int clearInt = 1;
-            PlayerPrefs.SetInt("Clear",clearInt);
-            PlayerPrefs.Save();
+            if (!PlayerPrefs.HasKey("Clear"))
+            {
+                Debug.Log("クリアデータを保存しました");
+                clearFlg = true;
+                int clearInt = 1;
+                PlayerPrefs.SetInt("Clear", clearInt);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            if (PlayerPrefs.HasKey("Clear"))
+            {
+                Debug.Log("クリアデータを削除しました");
+                clearFlg = false;
+                noticeFlg = false;
+                PlayerPrefs.DeleteKey("Clear");
+                PlayerPrefs.Save();
+            }
         }
     }
 

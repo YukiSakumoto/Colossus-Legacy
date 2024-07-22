@@ -468,12 +468,14 @@ public class CharacterMovement : MonoBehaviour
     }
 
     // ダメージを受けたときの汎用処理
-    public void Hit(int _damage, bool _knockBack, bool _down, bool _pushup)
+    public void Hit(int _damage, bool _knockBack, bool _down, bool _pushup, bool _debugFlg = false)
     {
         // ダメージモーション中や無敵中、ゲームクリア時はダメージを受けない
         if (!m_damageMotionFlg && !m_damageBlownAwayFlg && !m_invincibleFlg && !m_joyFlg)
         {
             m_playerLife -= _damage;
+            if (_debugFlg && m_playerLife <= 0) { m_playerLife = 1; }
+            
             float ratio = (float)m_playerLife / (float)m_playerMaxLife;
             m_hpGage.fillAmount = ratio;
             if (m_playerLife <= m_playerDangerLife)
@@ -518,6 +520,7 @@ public class CharacterMovement : MonoBehaviour
             }
             else // 体力が0以下になった場合に死亡して動きも止める
             {
+                m_playerLife = 0;
                 m_deathFlg = true;
                 GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.PlayerDead);
                 Debug.Log("主人公死亡");

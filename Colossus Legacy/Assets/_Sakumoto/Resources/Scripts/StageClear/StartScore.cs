@@ -14,12 +14,13 @@ public class StartScore : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (GameStatusManager.Instance.m_debugFlg)
         {
-            GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.Score);
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                GameEvent.Instance.ChangeEvent(GameEvent.GameEventState.Score);
+            }
         }
-#endif
 
         if (GameEvent.Instance.m_nowEvent == GameEvent.GameEventState.Score)
         {

@@ -135,9 +135,12 @@ public class Golem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1)) { DamageAction(50); m_golemLeft.m_alive = false; m_golemRight.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
-        if (Input.GetKeyDown(KeyCode.F2)) { DamageAction(50); m_golemRight.m_alive = false; m_golemLeft.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
-        if (Input.GetKeyDown(KeyCode.F3)) { DamageAction(100); m_hp = 0; m_golemMain.m_alive = false; m_golemRight.m_alive = false; m_golemLeft.m_alive = false; }
+        if (GameStatusManager.Instance.m_debugFlg)
+        {
+            if (Input.GetKeyDown(KeyCode.F1)) { DamageAction(50); m_golemLeft.m_alive = false; m_golemRight.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
+            if (Input.GetKeyDown(KeyCode.F2)) { DamageAction(50); m_golemRight.m_alive = false; m_golemLeft.m_damageFlg = true; m_golemMain.m_damageFlg = true; }
+            if (Input.GetKeyDown(KeyCode.F3)) { DamageAction(100); m_hp = 0; m_golemMain.m_alive = false; m_golemRight.m_alive = false; m_golemLeft.m_alive = false; }
+        }
 
         // HP å∏è≠èàóù
         HpDown();
